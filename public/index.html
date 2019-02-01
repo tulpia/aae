@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="dist/styles.css">
 </head>
 <body>
-    <h1>Webpack setup du groupe de l'application d'auto évaluation !</h1>
+    <main class="wrapper">
+        <h1>Webpack du groupe d'auto-eval</h1>
+        <h3>Instructions</h3>
+        <ul>
+            <li><p><strong>npm run watch</strong> permet de compiler le code en sauvegardant grâce au <a href="https://webpack.js.org/concepts/hot-module-replacement/">Hot Module Replacement</a></p></li>
+            <li><p><strong>npm run dev</strong> compile le code sans minifier</p></li>
+            <li>
+                <p><strong>npm run build</strong> compile le code en le minifiant, pour une prochaine mise en ligne</p>
+            </li>
+        </ul>
+
+    </main>
     <script src="dist/main.js"></script>
 </body>
 </html>
