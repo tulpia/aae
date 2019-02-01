@@ -1,10 +1,15 @@
+// Variables de wrapper
+$wrapperDesktop: 85vw;
+
 // Variables de mediaqueries
 $laptop: 1350px;
 $tablet: 1080px;
 $mobile: 480px;
 
+// Variables de fontes
+
 // Variables de couleurs
-// $main-color: // insérez votre couleur içi
-body {
-    background: red;
-}
+
+// Variables cubic-bezier
+$curve: cubic-bezier(.7,0,.3,1);
+$curve2: cubic-bezier(.82,.01,.2,.99);
