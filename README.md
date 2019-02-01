@@ -6,6 +6,7 @@
 - Webpack-Dev-Server
 - Autoprefixer (PostCSS)
 - Imports de fichiers SCSS (CSSLoader)
+- EsLint/Prettier basé sur airbnb-style-guide
 
 ## Pré-requis
 - Node/NPM ou Yarn
@@ -31,4 +32,4 @@ Au moment de la compilation, ces fichiers seront compilés et déplacés dans le
 Il est possible que l'on utilise une architecture MVC, React/Vue ou autre merde du genre pour le projet, auquel cas il faudra changer un peu le webpack.config.js pour changer l'output.
 
 ## TODO
-- Implémenter le styleguide de airbnb avec eslint+prettier https://medium.com/@svyandun/eslint-airbnb-javascript-style-guide-prettier-vs-code-ffdad3029044 https://medium.com/@joshuacrass/javascript-linting-and-formatting-with-eslint-prettier-and-airbnb-30eb746db862 (merci vincent <3)
+- J'attends du feedback :)
