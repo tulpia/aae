@@ -37,6 +37,16 @@ Il ya deux dossiers majeurs dans ce webpack que j'ai créé, public et src:
 
 # Instructions
 
+## Webpack
+
+Webpack vous permet de compiler les fichiers qui sont présent dans le dossier **src**. Dans le cas du scss, il le converti, l'auto-prefix et le minifie en css et pour le js, il le transpile et le minifie pour maximiser la compatibilité.\
+Les commandes importantes :
+
+- `npm run watch` (non-fonctionnel pour l'instant) : permet d'activer webpack-dev-server,
+- `npm run start` : permet de passer webpack en 'watch', c'est à dire qu'à chaque modif de votre code, webpack recompilera le tout (remplace le watch pour le moment),
+- `npm run dev` : compile votre code sans minification, transpilation, tree-shaking, etc...
+- `npm run build` : compile votre code pour le préparer à être mis en ligne,
+
 ## PHP
 
 - Ecrivez toute votre logique PHP dans le dossier public. Vous pouvez faire autant de sous-dossiers que vous voulez dans ce dossier public.
@@ -136,3 +146,11 @@ Liste d'alias :
 - @img: images
 - @svg: les svgs
 - @js: le JS
+
+# GIT
+
+## Git Flow
+
+Ce projet se basera sur la méthodolgie Git Flow, comme on l'avait prévu au début.
+[Voici la doc](https://danielkummer.github.io/git-flow-cheatsheet/).\
+En gros, si vous développez une feature importante, créez une branche feature avec la commande `git flow feature start nomFeature`, faites vos git add et vos commits et, quand vous avez fini, fermez cette feature `git flow feature finish nomFeature`, si c'est une modif rapide, faite une hotfix, etc..
