@@ -1,6 +1,8 @@
 {
-    "extends": ["airbnb-base", "plugin:prettier/recommended"],
+    "extends": ["airbnb", "prettier"],
+    "plugins": ["prettier"],
     "settings": {
+        "prettier/prettier": ["error"],
         "import/resolver": {
             "webpack": {
                 "config": "./webpack.config.js"
