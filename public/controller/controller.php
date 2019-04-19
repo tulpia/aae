@@ -96,6 +96,35 @@ function do_questionnaireAdd($idProf, $idClasse, $idMatiere, $titre){
 
 
 
+/**
+ * Met à jour l'entête du questionnaire
+ *
+ * @param  mixed $idQuestionnaire
+ * @param  mixed $idClasse
+ * @param  mixed $idMatiere
+ * @param  mixed $titre
+ *
+ * @return void
+ */
+function do_questionnaireUpdate($idQuestionnaire, $idClasse, $idMatiere, $titre){
+    $Questionnaire = new QuestionnaireManager();
+    $Questionnaire->updateQuestionnaire($idQuestionnaire, $titre, $idClasse, $idMatiere);
+}
+
+
+/**
+ * Suppression logique du questionnaire.
+ *
+ * @param  mixed $idQuestionnaire
+ *
+ * @return void
+ */
+function do_questionnaireDelete($idQuestionnaire){
+    $Questionnaire = new QuestionnaireManager();
+    $Questionnaire->deleteQuestionnaire($idQuestionnaire);
+}
+
+
 
 function show_questionNew($idQuestionnaire){
     // $Questionnaire = new QuestionnaireManager();

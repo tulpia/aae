@@ -56,8 +56,14 @@ ob_start();
 
 
     <input type="submit" value="Enregistrer le questionnaire">
+    <input type="submit" value="Enregistrer et créer un nouveau questionnaire" name="saveAndOpenNew">
+</form>
 
 
+<!-- Suppression du questionnaire  -->
+<form action="index.php?action=do_questionnaireDelete" method="POST">
+    <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
+    <input type="submit" value="Supprimer ce questionnaire">
 </form>
 
 
@@ -105,11 +111,22 @@ ob_start();
 
 </section>
 
+<?php
+if ($isAuMoinsUneQuestion) {
+    ?>
+    <form action="index.php?action=show_autoEvalDistribuer" method="POST">
+        <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
+        <input type="submit" value="Distribuer ce questionnaire">
+    </form>
+<?php
+}
+?>
 
 
-<div>
-    <a href="javascript:history.go(-1)">Page précédente</a>
-</div>
+
+<form action="index.php?action=show_questionnaireList" method="post">
+    <input type="submit" value="Retour à la liste">
+</form>
 
 
 

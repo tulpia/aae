@@ -26,7 +26,7 @@ ob_start();
             $id = htmlspecialchars($row['id']);
             $titre = htmlspecialchars($row['titre']);
             $niveau = htmlspecialchars($row['niveau']);
-            if($niveau === ""){
+            if ($niveau === "") {
                 $niveau = "-";
             }
             $matiere = htmlspecialchars($row['matiere']);
@@ -53,6 +53,7 @@ ob_start();
 <form action="index.php?action=show_questionnaireNew" method="post">
     <input type="submit" value="Ajouter un nouveau questionnaire !">
 </form>
+
 
 
 

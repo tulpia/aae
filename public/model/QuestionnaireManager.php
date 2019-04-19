@@ -45,7 +45,7 @@ class QuestionnaireManager extends Manager{
         from questionnaire as Q
         where id_users = ?
         and is_softDelete = 0
-        order by id_classe desc, dateCreation desc");
+        order by titre");
 
         $questionnaires->execute(array($idProf));
 
@@ -110,21 +110,19 @@ class QuestionnaireManager extends Manager{
      * Met à jour l'entête du questionnaire
      *
      * @param  mixed $id
-     * @param  mixed $idUsers
      * @param  mixed $titre
      * @param  mixed $idClasse
      * @param  mixed $idMatiere
      *
      * @return void
      */
-    public function updateQuestionnaire($id, $idUsers, $titre , $idClasse, $idMatiere){
+    public function updateQuestionnaire($id, $titre , $idClasse, $idMatiere){
         $db = $this->dbConnect();
 
         $update  = $db->prepare("UPDATE questionnaire
-        SET id_users = :id_users, id_classe = :id_classe, id_matiere = :id_matiere, titre = :titre
+        SET id_classe = :id_classe, id_matiere = :id_matiere, titre = :titre
         WHERE id = :id");
         $update->bindParam(":id", $id);
-        $update->bindParam(":id_users", $idUsers);
         $update->bindParam(":titre", $titre);
         $update->bindParam(":id_classe", $idClasse);
         $update->bindParam(":id_matiere", $idMatiere);
@@ -144,7 +142,7 @@ class QuestionnaireManager extends Manager{
         $db = $this->dbConnect();
 
         $update  = $db->prepare("UPDATE questionnaire
-        SET is_softDelete = 1
+        SET is_softDelete = b'1'
         WHERE id = :id");
         $update->bindParam(":id", $id);
         $update->execute();

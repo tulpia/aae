@@ -1,5 +1,6 @@
 <?php
 $title = $isEdit? "Editer la question" : "Ajouter une question";
+
 ob_start();
 ?>
 <h1><?=$title?></h1>
@@ -14,6 +15,7 @@ ob_start();
     <input type="hidden" name="idQuestionnaire" value="<?=$question['id_questionnaire']?>">
     <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" value="<?=$question['libelle']?>" required>
     <input type="submit" value="Enregistrer">
+    <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
 </form>
 
 <?php
@@ -25,6 +27,7 @@ ob_start();
     <input type="hidden" name="idQuestionnaire" value="<?=$idQuestionnaire?>">
     <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" required>
     <input type="submit" value="Enregistrer">
+    <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
 </form>
 
 <?php
@@ -33,7 +36,10 @@ ob_start();
 
 
 
-<a href="javascript:history.go(-1)">Annuler</a>
+<form action="index.php?action=show_questionnaireDetail" method="post">
+    <input type="hidden" name="idQuestionnaire" value="<?= $isEdit?$question['id_questionnaire']:$idQuestionnaire?>">
+    <input type="submit" value="Retour au questionnaire">
+</form>
 
 
 

@@ -54,7 +54,9 @@ ob_start();
 
 
 
-
+<form action="index.php?action=show_questionnaireList" method="post">
+    <input type="submit" value="Annuler">
+</form>
 
 
 
