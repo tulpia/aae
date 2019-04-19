@@ -69,7 +69,7 @@ try {
                 }
                 break;
 
-                
+
             case "do_questionUpdate":
                 do_questionUpdate($_POST['idQuestion'], $_POST['libelle']);
                 if(isset($_POST['saveAndOpenNew'])){
@@ -86,9 +86,16 @@ try {
                 break;
 
 
+
             case "show_autoEvalDistribuer":
-                throw new Exception("Le dev dort, jetez lui des cacahuètes pour qu'il développe cette feature");
-                break;
+            show_autoEvalDistribuer($_POST['idQuestionnaire']);
+            break;
+
+            case "do_autoEvalDistribuer":
+                ?>
+                    <script>alert("do_autoEvalDistribuer n'est pas encore implémenté");</script>
+                <?php
+            break;
 
 
             default:

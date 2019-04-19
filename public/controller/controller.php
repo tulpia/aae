@@ -176,3 +176,33 @@ function show_questionEdit($idQuestion){
     $isEdit = true;
     require('view/questionDetailView.php');
 }
+
+
+
+
+
+/**
+ * Ouvre la fenêtre permettant de convertir le questionnaire en autoévaluation qu'on distribuera aux élèves
+ *
+ * @param  mixed $idQuestionnaire
+ *
+ * @return void
+ */
+function show_autoEvalDistribuer($idQuestionnaire)
+{
+    $Questionnaire = new QuestionnaireManager();
+    $questionnaire = $Questionnaire->getQuestionnaire($idQuestionnaire);
+
+    $Classe = new ClasseManager();
+    $classes = $Classe->getClasses();
+
+    $ClasseNom = new ClasseNomManager();
+    $classeNoms = $ClasseNom->getClasseNoms();
+
+    $Option = new OptionCoursManager();
+    $optionCours = $Option->getOptionsCours();
+
+    require('view/autoEvalDistribuerView.php');
+}
+
+
