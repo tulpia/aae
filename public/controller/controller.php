@@ -6,6 +6,7 @@ require_once('model/ClasseManager.php');
 require_once('model/ClasseNomManager.php');
 require_once('model/MatiereManager.php');
 require_once('model/OptionCoursManager.php');
+require_once('model/ResultatManager.php');
 //require_once('');
 
 
@@ -202,7 +203,16 @@ function show_autoEvalDistribuer($idQuestionnaire)
     $Option = new OptionCoursManager();
     $optionCours = $Option->getOptionsCours();
 
+    $Matiere = new MatiereManager();
+    $matieres =$Matiere->getMatieres();
+
     require('view/autoEvalDistribuerView.php');
 }
 
 
+function do_autoEvalDistribuer($idQuestionnaire, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms){
+    $Resultat = new ResultatManager();
+    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis);
+
+    
+}

@@ -6,11 +6,34 @@ ob_start();
 
 <form action="index.php?action=do_autoEvalDistribuer" method="post">
 
+    <input type="hidden" name="idQuestionnaire" value="<?= htmlspecialchars($idQuestionnaire)?>">
+
     <div>
         <!-- Titre de l'autoéval : Modifiable -->
         <label>Titre</label>
-        <input type="text" name="titre" id="QuestionnaireTitre" value="<?= $questionnaire['titre'] ?>" minlength="3" maxlength="200" size="80" required>
+        <input type="text" name="titre" id="QuestionnaireTitre" value="<?= htmlspecialchars($questionnaire['titre']) ?>" minlength="3" maxlength="200" size="80" required>
     </div>
+
+
+    <!-- Choix de la matière, par défaut celle du questionnaire, mais on peut y mettre ce qu'on veut -->
+    <div>
+        <label for="questionnaireMatiere">Matière</label>
+        <select name="idMatiere" id="questionnaireMatiere">
+
+            <?php
+            while ($row = $matieres->fetch()) {
+                $id = htmlspecialchars($row['id']);
+                $libelle = htmlspecialchars($row['libelle']);
+                $selected = $id == $questionnaire['id_matiere'] ? ' selected' : '';
+
+                echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
+                ');
+            }
+
+            ?>
+        </select>
+    </div>
+
 
     <div>
         <!-- Date à partir de laquelle l'autoéval sera visible par les élèves -->
@@ -20,7 +43,7 @@ ob_start();
 
     <div>
         <!-- Permet aux élèves de laisser un commentaire en fin d'autoéval -->
-        <label><input type="checkbox" name="isCommentaire">Permettre aux élèves de laisser un commentaire en fin d'autoévaluation</label>
+        <label><input type="checkbox" name="isCommentairePermis">Permettre aux élèves de laisser un commentaire en fin d'autoévaluation</label>
     </div>
 
 
@@ -52,7 +75,7 @@ ob_start();
             $id = htmlspecialchars($nom['id']);
             $libelle = htmlspecialchars($nom['libelle']); ?>
             <div>
-                <label><input type="checkbox" name="idClasseNom[]" value="<?= $id ?>" required><?= $libelle ?></label>
+                <label><input type="checkbox" name="idClasseNoms[]" value="<?= $id ?>"><?= $libelle ?></label>
             </div>
 
         <?php
@@ -69,7 +92,7 @@ ob_start();
     et inversement : Si on coche une des autres checkbox seule la première se décoche
 Merci bisous <3  <3  <3 -->
         <div>
-            <label><input type="checkbox" name="idOptionCours[]" value="0" required checked><strong>Classe complète</strong></label>
+            <label><input type="radio" name="idOptionCours" value="0" checked><strong>Classe complète</strong></label>
         </div>
         <?php
         while ($option = $optionCours->fetch()) {
@@ -77,7 +100,7 @@ Merci bisous <3  <3  <3 -->
             $libelle = htmlspecialchars($option['libelle']);
             ?>
             <div>
-                <label><input type="checkbox" name="idOptionCours[]" value="<?= $id ?>" required><?= $libelle ?></label>
+                <label><input type="radio" name="idOptionCours" value="<?= $id ?>"><?= $libelle ?></label>
             </div>
 
 

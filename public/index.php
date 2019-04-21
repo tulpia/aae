@@ -92,9 +92,8 @@ try {
             break;
 
             case "do_autoEvalDistribuer":
-                ?>
-                    <script>alert("do_autoEvalDistribuer n'est pas encore implémenté");</script>
-                <?php
+                $isCommentairePermis = isset($_POST['isCommentairePermis']);
+                do_autoEvalDistribuer($_POST['idQuestionnaire'], $_POST['idMatiere'], $_POST['idClasse'], $_POST['idOptionCours'], $_POST['dateAccessible'], $_POST['titre'], $isCommentairePermis, $_POST['idClasseNoms']);
             break;
 
 
