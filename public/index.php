@@ -94,7 +94,8 @@ try {
             case "do_autoEvalDistribuer":
                 $isCommentairePermis = isset($_POST['isCommentairePermis']);
                 do_autoEvalDistribuer($_POST['idQuestionnaire'], $_POST['idMatiere'], $_POST['idClasse'], $_POST['idOptionCours'], $_POST['dateAccessible'], $_POST['titre'], $isCommentairePermis, $_POST['IdClasseNoms']);
-            break;
+                show_questionnairesList($_SESSION['idProf']);
+                break;
 
 
             default:
