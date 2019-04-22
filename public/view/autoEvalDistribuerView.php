@@ -75,7 +75,7 @@ ob_start();
             $id = htmlspecialchars($nom['id']);
             $libelle = htmlspecialchars($nom['libelle']); ?>
             <div>
-                <label><input type="checkbox" name="idClasseNoms[]" value="<?= $id ?>"><?= $libelle ?></label>
+                <label><input type="checkbox" name="IdClasseNoms[]" value="<?= $id ?>"><?= $libelle ?></label>
             </div>
 
         <?php

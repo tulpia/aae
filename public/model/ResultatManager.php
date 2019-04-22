@@ -81,7 +81,7 @@ class ResultatManager extends Manager{
 
         //Champs Nullable
         if(!isset($idOptionCours) || (int)$idOptionCours < 1){
-            $idOptionCours = 1;
+            $idOptionCours = 0;
         }
         else{
             $idOptionCours = (int)$idOptionCours;
@@ -98,7 +98,7 @@ class ResultatManager extends Manager{
         );
 
         $insert->bindParam(":id_questionnaire", $idQuestionnaire);
-        $insert->bindParam(":idMatiere", $idMatiere);      
+        $insert->bindParam(":id_matiere", $idMatiere);      
         $insert->bindParam(":id_classe", $idClasse);
         
         if($idOptionCours > 0){
