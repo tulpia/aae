@@ -3,7 +3,7 @@ $title = 'Liste des questionnaires';
 ob_start();
 //le HTML commence à la fin de la balise PHP
 ?>
-
+<div><br><a href="index.php" rel="noopener noreferrer">Se déconnecter</a><br></div>
 
 
 <h1>Mes modèles de questionnaire</h1>

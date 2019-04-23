@@ -12,8 +12,24 @@ require_once('model/AutoEvaluationManager.php');
 require_once('model/AutoEvaluationQuestionManager.php');
 require_once('model/CifResultatClasseNomManager.php');
 require_once('model/UserManager.php');
+
+require_once('model/AutoEvaluationManager.php');
+//require_once('model/AutoEvaluationQuestionManager.php');
+
 //require_once('');
 
+
+
+
+
+
+function show_login($errorMessage = ''){
+
+    $errorMessage = (isset($errorMessage)?$errorMessage:'');
+
+    session_destroy();
+    require('view/loginView.php');
+}
 
 
 /**
@@ -215,12 +231,31 @@ function show_autoEvalDistribuer($idQuestionnaire)
 }
 
 
-function do_autoEvalDistribuer($idQuestionnaire, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms){
+
+
+
+/**
+ * Prend un questionnaire et en distribue une copie sous forme d'autoévaluation à chaque élève concerné
+ * Créé aussi une ligne de Résultat que le professeur pourra consulter pour voir les stats des réponses.
+ *
+ * @param  mixed $idQuestionnaire
+ * @param  mixed $idProf
+ * @param  mixed $idMatiere
+ * @param  mixed $idClasse
+ * @param  mixed $idOptionCours
+ * @param  mixed $dateAccessible
+ * @param  mixed $titre
+ * @param  mixed $isCommentairePermis
+ * @param  mixed $idClasseNoms
+ *
+ * @return void
+ */
+function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms){
     
     
     //Créé une ligne de résultat que le prof pourra consulter pour avoir ses statistiques
     $Resultat = new ResultatManager();
-    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis);
+    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis);
     
     //Créé les lignes de Cif_Resultat_classeNom pour savoir quels noms de classes sont concernés par cette autoévaluation
     $Cif = new CifResultatClasseNomManager();
@@ -261,4 +296,23 @@ function do_autoEvalDistribuer($idQuestionnaire, $idMatiere, $idClasse, $idOptio
 
 
     //Fête du slip !
+}
+
+
+
+
+
+
+/**
+ * Affiche la liste des autoévaluations en cours pour l'élève concerné
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+function show_autoEvalEleve($idUser){
+    $AutoEval = new AutoEvaluationManager();
+    $autoEvals = $AutoEval->getAutoEvaluationsEleve($idUser);
+
+    require('view/autoEvalListeEleveView.php');
 }

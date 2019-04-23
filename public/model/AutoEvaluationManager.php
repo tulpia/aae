@@ -30,6 +30,33 @@ class AutoEvaluationManager extends Manager{
     }
 
 
+    /**
+     * Récupère toutes les autoévaluations ouvertes pour un élève
+     *
+     * @param  int $idEleve
+     *
+     * @return void
+     */
+    public function getAutoEvaluationsEleve(int $idEleve){
+        $db = $this->dbConnect();
+        $autoEvals = $db->prepare("
+        SELECT A.id, A.id_resultat, R.titre
+        , (select M.libelle from matiere as M where M.id = R.id_matiere) as matiere
+        , (select P.nomPrenom from users_test as P where P.id = R.id_users) as prof
+        , (select COUNT(*) FROM autoEvaluation_question as Q where Q.id_autoEvaluation = A.id) as nbQuestions
+        , R.dateAccessible
+        FROM autoEvaluation as A
+        join resultat as R on R.id = A.id_resultat
+        where A.id_users = ?
+        and R.dateAccessible <= NOW()
+        ");
+
+        $autoEvals->execute([$idEleve]);
+
+        return $autoEvals;
+    }
+
+
 
 
     /**
@@ -39,20 +66,20 @@ class AutoEvaluationManager extends Manager{
      *
      * @return void
      */
-    public function getAutoEvaluationOuvertesEleve($idEleve){
+    // public function getAutoEvaluationOuvertesEleve($idEleve){
 
-        $db = $this->dbConnect();
-        $list = $db->prepare("
-        SELECT *
-        from autoEvaluation
-        where id_users = ?
-        and isRepondu = 0
-        and dateVisible <= NOW()");
+    //     $db = $this->dbConnect();
+    //     $list = $db->prepare("
+    //     SELECT *
+    //     from autoEvaluation
+    //     where id_users = ?
+    //     and isRepondu = 0
+    //     and dateAccessible <= NOW()");
 
-        $list->execute([$idEleve]);
+    //     $list->execute([$idEleve]);
 
-        return $list();
-    }
+    //     return $list();
+    // }
 
 
 
