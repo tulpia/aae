@@ -310,9 +310,46 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
  *
  * @return void
  */
-function show_autoEvalEleve($idUser){
+function show_autoEvalListEleve($idUser){
     $AutoEval = new AutoEvaluationManager();
     $autoEvals = $AutoEval->getAutoEvaluationsEleve($idUser);
 
     require('view/autoEvalListeEleveView.php');
+}
+
+
+/**
+ * Affiche la liste des questions de l'autoevaluation
+ *
+ * @param  int $idAutoEval
+ *
+ * @return void
+ */
+function show_autoEvalQuestionsEleve($idAutoEval){
+    
+    $AutoEval = new AutoEvaluationManager();
+    $autoEval = $AutoEval->getAutoEvaluationInfosBase($idAutoEval);
+    
+    $Question = new AutoEvaluationQuestionManager();
+    $questions = $Question->getAutoEvaluationQuestions($idAutoEval);
+
+    require('view/autoevalQuestionsEleveView.php');
+}
+
+
+/**
+ * Enregistre les réponses de l'élève et clôture l'autoévaluation
+ *
+ * @param  mixed $idAutoEval
+ * @param  mixed $commentaire
+ * @param  mixed $arrayIdReponse
+ *
+ * @return void
+ */
+function do_ReponseEleveEnregistrer($idAutoEval, $commentaire, $arrayIdReponse){
+    $Question = new AutoEvaluationQuestionManager();
+    $Question->updateBatchAutoEvaluationQuestion($arrayIdReponse);
+
+    $AutoEval = new AutoEvaluationManager();
+    $AutoEval->updateAutoEvalTerminee($idAutoEval,$commentaire);
 }

@@ -13,6 +13,7 @@ ob_start();
 
 
 <section>
+    <h1><?=$title?></h1>
 
     <!-- Nombres d'autoéval en attente de réponse -->
     <?= "<p>" . $nbAutoEval . "</p>" ?>
@@ -49,7 +50,7 @@ ob_start();
         <p><?=$matiere?> - <?=$prof?></p>
         <p><?=$dateText?></p>
         <p><?=$nbQuestionsText?></p>
-        <form action="index.php?action=show_autoEvalQuestions">
+        <form action="index.php?action=show_autoEvalQuestionsEleve" method="POST">
             <input type="hidden" name="idAutoEval" value="<?=$idAutoEval?>">
             <input type="submit" value="Go !">
         </form>

@@ -24,7 +24,7 @@ try {
                     else{
                         $_SESSION['isProf'] = false;
                         $_SESSION['isAdmin'] = false;
-                        show_autoEvalEleve($_SESSION['idUser']);
+                        show_autoEvalListEleve($_SESSION['idUser']);
                     }
                 }
                 else{
@@ -121,13 +121,19 @@ try {
 
 
                 
-            case "show_autoEvalEleve":
-                show_autoEvalEleve($_SESSION['idUser']);
+            case "show_autoEvalListEleve":
+                show_autoEvalListEleve($_SESSION['idUser']);
                 break;
 
-            case "show_autoEvalQuestions":
-                throw new Exception("Pat'encore fait", 1);                
+            case "show_autoEvalQuestionsEleve":
+                show_autoEvalQuestionsEleve($_POST['idAutoEval']);                
                 break;
+
+            case "do_ReponseEleveEnregistrer":
+                do_ReponseEleveEnregistrer($_POST['idAutoEval'], $_POST['commentaire'], $_POST['arrayIdReponse']);
+                show_autoEvalListEleve($_SESSION['idUser']);
+                break;
+
 
             default:
                 show_login();

@@ -26,7 +26,30 @@ class AutoEvaluationManager extends Manager{
         $autoEvaluations->execute([$idResultat]);
 
         return $autoEvaluations;
+    }
 
+
+    /**
+     * Retourne les infos de bases de l'autoeval id, titre et is_commentairePermis
+     *
+     * @param  mixed $idAutoEvaluation
+     *
+     * @return string
+     */
+    public function getAutoEvaluationInfosBase($idAutoEvaluation){
+        $db = $this->dbConnect();
+        $infosBase = $db->prepare("
+            SELECT A.id
+            , R.titre
+            , R.is_commentairePermis
+            from autoEvaluation as A, resultat as R
+            WHERE A.id = ?
+            and R.id = A.id_resultat
+        ");
+
+        $infosBase->execute([$idAutoEvaluation]);
+
+        return $infosBase->fetch();
     }
 
 
@@ -101,6 +124,27 @@ class AutoEvaluationManager extends Manager{
         $insert->execute([$idEleve, $idResultat]);
 
         return $db->lastInsertId();
+    }
+
+
+
+    /**
+     * Clôture l'autoévaluation après que l'élève a répondu à toutes les questions
+     *
+     * @param  mixed $idAutoEval
+     * @param  mixed $commentaire
+     *
+     * @return void
+     */
+    public function updateAutoEvalTerminee($idAutoEval, $commentaire){
+        $db = $this->dbConnect();
+        $update = $db->prepare("
+        UPDATE autoEvaluation
+        SET commentaire = ?, isRepondu = b'1', dateReponse = NOW()
+        where id = ?
+        ");
+
+        $update->execute([$commentaire, $idAutoEval]);
     }
 
 }
