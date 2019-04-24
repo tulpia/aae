@@ -2,6 +2,8 @@
 $title = $isEdit? "Editer la question" : "Ajouter une question";
 
 ob_start();
+
+require('view/headerUserView.php');
 ?>
 <h1><?=$title?></h1>
 
@@ -10,7 +12,8 @@ ob_start();
 //Mode édition de la question
     if($isEdit){
 ?>
-<form action="index.php?action=do_questionUpdate" method="POST">
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="do_questionUpdate">
     <input type="hidden" name="idQuestion" value="<?=$question['id']?>">
     <input type="hidden" name="idQuestionnaire" value="<?=$question['id_questionnaire']?>">
     <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" value="<?=$question['libelle']?>" required>
@@ -23,7 +26,8 @@ ob_start();
     //Mode ajout d'une nouvelle question
     else{
 ?>
-<form action="index.php?action=do_questionAdd" method="POST">
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="do_questionAdd">
     <input type="hidden" name="idQuestionnaire" value="<?=$idQuestionnaire?>">
     <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" required>
     <input type="submit" value="Enregistrer">
@@ -36,7 +40,8 @@ ob_start();
 
 
 
-<form action="index.php?action=show_questionnaireDetail" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="show_questionnaireDetail">
     <input type="hidden" name="idQuestionnaire" value="<?= $isEdit?$question['id_questionnaire']:$idQuestionnaire?>">
     <input type="submit" value="Retour au questionnaire">
 </form>

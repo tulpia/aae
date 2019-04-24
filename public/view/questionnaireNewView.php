@@ -1,11 +1,14 @@
 <?php
 $title = 'Nouveau Questionnaire';
 ob_start();
+
+require('view/headerUserView.php');
 ?>
 
-<h1><?= $title?></h1>
+<h1><?= $title ?></h1>
 
-<form action="index.php?action=do_questionnaireAdd" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="do_questionnaireAdd">
 
     <div>
         <label for="QuestionnaireTitre">Titre</label>
@@ -17,15 +20,15 @@ ob_start();
         <label for="questionnaireClasse">Classe</label>
         <select name="idClasse" id="questionnaireClasse">
             <option value="0">- Aucune -</option>
-        
+
             <?php
             while ($row = $classes->fetch()) {
                 $id = htmlspecialchars($row['id']);
                 $libelle = htmlspecialchars($row['libelle']);
-                echo('<option value="'. $id .'">' . $libelle . '</option>');
+                echo ('<option value="' . $id . '">' . $libelle . '</option>');
             }
             ?>
-        
+
         </select>
     </div>
 
@@ -34,13 +37,13 @@ ob_start();
         <label for="questionnaireMatiere">Matière</label>
         <select name="idMatiere" id="questionnaireMatiere">
 
-            <?php 
+            <?php
             while ($row = $matieres->fetch()) {
                 $id = htmlspecialchars($row['id']);
                 $libelle = htmlspecialchars($row['libelle']);
-                echo('<option value="'. $id .'">' . $libelle . '</option>');
+                echo ('<option value="' . $id . '">' . $libelle . '</option>');
             }
-            
+
             ?>
 
 
@@ -54,7 +57,8 @@ ob_start();
 
 
 
-<form action="index.php?action=show_questionnaireList" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="show_questionnaireList">
     <input type="submit" value="Annuler">
 </form>
 

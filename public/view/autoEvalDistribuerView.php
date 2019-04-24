@@ -1,11 +1,13 @@
 <?php
 $title = 'Distribuer une autoévaluation';
 ob_start();
+
+require('view/headerUserView.php');
 ?>
 <h1><?= $title ?></h1>
 
-<form action="index.php?action=do_autoEvalDistribuer" method="post">
-
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="do_autoEvalDistribuer">
     <input type="hidden" name="idQuestionnaire" value="<?= htmlspecialchars($idQuestionnaire)?>">
 
     <div>
@@ -117,7 +119,8 @@ Merci bisous <3  <3  <3 -->
 
 </form>
 
-<form action="index.php?action=show_questionnaireDetail" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="show_questionnaireDetail">
     <input type="hidden" name="idQuestionnaire" value="<?=$idQuestionnaire?>">
     <input type="submit" value="Annuler">
 </form>

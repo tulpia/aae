@@ -72,6 +72,7 @@ class AutoEvaluationManager extends Manager{
         join resultat as R on R.id = A.id_resultat
         where A.id_users = ?
         and R.dateAccessible <= NOW()
+        and isRepondu = 0
         ");
 
         $autoEvals->execute([$idEleve]);
@@ -79,30 +80,6 @@ class AutoEvaluationManager extends Manager{
         return $autoEvals;
     }
 
-
-
-
-    /**
-     * Retourne la liste des Autoévaluations à faire d'un élève si la date de visibilité est validée
-     *
-     * @param  mixed $idEleve
-     *
-     * @return void
-     */
-    // public function getAutoEvaluationOuvertesEleve($idEleve){
-
-    //     $db = $this->dbConnect();
-    //     $list = $db->prepare("
-    //     SELECT *
-    //     from autoEvaluation
-    //     where id_users = ?
-    //     and isRepondu = 0
-    //     and dateAccessible <= NOW()");
-
-    //     $list->execute([$idEleve]);
-
-    //     return $list();
-    // }
 
 
 

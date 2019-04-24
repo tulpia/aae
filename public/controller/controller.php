@@ -13,21 +13,33 @@ require_once('model/AutoEvaluationQuestionManager.php');
 require_once('model/CifResultatClasseNomManager.php');
 require_once('model/UserManager.php');
 
-require_once('model/AutoEvaluationManager.php');
-//require_once('model/AutoEvaluationQuestionManager.php');
 
 //require_once('');
 
 
+function do_login($login, $pwd, $isProf){
+    
+    //TODO : Pour l'instant c'est bidon, voir pour faire ça à coup de cookies et avec une liaison à la BDD
+    
+    $_SESSION['isProf'] = (bool)$isProf;
 
+    if($isProf){
+        $_SESSION['isAdmin'] = true;
+        $_SESSION['idUser'] = 4; 
+    }
+    else{
+        $_SESSION['isAdmin'] = false;
+        $_SESSION['idUser'] = 5;
+    }
 
+}
 
-
-function show_login($errorMessage = ''){
-
-    $errorMessage = (isset($errorMessage)?$errorMessage:'');
-
+function do_disconnect(){
+    session_unset();
     session_destroy();
+}
+
+function show_login(){   
     require('view/loginView.php');
 }
 

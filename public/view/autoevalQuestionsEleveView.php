@@ -6,6 +6,8 @@ $title = htmlspecialchars($autoEval['titre']);
 $isCommentaire = (bool)$autoEval['is_commentairePermis'];
 
 ob_start();
+
+require('view/headerUserView.php');
 ?>
 
 <h1><?= $title ?></h1>
@@ -13,28 +15,33 @@ ob_start();
 <section>
     <h2>Mes questions</h2>
 
-    <form action="index.php?action=do_ReponseEleveEnregistrer" method="POST">
+    <form action="index.php" method="POST">
+        <input type="hidden" name="action" value="do_ReponseEleveEnregistrer">
         <input type="hidden" name="idAutoEval" value="<?= $idAutoEval ?>">
 
+        <table>
 
-        <?php
-        while ($question = $questions->fetch()) {
-            $idQuestion = htmlspecialchars($question['id']);
-            $libelle = htmlspecialchars($question['libelle']);
-            $quantieme = htmlspecialchars($question['quantieme']);
-            
-            ?>
-            
 
-            <div><?= $quantieme . " - " . $libelle?>
-                <label><input type="radio" required name="arrayIdReponse[<?=$idQuestion?>]" value="30">:D</label>
-                <label><input type="radio" required name="arrayIdReponse[<?=$idQuestion?>]" value="20">:)</label>
-                <label><input type="radio" required name="arrayIdReponse[<?=$idQuestion?>]" value="10">:|</label>
-                <label><input type="radio" required name="arrayIdReponse[<?=$idQuestion?>]" value="0">:(</label>
-            </div>
-        <?php
-    }
-    ?>
+            <?php
+            while ($question = $questions->fetch()) {
+                $idQuestion = htmlspecialchars($question['id']);
+                $libelle = htmlspecialchars($question['libelle']);
+                $quantieme = htmlspecialchars($question['quantieme']);
+
+                ?>
+
+                <tr>
+                    <td><?= $quantieme . " - " . $libelle ?></td>
+                    <td><label><input type="radio" required name="arrayIdReponse[<?= $idQuestion ?>]" value="30">:D</label></td>
+                    <td><label><input type="radio" required name="arrayIdReponse[<?= $idQuestion ?>]" value="20">:)</label></td>
+                    <td><label><input type="radio" required name="arrayIdReponse[<?= $idQuestion ?>]" value="10">:|</label></td>
+                    <td><label><input type="radio" required name="arrayIdReponse[<?= $idQuestion ?>]" value="0">:(</label></td>
+
+                </tr>
+            <?php
+        }
+        ?>
+        </table>
         <div>
             <?php
             //Si commentaire permis, rajoute un input text, sinon tant met juste un hidden vide pour que la variable existe 

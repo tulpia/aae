@@ -2,8 +2,10 @@
 $title = 'Liste des questionnaires';
 ob_start();
 //le HTML commence à la fin de la balise PHP
+
+require('view/headerUserView.php');
+
 ?>
-<div><br><a href="index.php" rel="noopener noreferrer">Se déconnecter</a><br></div>
 
 
 <h1>Mes modèles de questionnaire</h1>
@@ -38,7 +40,8 @@ ob_start();
                 <td><?= $matiere ?></td>
                 <td><?= $dateCrea ?></td>
                 <td>
-                    <form action="index.php?action=show_questionnaireDetail" method="post">
+                    <form action="index.php" method="post">
+                        <input type="hidden" name="action" value="show_questionnaireDetail">
                         <input type="hidden" name="idQuestionnaire" value="<?= $id ?>">
                         <input type="submit" value="Editer">
                     </form>
@@ -50,7 +53,8 @@ ob_start();
     </tbody>
 </table>
 
-<form action="index.php?action=show_questionnaireNew" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="show_questionnaireNew">
     <input type="submit" value="Ajouter un nouveau questionnaire !">
 </form>
 

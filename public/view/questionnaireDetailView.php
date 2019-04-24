@@ -3,11 +3,14 @@ $title = 'Détail du questionnaire';
 $isAuMoinsUneQuestion = false;
 
 ob_start();
+
+require('view/headerUserView.php');
 ?>
 <h1><?= $title ?></h1>
 
 <!-- Form update du questionnaire -->
-<form action="index.php?action=do_questionnaireUpdate" method="POST">
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="do_questionnaireUpdate">
     <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
 
     <div>
@@ -61,7 +64,8 @@ ob_start();
 
 
 <!-- Suppression du questionnaire  -->
-<form action="index.php?action=do_questionnaireDelete" method="POST">
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="do_questionnaireDelete">
     <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
     <input type="submit" value="Supprimer ce questionnaire">
 </form>
@@ -81,14 +85,16 @@ ob_start();
                 <td><?= $question['libelle'] ?></td>
                 <td>
                     <!-- Bouton d'édition de la question -->
-                    <form action="index.php?action=show_questionEdit" method="POST">
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="action" value="show_questionEdit">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
                         <input type="submit" value="Editer">
                     </form>
                 </td>
                 <td>
                     <!-- Bouton suppression de la question -->
-                    <form action="index.php?action=do_questionDelete" method="POST">
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="action" value="do_questionDelete">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
                         <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
                         <input type="submit" value="Supprimer">
@@ -104,7 +110,8 @@ ob_start();
     </table>
 
     <!-- Bouton d'ajout de nouvelle question -->
-    <form action="index.php?action=show_questionNew" method="POST">
+    <form action="index.php" method="POST">
+        <input type="hidden" name="action" value="show_questionNew">
         <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
         <input type="submit" value="ajouter une question">
     </form>
@@ -114,7 +121,8 @@ ob_start();
 <?php
 if ($isAuMoinsUneQuestion) {
     ?>
-    <form action="index.php?action=show_autoEvalDistribuer" method="POST">
+    <form action="index.php" method="POST">
+        <input type="hidden" name="action" value="show_autoEvalDistribuer">
         <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
         <input type="submit" value="Distribuer ce questionnaire">
     </form>
@@ -124,7 +132,8 @@ if ($isAuMoinsUneQuestion) {
 
 
 
-<form action="index.php?action=show_questionnaireList" method="post">
+<form action="index.php" method="post">
+    <input type="hidden" name="action" value="show_questionnaireList">
     <input type="submit" value="Retour à la liste">
 </form>
 
