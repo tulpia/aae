@@ -66,6 +66,8 @@ require('view/headerUserView.php');
 
 </section>
 
+</main>
+
 
 
 
@@ -75,5 +77,6 @@ require('view/headerUserView.php');
 
 <?php
 $content = ob_get_clean();
+require('footerUserView.php');
 require('template.php');
 ?>
