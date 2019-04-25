@@ -8,6 +8,10 @@ a {
     // color: black;
 }
 
+* {
+    font-family: $font;
+}
+
 .wrapper {
     width: $wrapperDesktop;
     margin: 0 auto

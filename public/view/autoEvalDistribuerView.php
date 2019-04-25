@@ -125,11 +125,12 @@ Merci bisous <3  <3  <3 -->
     <input type="submit" value="Annuler">
 </form>
 
-
+</main>
 
 
 
 <?php
 $content = ob_get_clean();
+require('footerUserView.php');
 require('template.php');
 ?>
