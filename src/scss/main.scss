@@ -9,3 +9,8 @@
 @import "_home.scss";
 
 // Importez ci-dessous les pages
+@import "_pages/_login-view.scss";
+
+// Importez ci-dessous les partials/components
+@import "_partials/_inputs.scss";
+@import "_partials/_boutons.scss";

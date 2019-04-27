@@ -1,5 +1,6 @@
 // Variables de wrapper
-$wrapperDesktop: 85vw;
+$wrapperDesktop: 50vw;
+$mobile: 480px;
 
 // Variables de mediaqueries
 $laptop: 1350px;
@@ -14,6 +15,9 @@ $font-light: 'Roboto-Light', sans-serif;
 $font-black: 'Roboto-Black', sans-serif;
 
 // Variables de couleurs
+$color-grey: #b6b6b6;
+$color-lightBlue: #BCE0FD;
+$color-blue: #2699FB;
 
 // Variables cubic-bezier
 $curve: cubic-bezier(.7,0,.3,1);
