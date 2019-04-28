@@ -4,6 +4,7 @@ $title = 'AAE - Identification';
 ob_start();
 
 ?>
+<div class="header-bg-blue"></div>
 <header class="block-header">
     <div class="block-header__img-container">
         <img src="../dist/images/bg-home.jpg" alt="background-home">

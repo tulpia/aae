@@ -25,11 +25,13 @@ function do_login($login, $pwd, $isProf){
 
     if($isProf){
         $_SESSION['isAdmin'] = true;
-        $_SESSION['idUser'] = 4; 
+        $_SESSION['idUser'] = 4;
+        $_SESSION['nameUser'] = 'Prof';
     }
     else{
         $_SESSION['isAdmin'] = false;
         $_SESSION['idUser'] = 5;
+        $_SESSION['nameUser'] = 'idELeve';
     }
 
 }

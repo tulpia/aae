@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
@@ -53,11 +54,41 @@ body {
 
 .wrapper {
     width: $wrapperDesktop;
-    margin: 0 auto;
+		margin: 0 auto;
+		position: relative;
+		z-index: 2;
+		margin-bottom: 53px;
+		padding-bottom: 15px;
+
+		*:not(footer) {
+			position: relative;
+			z-index: 3;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100%;
+			background: white;
+			margin-left: calc(50% - 50vw);
+			margin-right: calc(50% - 50vw);
+		}
 
     @media (max-width: $mobile) {
-		width: 85vw;
+		width: 90vw;
     }
 }
 
 // Classes générales
+.header-bg-blue {
+	width: 100vw;
+	height: 55px;
+	background: $color-darkblue;
+	position: relative;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
