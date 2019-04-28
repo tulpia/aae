@@ -12,6 +12,7 @@
     <!--Variable contenu du Body-->
     <main class="wrapper">
         <?= $content ?>
+        <?php include('footer-general.php'); ?>
     </main>
     <script src="../dist/main.js"></script>
 </body>

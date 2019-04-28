@@ -1,0 +1,42 @@
+.block-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    background: $color-lightBlue;
+    z-index: 1;
+
+    a {
+        font-size: 13px;
+        color: $color-blue;
+        font-family: $font;
+        text-decoration: none;
+        padding: 20px 0;
+    }
+
+    &:after {
+        content: '';
+        background: $color-lightBlue;
+        position: absolute;
+        top: 0;
+        left: -100vw;
+        width: 100vw;
+        z-index: 1;
+        height: 100%;
+    }
+
+    &:before {
+        content: '';
+        background: $color-lightBlue;
+        position: absolute;
+        top: 0;
+        right: -100vw;
+        width: 100vw;
+        z-index: 1;
+        height: 100%;
+    }
+}
