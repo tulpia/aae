@@ -11,6 +11,6 @@
                     <input type="submit" value="Déconnexion" class="btn-disconnect">
                 </form>
             </section>
-            <a href="index.php" class="btn-home">
+            <a href="index.php" class="btn-home">Accueil</a>
             </a>
         </header>

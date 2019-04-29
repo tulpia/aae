@@ -11,18 +11,32 @@ ob_start();
     </div>
     <h1 class="block-header__title">APP <span>TITRE</span></h1>
 </header>
-<!-- <div><br><br><?php //echo($errorMessage); ?><br><br></div> -->
 
-<!-- Interface élève avec l'id_user = 5 -->
+<?php
+    if(isset($isErrorLogin) && (bool)$isErrorLogin === true){
+        echo("<p><br><br>Login ou mot de passe incorrect<br><br></p>");
+    }
+?>
+
+
+
+
+<!-- Saisie login-MDP -->
 <section class="block-login">
     <section class="block-login__block-etudiant">
         <form action="index.php" method="post" class="block-etudiant__form-container">
-            <input type="hidden" name="action" value="login">
+            <input type="hidden" name="action" value="do_login">
             <input type="hidden" name="isProf" value="0">
             <div class="input-container">
-                <input type="text" name="login" placeholder="id Eleve" value="" class="input input--text">
+                <input type="text" name="login" placeholder="id Eleve ou Mail Prof" value="" class="input input--text">
             </div>
-            <input type="hidden" name="pwd" value="">
+            <div class="input-container">
+                <input type="password" name="pwd" placeholder="Password (visible uniquement quand enseignant)" value="" class="input input--text">
+            </div>
+            <div>
+                <label><input type="radio" name="isProf" value="0" id="" checked>Je suis élève</label>
+                <label><input type="radio" name="isProf" value="1" id="">Je suis enseignant</label>
+            </div>
             <label class="btn btn-submit">
                 <input type="submit" value="Connexion">
             </label>
@@ -30,7 +44,7 @@ ob_start();
     </section>
 
     <!-- Interface prof avec l'id_user = 4 et admin -->
-    <section class="block-login__block-prof">
+    <!-- <section class="block-login__block-prof">
         <form action="index.php" method="post" class="block-prof__form-container">
             <input type="hidden" name="action" value="login">
             <input type="hidden" name="isProf" value="1">
@@ -39,13 +53,37 @@ ob_start();
             <label class="btn btn-prof">
                 <input type="submit" value="Interface enseignant">
             </label>
-        </form>
+        </form> -->
     </section>
+
+    <form action="index.php" method="POST">
+        <input type="hidden" name="action" value="show_passwordForget">
+        <input type="submit" value="Mot de passe oublié ? (visible uniquement quand enseignant)">
+    </form>
+
+
+    <p>
+        <br><br>
+        Hey Salut ! C'est moi la balise dégueu !<br>
+        Voilà les id de test pour se connecteur<br><br>
+
+        Prof 01<br>
+        Login : sayhelloroger@gmail.com  /  pwd : 1234<br><br>
+
+        Prof 02<br>
+        Login : david.klein.fr@protonmail.com  /  pwd : 1234<br><br>
+
+        Elève 01<br>
+        Login : 18-0001 <br><br>
+
+        Elève 02<br>
+        Login : 18-0002<br><br>
+
+    </p>
+
 </section>
-<!-- 
-<div><a href="index.php?action=accueil&amp;isProf=1&amp;idUser=4&amp;isAdmin=1" rel="noopener noreferrer"></a></div>
-<div><a href="index.php?action=accueil&amp;isProf=0&amp;idUser=5" rel="noopener noreferrer">Interface élève</a></div>
- -->
+
+
 
 
 <?php

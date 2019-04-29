@@ -17,31 +17,53 @@ require_once('model/UserManager.php');
 //require_once('');
 
 
+/**
+ * Vérifie Login et mdp, si ok retourne true et définit les variables de session isProf, idUser, nameUser et isAdmin
+ *
+ * @param  mixed $login
+ * @param  mixed $pwd
+ * @param  mixed $isProf
+ *
+ * @return void
+ */
 function do_login($login, $pwd, $isProf){
     
-    //TODO : Pour l'instant c'est bidon, voir pour faire ça à coup de cookies et avec une liaison à la BDD
+    $isLogged = false;
     
-    $_SESSION['isProf'] = (bool)$isProf;
+    $User = new UserManager();
+    $user = $User->getUserFromLogin($login, $pwd, $isProf);
 
-    if($isProf){
-        $_SESSION['isAdmin'] = true;
-        $_SESSION['idUser'] = 4;
-        $_SESSION['nameUser'] = 'Prof';
-    }
-    else{
-        $_SESSION['isAdmin'] = false;
-        $_SESSION['idUser'] = 5;
-        $_SESSION['nameUser'] = 'idELeve';
+    if ($user != false) {
+        if (isset($user['id']) && isset($user['nomPrenom']) && isset($user['is_enseignant'])) {
+            $_SESSION['isProf'] = (bool)$user['is_enseignant'];
+            $_SESSION['idUser'] = (int)$user['id'];
+            $_SESSION['nameUser'] = htmlspecialchars($user['nomPrenom']);
+
+            if((bool)$user['is_enseignant'] === true && isset($user['is_admin'])){
+                $_SESSION['isAdmin'] = (bool)$user['is_admin'];
+            }
+            else{
+                $_SESSION['isAdmin'] = false;
+            }
+            $isLogged = true;
+        }
     }
 
+    return $isLogged;
 }
+
+
 
 function do_disconnect(){
-    session_unset();
-    session_destroy();
+    try {
+        session_unset();
+        session_destroy();
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
 }
 
-function show_login(){   
+function show_login(bool $isErrorLogin){
     require('view/loginView.php');
 }
 

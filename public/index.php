@@ -10,15 +10,19 @@ try {
     if ($isActionDefinie) {
         switch ($_POST['action']) {
 
-            case "login":
-                do_login($_POST['login'], $_POST['pwd'], $_POST['isProf']);
-                header("Location: " . $_SERVER['PHP_SELF']);
+            case "do_login":
+                if(do_login($_POST['login'], $_POST['pwd'], $_POST['isProf'])){
+                    header("Location: " . $_SERVER['PHP_SELF']);
+                }
+                else{
+                    show_login(true);
+                }
                 break;
 
 
             case "do_disconnect":
                 do_disconnect();
-                show_login();
+                show_login(false);
                 break;
 
 
@@ -138,7 +142,7 @@ try {
         } else {
             //Sinon déconnexion
             do_disconnect();
-            show_login();
+            show_login(false);
         }
     }
 
