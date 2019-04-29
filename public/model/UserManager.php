@@ -58,7 +58,7 @@ public function getElevesFromOptions($idClasse, $arrayIdClasseNoms, $idOptionCou
 }
 
 
-public function getUserFromLogin($login, $password, $isProf){
+public function getAuthentifiedUser($login, $password, $isProf){
 
     $isProf = (bool)$isProf;
 
@@ -68,27 +68,23 @@ public function getUserFromLogin($login, $password, $isProf){
     from users_test
     where login = ?
     and is_enseignant = ?";
-    
-    $user = null;
+    $users = $db->prepare($query);
+    $users->execute([$login, $isProf]);
+
+    $user = false;
 
     if ($isProf) {
-        $query .= "\n
-        and password = ?
-        order by Id
-        LIMIT 1";
-        $user = $db->prepare($query);
-        $user->execute([$login, $isProf, $password]);
-    }
-    else{
-        $query .= "\n
-        order by Id
-        LIMIT 1";
-        $user = $db->prepare($query);
-        $user->execute([$login, $isProf]);
+        while ($row = $users->fetch()) {
+            if (password_verify($password, $row['password'])) {
+                $user = $row;
+                break;
+            }
+        }
+    }else{
+        $user = $users->fetch();
     }
 
-
-    return $user->fetch();
+   return $user;   
 }
 
 

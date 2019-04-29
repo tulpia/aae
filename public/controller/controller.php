@@ -31,9 +31,9 @@ function do_login($login, $pwd, $isProf){
     $isLogged = false;
     
     $User = new UserManager();
-    $user = $User->getUserFromLogin($login, $pwd, $isProf);
+    $user = $User->getAuthentifiedUser($login, $pwd, $isProf);
 
-    if ($user != false) {
+    if ($user !== false) {
         if (isset($user['id']) && isset($user['nomPrenom']) && isset($user['is_enseignant'])) {
             $_SESSION['isProf'] = (bool)$user['is_enseignant'];
             $_SESSION['idUser'] = (int)$user['id'];
