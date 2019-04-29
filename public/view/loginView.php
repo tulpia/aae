@@ -7,7 +7,7 @@ ob_start();
 <div class="header-bg-blue"></div>
 <header class="block-header">
     <div class="block-header__img-container">
-        <img src="../dist/images/bg-home.jpg" alt="background-home">
+        <img src="dist/images/bg-home.jpg" alt="background-home">
     </div>
     <h1 class="block-header__title">APP <span>TITRE</span></h1>
 </header>
