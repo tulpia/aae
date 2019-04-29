@@ -2,7 +2,7 @@
         <div class="header-bg-blue"></div>
         <header class="header-connected">
             <div class="header-connected__img-container">
-                <img src="../dist/images/bg-home.jpg" alt="header-img" class="header-connected__img">
+                <img src="dist/images/bg-home.jpg" alt="header-img" class="header-connected__img">
             </div>
             <section class="header-connected__btn-deconnect">
                 <p class="btn-deconnect__text"><?= $_SESSION['nameUser']; ?></p>
