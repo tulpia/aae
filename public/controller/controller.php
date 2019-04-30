@@ -63,7 +63,7 @@ function do_disconnect(){
     }
 }
 
-function show_login(bool $isErrorLogin){
+function show_login($message){
     require('view/loginView.php');
 }
 
@@ -388,4 +388,29 @@ function do_ReponseEleveEnregistrer($idAutoEval, $commentaire, $arrayIdReponse){
 
     $AutoEval = new AutoEvaluationManager();
     $AutoEval->updateAutoEvalTerminee($idAutoEval,$commentaire);
+}
+
+
+
+/**
+ * la page permettant d'envoyer un mail de réinitialisation de mot de passe à l'utilisateur
+ *
+ * @param  mixed $Message
+ *
+ * @return void
+ */
+function show_passwordForget($message){
+    require('view/passwordForgetView.php');
+}
+
+/**
+ * Créé un nouveau password, l'envoie par mail au user et l'insère hashé en base de données
+ *
+ * @param  mixed $eMail
+ *
+ * @return void
+ */
+function do_sendPasswordResetMail($eMail){
+    $UserManager = new UserManager();
+    return $UserManager->sendPasswordResetMail($eMail);
 }

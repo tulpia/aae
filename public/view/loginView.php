@@ -13,8 +13,8 @@ ob_start();
 </header>
 
 <?php
-    if(isset($isErrorLogin) && (bool)$isErrorLogin === true){
-        echo("<p><br><br>Login ou mot de passe incorrect<br><br></p>");
+    if(isset($message) && $message != ''){
+        echo("<p><br><br>" . $message . "<br><br></p>");
     }
 ?>
 
@@ -53,8 +53,8 @@ ob_start();
             <label class="btn btn-prof">
                 <input type="submit" value="Interface enseignant">
             </label>
-        </form> -->
-    </section>
+        </form>
+    </section>-->
 
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="show_passwordForget">
