@@ -12,5 +12,4 @@
                 </form>
             </section>
             <a href="index.php" class="btn-home">Accueil</a>
-            </a>
         </header>
