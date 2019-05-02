@@ -1,13 +1,38 @@
 <?php
-require("ResultatManager.php");
-
-$AutoEvalManager = new ResultatManager();
-$results = $AutoEvalManager->getResultatsList($_POST['idProf'], $_POST['nbLimit'], $_POST['isAfficheUniquementEnCours']);
+require_once("ResultatManager.php");
+require_once("QuestionnaireManager.php");
 
 
-$reponse = new \StdClass();
-$reponse->code = 200;
-$reponse->items = $results->fetchAll();
+$isActionDefinie = isset($_POST['action']);
 
-header('Content-Type: application/json');
-echo json_encode($reponse);
+if ($isActionDefinie) {
+    switch ($_POST['action']) {
+        
+        case "refreshResultats":
+            $AutoEvalManager = new ResultatManager();
+            $results = $AutoEvalManager->getResultatsList($_POST['idProf'], $_POST['nbLimit'], $_POST['isAfficheUniquementEnCours']);
+
+            $reponse = new \StdClass();
+            $reponse->code = 200;
+            $reponse->items = $results->fetchAll();
+
+            header('Content-Type: application/json');
+            echo json_encode($reponse);
+            break;
+
+
+        case "refreshQuestionnaires":
+            $QuestionnaireManager = new QuestionnaireManager();
+            $results = $QuestionnaireManager->getQuestionnaires($_POST['idProf'], $_POST['nbLimit']);
+
+            $reponse = new \StdClass();
+            $reponse->code = 200;
+            $reponse->items = $results->fetchAll();
+
+            header('Content-Type: application/json');
+            echo json_encode($reponse);
+            break;
+    }
+} else {
+    //?? Heeeeueuuuu
+}
