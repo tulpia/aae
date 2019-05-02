@@ -54,6 +54,44 @@ require('view/headerUserView.php');
 
 
 
+
+<!-- section résultat -->
+<article class="title-list">
+    <h1>Mes résultats d'autoévaluation</h1>
+</article>
+<section>
+
+
+
+    <form action="./model/filtreController.php" method="post" class="filtreFormulaire">
+        <input type="hidden" name="action" value="show_resultatsList">
+        <input type="hidden" name="idProf" value="<?= $idProf ?>">
+        
+        <label>
+            <select name="nbLimit">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="0">Tous les</option>
+            </select> derniers résultats
+        </label>
+
+        <label>
+            <input type="checkbox" name="isAfficheUniquementEnCours" checked>
+            Masquer les résultats archivés
+        </label>
+
+        <input type="submit" value="Afficher">
+
+    </form>
+
+
+
+</section>
+
+
+
+
 <?php
 //le HTML finit avant cette balise PHP et est envoyée dans $content puis inséré dans le template
 $content = ob_get_clean();

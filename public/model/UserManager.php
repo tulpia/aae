@@ -61,7 +61,8 @@ class UserManager extends Manager
 
     public function getAuthentifiedUser($login, $password, $isProf)
     {
-
+        // $prout = password_hash($password,PASSWORD_DEFAULT);
+        // echo($prout);
         $isProf = (bool)$isProf;
 
         $db = $this->dbConnect();
