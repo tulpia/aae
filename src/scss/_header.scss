@@ -30,6 +30,7 @@
         padding: 20px 0;
         padding-left: 60px;
         cursor: pointer;
+        z-index: 100;
 
         p {
             font-family: $font-bold;
@@ -62,6 +63,7 @@
             opacity: 0;
             transition: transform 250ms $curve,
                         opacity 250ms linear;
+            pointer-events: none;
         }
 
         &.active {
@@ -70,6 +72,7 @@
                 opacity: 1;
                 transition: transform 250ms $curve,
                         opacity 250ms linear;
+                pointer-events: initial;
             }
         }
     }
