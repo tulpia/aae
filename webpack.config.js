@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     output: {
-      path: path.resolve(__dirname, 'public/dist')
+      path: path.resolve(__dirname, 'public/view/dist')
     },
     resolve: {
       alias: {

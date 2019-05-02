@@ -65,11 +65,11 @@ require('view/headerUserView.php');
 
 </section>
 
-</main>
+<!-- </main> -->
 
 
 <?php
 $content = ob_get_clean();
-require('footerUserView.php');
+// require('footerUserView.php');
 require('template.php');
 ?>

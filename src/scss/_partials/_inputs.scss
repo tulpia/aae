@@ -1,0 +1,36 @@
+.input-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url('~@svg/icon-account.svg') no-repeat center;
+        background-size: 16px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.input {
+    outline: initial;
+    background: none;
+    border: initial;
+    border-bottom: 1px solid $color-lightBlue;
+    padding: 0 5px 15px 40px;
+    position: relative;
+    width: 100%;
+
+    &::placeholder {
+        color: $color-blue;
+        font-family: $font;
+        font-size: 14px;
+    }
+
+    &.input--text {
+        margin-bottom: 40px;
+    }
+}

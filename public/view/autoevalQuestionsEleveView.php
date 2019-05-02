@@ -77,6 +77,6 @@ require('view/headerUserView.php');
 
 <?php
 $content = ob_get_clean();
-require('footerUserView.php');
+// require('footerUserView.php');
 require('template.php');
 ?>

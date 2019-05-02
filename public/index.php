@@ -10,15 +10,19 @@ try {
     if ($isActionDefinie) {
         switch ($_POST['action']) {
 
-            case "login":
-                do_login($_POST['login'], $_POST['pwd'], $_POST['isProf']);
-                header("Location: " . $_SERVER['PHP_SELF']);
+            case "do_login":
+                if(do_login($_POST['login'], $_POST['pwd'], $_POST['isProf'])){
+                    header("Location: " . $_SERVER['PHP_SELF']);
+                }
+                else{
+                    show_login("Login ou mot de passe incorrect");
+                }
                 break;
 
 
             case "do_disconnect":
                 do_disconnect();
-                show_login();
+                show_login("");
                 break;
 
 
@@ -119,6 +123,21 @@ try {
                 break;
 
 
+
+            case "show_passwordForget":       
+            show_passwordForget("");
+            break;
+
+
+            case "do_sendPasswordResetMail":
+            if(do_sendPasswordResetMail($_POST['eMail'])){
+                show_login("Le mail de réinitialisation a bien été envoyé à l'adresse " . $_POST['eMail'] . "<br>Pensez à regarder vos Spams");
+            }else{          
+                show_passwordForget("Mail invalide ou ne correspondant à aucun utilisateur dans l'application");
+            }
+            break;
+
+
             default:
                 $isActionDefinie = false;
         }
@@ -138,7 +157,7 @@ try {
         } else {
             //Sinon déconnexion
             do_disconnect();
-            show_login();
+            show_login("");
         }
     }
 
