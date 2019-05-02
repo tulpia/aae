@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
+	font-family: $font, sans-serif;
 }
 
 ol, ul {
@@ -82,7 +83,9 @@ body {
 		width: 90vw;
     }
 }
-
+.right_content{
+	text-align: right;
+}
 // Classes générales
 .header-bg-blue {
 	width: 100vw;
@@ -91,4 +94,10 @@ body {
 	position: relative;
 	margin-left: calc(50% - 50vw);
 	margin-right: calc(50% - 50vw);
+}
+.card{
+	margin-top: 50px;
+	padding: 20px;
+    background: $color-lightBlue;
+	border-radius: 10px;
 }
