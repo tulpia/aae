@@ -2,5 +2,6 @@
 public/*
 src/js/app.js
 src/index.js
+src/js/home.js
 webpack.config.js
 postcss.config.js

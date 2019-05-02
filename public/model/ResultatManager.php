@@ -26,25 +26,40 @@ class ResultatManager extends Manager{
 
 
 
+    
     /**
      * Retourne la liste des résultats des autoévaluations d'un professeur
-     * Si $isAfficheArchives == false, n'affiche que les non archivés, sinon affiche tout
+     * Si $isAfficheUniquementEnCours === true, n'affiche que les non archivés, sinon affiche tout
      *
      * @param  mixed $idProf
-     * @param  mixed $isAfficheArchives
+     * @param  mixed $isAfficheUniquementEnCours
+     * @param  mixed $nbLimit
      *
      * @return void
      */
-    public function getResultats($idProf, $isAfficheArchives){
+    public function getResultatsList($idProf, $nbLimit, $isAfficheUniquementEnCours){
 
         $db = $this->dbConnect();
-        $query = "select *
-        from resultat
-        where id_user = ?\n";
-        if(!$isAfficheArchives){
-            $query .= "and is_archive = 0"; 
+        $query = "select R.id, R.is_archive
+        , R.titre, DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+        , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
+        , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
+        , (SELECT COUNT(id) from autoEvaluation as AE2 where AE2.id_resultat = R.id) as nbAutoEval
+        , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
+        , ( select GROUP_CONCAT(N.libelle) as classeNom
+            FROM classeNom as N, cif_resultat_classeNom as C
+            WHERE N.id = C.id_classeNom
+            and C.id_resultat = R.id) as ClasseNom
+        , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
+        from resultat as R
+        where id_users = ?\n";
+        if((bool)$isAfficheUniquementEnCours === true){
+            $query .= "and is_archive = 0\n"; 
         }
-        $query .= "order by titre";
+        $query .= "order by dateAccessible desc\n";
+        if ((int)$nbLimit > 0) {
+            $query .= "LIMIT " . (int)$nbLimit;
+        }
         
         
         $resultats = $db->prepare($query);
