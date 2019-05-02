@@ -11,6 +11,25 @@ require('view/headerUserView.php');
 </article>
 
 <section class="list-questions__container">
+<form action="./model/filtreController.php" method="post" class="filtreFormulaire">
+        <input type="hidden" name="action" value="refreshQuestionnaires">
+        <input type="hidden" name="idProf" value="<?= $idProf ?>">
+        
+        <label>
+            <select name="nbLimit">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="0">Tous les</option>
+            </select> derniers questionnaires
+        </label>
+
+        <input type="submit" value="Afficher">
+
+    </form>
+
+
+
     <?php
     //Rajoute chaque questionnaire dans le tableau
     while ($row = $ListeQuestionnaires->fetch()) {
@@ -64,7 +83,7 @@ require('view/headerUserView.php');
 
 
     <form action="./model/filtreController.php" method="post" class="filtreFormulaire">
-        <input type="hidden" name="action" value="show_resultatsList">
+        <input type="hidden" name="action" value="refreshResultats">
         <input type="hidden" name="idProf" value="<?= $idProf ?>">
         
         <label>
