@@ -262,6 +262,12 @@
     display: flex;
     flex-direction: column;
 
+    &.filtre-questionnaire {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $color-lightgrey;
+    }
+
     .filtre-questionnaire__formulaire {
         width: 100%;
         display: flex;
@@ -377,6 +383,7 @@
 .filtre-questionnaire__content {
     width: 100%;
     margin-top: 40px;
+
 
     .loading-container {
         justify-content: center;

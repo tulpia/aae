@@ -27,6 +27,44 @@ require('view/headerUserView.php');
             <h1>Mes modèles de questionnaire</h1>
         </article>
 
+        <section class="filtre-questionnaire__container filtre-questionnaire">
+            <form action="./model/filtreController.php" method="post" class="filtre-questionnaire__formulaire filtreFormulaireQuestionnaires">
+                <input type="hidden" name="action" class="refreshQuestionnaires" value="refreshQuestionnaires">
+                <input type="hidden" name="idProf" value="<?= $idProf ?>">
+                
+                <label class="formulaire__choix-quantite">
+                    <select name="nbLimit">
+                        <option disabled selected>Derniers résultats</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="0">Tous les</option>
+                    </select>
+                </label>
+
+                <label class="formulaire__archive">
+                    <input type="checkbox" name="isAfficheUniquementEnCours">
+                    <span class="checkmark"></span>
+                    Masquer les résultats archivés
+                </label>
+
+                <label class="btn-submit--form">
+                    <input type="submit" value="Afficher" class="submit">
+                </label>
+            </form>
+
+            <section class="filtre-questionnaire__content">
+                <div class="loading-container loading-container--questionnaires">
+                    <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                </div>
+                <section class="content__list-questions content__list-questions--questionnaires list-questions__container">
+
+                </section>
+            </section>
+        </section>
+
         <section class="list-questions__container">
             <?php
             //Rajoute chaque questionnaire dans le tableau
@@ -68,8 +106,8 @@ require('view/headerUserView.php');
             <h1>Mes résultats d'autoévaluation</h1>
         </article>
         <section class="filtre-questionnaire__container">
-            <form action="./model/filtreController.php" method="post" class="filtre-questionnaire__formulaire filtreFormulaire">
-                <input type="hidden" name="action" value="show_resultatsList">
+            <form action="./model/filtreController.php" method="post" class="filtre-questionnaire__formulaire filtreFormulaireResultats">
+                <input type="hidden" name="action" value="refreshResultats">
                 <input type="hidden" name="idProf" value="<?= $idProf ?>">
                 
                 <label class="formulaire__choix-quantite">
@@ -94,12 +132,12 @@ require('view/headerUserView.php');
             </form>
 
             <section class="filtre-questionnaire__content">
-                <div class="loading-container">
+                <div class="loading-container loading-container--resultats">
                     <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                         <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                     </svg>
                 </div>
-                <section class="content__list-questions list-questions__container">
+                <section class="content__list-questions--resultats list-questions__container">
 
                 </section>
             </section>
