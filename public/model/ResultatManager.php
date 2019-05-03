@@ -73,6 +73,52 @@ class ResultatManager extends Manager{
 
     
     /**
+     * Retourne les infos générales d'un résultat 
+     *
+     * @param  mixed $idResultat
+     *
+     * @return void
+     */
+    public function getResultats($idResultat){
+
+        $db = $this->dbConnect();
+        $query = "select R.id, R.is_archive
+        , R.titre
+        , DATE_FORMAT(dateCreation, '%d/%m/%Y') as dateCreation
+        , DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+        , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
+        , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
+        , (SELECT COUNT(id) from autoEvaluation as AE2 where AE2.id_resultat = R.id) as nbAutoEval
+        , (SELECT DATE_FORMAT(MAX(AE3.dateReponse), '%d/%m/%Y') from autoEvaluation as AE3 where AE3.id_resultat = R.id) as dateDerReponse
+        , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
+        , ( select GROUP_CONCAT(N.libelle) as classeNom
+            FROM classeNom as N, cif_resultat_classeNom as C
+            WHERE N.id = C.id_classeNom
+            and C.id_resultat = R.id) as ClasseNom
+        , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
+        from resultat as R
+        where id = ?\n";
+                
+        
+        $resultats = $db->prepare($query);
+        $resultats->execute([$idResultat]);
+
+        return $resultats->fetch();
+    }
+
+
+
+    public function getStatsResultat($idResultats){
+        $db = $this->dbConnect();
+        $result = $db->prepare("");
+    }
+
+
+
+
+
+    
+    /**
      * Créé une ligne de résultat
      *
      * @param  mixed $idQuestionnaire
