@@ -2,17 +2,30 @@
     width: 100%;
     height: auto;
     position: relative;
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: url('~@svg/icon-account.svg') no-repeat center;
-        background-size: 16px;
-        width: 16px;
-        height: 16px;
+    &.login{
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url('~@svg/icon-account.svg') no-repeat center;
+            background-size: 16px;
+            width: 16px;
+            height: 16px;
+        }
     }
+    &.pwd{
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url('~@svg/icon-cadenas.svg') no-repeat center;
+            background-size: 12px;
+            width: 16px;
+            height: 16px;
+        }
+    }  
 }
 
 .input {
@@ -28,6 +41,15 @@
         color: $color-blue;
         font-family: $font;
         font-size: 14px;
+        transition:0.2s;
+    }
+    &:focus{
+        opacity:0.5;
+        transition:0.2s;
+        &::placeholder{
+            opacity:0.5;
+            transition:0.2s;
+        }
     }
 
     &.input--text {

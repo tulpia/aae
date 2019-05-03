@@ -4,12 +4,11 @@ $title = 'AAE - Identification';
 ob_start();
 
 ?>
-<div class="header-bg-blue"></div>
 <header class="block-header">
     <div class="block-header__img-container">
         <img src="dist/images/bg-home.jpg" alt="background-home">
     </div>
-    <h1 class="block-header__title">APP <span>TITRE</span></h1>
+    <h1 class="block-header__title">Bienvenue sur l'application <span>d'auto évaluation</span></h1>
 </header>
 
 <?php
@@ -27,15 +26,15 @@ ob_start();
         <form action="index.php" method="post" class="block-etudiant__form-container">
             <input type="hidden" name="action" value="do_login">
             <input type="hidden" name="isProf" value="0">
-            <div class="input-container">
+            <div class="aae-radio">
+                <input type="radio" name="isProf" value="0" id="isprof0" checked><label for="isprof0">Je suis élève</label>
+                <input type="radio" name="isProf" value="1" id="isprof1"><label for="isprof1">Je suis enseignant</label>
+            </div>
+            <div class="input-container login">
                 <input type="text" name="login" placeholder="id Eleve ou Mail Prof" value="" class="input input--text">
             </div>
-            <div class="input-container">
+            <div class="input-container pwd">
                 <input type="password" name="pwd" placeholder="Password (visible uniquement quand enseignant)" value="" class="input input--text">
-            </div>
-            <div>
-                <label><input type="radio" name="isProf" value="0" id="" checked>Je suis élève</label>
-                <label><input type="radio" name="isProf" value="1" id="">Je suis enseignant</label>
             </div>
             <label class="btn btn-submit">
                 <input type="submit" value="Connexion">
@@ -56,13 +55,15 @@ ob_start();
         </form>
     </section>-->
 
-    <form action="index.php" method="POST">
+    <form action="index.php" method="POST" class="right_content">
         <input type="hidden" name="action" value="show_passwordForget">
-        <input type="submit" value="Mot de passe oublié ? (visible uniquement quand enseignant)">
+        <label class="btn-link">
+            <input type="submit" value="Mot de passe oublié ? (visible uniquement quand enseignant)">
+        </label>
     </form>
 
 
-    <p>
+    <p class="card">
         <br><br>
         Hey Salut ! C'est moi la balise dégueu !<br>
         Voilà les id de test pour se connecteur<br><br>
