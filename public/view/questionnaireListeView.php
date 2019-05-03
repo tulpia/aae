@@ -34,19 +34,19 @@ require('view/headerUserView.php');
                 
                 <label class="formulaire__choix-quantite">
                     <select name="nbLimit">
-                        <option disabled selected>Derniers résultats</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="0">Tous les</option>
+                        <!-- <option disabled selected>Derniers résultats</option> -->
+                        <option value="25">25 derniers questionnaires</option>
+                        <option value="50">50 derniers questionnaires</option>
+                        <option value="100">100 derniers questionnaires</option>
+                        <option value="0">Tous</option>
                     </select>
                 </label>
 
-                <label class="formulaire__archive">
+                <!-- <label class="formulaire__archive">
                     <input type="checkbox" name="isAfficheUniquementEnCours">
                     <span class="checkmark"></span>
                     Masquer les résultats archivés
-                </label>
+                </label> -->
 
                 <label class="btn-submit--form">
                     <input type="submit" value="Afficher" class="submit">
@@ -112,16 +112,16 @@ require('view/headerUserView.php');
                 
                 <label class="formulaire__choix-quantite">
                     <select name="nbLimit">
-                        <option disabled selected>Derniers résultats</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="0">Tous les</option>
+                        <!-- <option disabled selected>Derniers résultats</option> -->
+                        <option value="25">25 derniers résultats</option>
+                        <option value="50">50 derniers résultats</option>
+                        <option value="100">100 derniers résultats</option>
+                        <option value="0">Tous</option>
                     </select>
                 </label>
 
                 <label class="formulaire__archive">
-                    <input type="checkbox" name="isAfficheUniquementEnCours">
+                    <input type="checkbox" name="isAfficheUniquementEnCours" checked>
                     <span class="checkmark"></span>
                     Masquer les résultats archivés
                 </label>

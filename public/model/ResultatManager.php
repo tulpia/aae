@@ -45,6 +45,7 @@ class ResultatManager extends Manager{
         , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
         , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
         , (SELECT COUNT(id) from autoEvaluation as AE2 where AE2.id_resultat = R.id) as nbAutoEval
+        , (SELECT DATE_FORMAT(MAX(AE3.dateReponse), '%d/%m/%Y') from autoEvaluation as AE3 where AE3.id_resultat = R.id) as dateDerReponse
         , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
         , ( select GROUP_CONCAT(N.libelle) as classeNom
             FROM classeNom as N, cif_resultat_classeNom as C

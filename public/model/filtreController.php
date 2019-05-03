@@ -7,7 +7,7 @@ $isActionDefinie = isset($_POST['action']);
 
 if ($isActionDefinie) {
     switch ($_POST['action']) {
-        
+
         case "refreshResultats":
             $AutoEvalManager = new ResultatManager();
             $results = $AutoEvalManager->getResultatsList($_POST['idProf'], $_POST['nbLimit'], $_POST['isAfficheUniquementEnCours']);
@@ -32,7 +32,14 @@ if ($isActionDefinie) {
             header('Content-Type: application/json');
             echo json_encode($reponse);
             break;
+
+        default:
+            $isActionDefinie = false;
+            
     }
-} else {
-    //?? Heeeeueuuuu
+}
+
+
+if(!$isActionDefinie){
+    header("Location: " . $_SERVER['PHP_SELF']);
 }
