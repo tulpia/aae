@@ -35,9 +35,11 @@ class QuestionnaireManager extends Manager{
      *
      * @return void
      */
-    public function getQuestionnaires($idProf){
+    public function getQuestionnaires($idProf, $nbLimit = 0){
+        $nbLimit = (int)$nbLimit;
+        
         $db = $this->dbConnect();
-        $questionnaires = $db->prepare("
+        $query = "
         select id, titre
         ,(select C.libelle from classe as C where C.id = Q.id_classe) as niveau
         ,(select M.libelle from matiere as M where M.id = Q.id_matiere) as matiere
@@ -45,9 +47,17 @@ class QuestionnaireManager extends Manager{
         from questionnaire as Q
         where id_users = ?
         and is_softDelete = 0
-        order by titre");
+        order by Q.dateCreation DESC";
 
-        $questionnaires->execute(array($idProf));
+        if($nbLimit > 0){
+            $query .= "\nLIMIT " . $nbLimit;
+        }
+
+
+        $questionnaires = $db->prepare($query);
+        
+
+        $questionnaires->execute([$idProf]);
 
         return $questionnaires;
     }
