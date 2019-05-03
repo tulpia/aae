@@ -134,6 +134,10 @@
                     box-shadow 250ms linear;
         }
 
+        &.is-archive {
+            opacity: 0.5;
+        }
+
         .questions-container__title-container {
             width: 100%;
             display: flex;
