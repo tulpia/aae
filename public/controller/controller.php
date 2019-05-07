@@ -414,3 +414,36 @@ function do_sendPasswordResetMail($eMail){
     $UserManager = new UserManager();
     return $UserManager->sendPasswordResetMail($eMail);
 }
+
+
+
+/**
+ * Affiche le détail du résultat
+ *
+ * @param  mixed $idResultat
+ *
+ * @return void
+ */
+function show_resultatDetail($idResultat){
+    $idResultat = (int)$idResultat;
+
+    $resultatManager = new ResultatManager();
+    $resultatInfosBase = $resultatManager->getResultatInfosBase($idResultat);
+    $resultatStats = $resultatManager->getStatsResultat($idResultat);
+    require('view/resultatDetailView.php');
+}
+
+
+
+/**
+ * Archive ou rouvre une autoévaluation
+ *
+ * @param  mixed $idResultat
+ * @param  mixed $isArchive
+ *
+ * @return void
+ */
+function do_archiverResultat($idResultat, $isArchive){
+    $resultatManager = new ResultatManager();
+    $resultatManager->changeArchiverResultat($idResultat, $isArchive);
+}

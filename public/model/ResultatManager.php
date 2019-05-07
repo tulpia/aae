@@ -40,7 +40,7 @@ class ResultatManager extends Manager{
     public function getResultatsList($idProf, $nbLimit, $isAfficheUniquementEnCours){
 
         $db = $this->dbConnect();
-        $query = "select R.id, R.is_archive
+        $query = "SELECT R.id, R.is_archive
         , R.titre, DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
         , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
         , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
@@ -79,38 +79,88 @@ class ResultatManager extends Manager{
      *
      * @return void
      */
-    public function getResultats($idResultat){
+    public function getResultatInfosBase($idResultat){
 
         $db = $this->dbConnect();
-        $query = "select R.id, R.is_archive
-        , R.titre
-        , DATE_FORMAT(dateCreation, '%d/%m/%Y') as dateCreation
-        , DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
-        , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
-        , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
-        , (SELECT COUNT(id) from autoEvaluation as AE2 where AE2.id_resultat = R.id) as nbAutoEval
-        , (SELECT DATE_FORMAT(MAX(AE3.dateReponse), '%d/%m/%Y') from autoEvaluation as AE3 where AE3.id_resultat = R.id) as dateDerReponse
-        , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
-        , ( select GROUP_CONCAT(N.libelle) as classeNom
+        $resultat = $db->prepare(
+            "SELECT R.id, R.is_archive
+            , R.titre, R.is_commentairePermis
+            , DATE_FORMAT(dateCreation, '%d/%m/%Y') as dateCreation
+            , DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+            , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
+            , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
+            , COUNT(AE.id) as nbAutoEval
+            , DATE_FORMAT(MAX(AE.dateReponse), '%d/%m/%Y') as dateDerReponse
+            , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
+            , ( select GROUP_CONCAT(N.libelle SEPARATOR ' ') as classeNom
             FROM classeNom as N, cif_resultat_classeNom as C
             WHERE N.id = C.id_classeNom
             and C.id_resultat = R.id) as ClasseNom
-        , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
-        from resultat as R
-        where id = ?\n";
-                
-        
-        $resultats = $db->prepare($query);
-        $resultats->execute([$idResultat]);
+            , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
+            , GROUP_CONCAT(AE.commentaire SEPARATOR '<br>') as commentaires
+            from resultat as R
+            join autoEvaluation as AE ON R.id = AE.id_resultat
+            where R.id = ?");
+                      
+        $resultat->execute([$idResultat]);
 
-        return $resultats->fetch();
+        return $resultat->fetch();
     }
 
 
 
-    public function getStatsResultat($idResultats){
+    /**
+     * Retourne les stats d'un résultat, moyenne incluse
+     *
+     * @param  mixed $idResultat
+     *
+     * @return void
+     */
+    public function getStatsResultat($idResultat){
         $db = $this->dbConnect();
-        $result = $db->prepare("");
+
+        //Récupère le nombre d'autoévaluation répondues pour ce résultat afin d'alléger la requête suivante
+        $count = $db->prepare("SELECT COUNT(id) FROM autoEvaluation WHERE isRepondu = 1 AND id_resultat = ?");
+        $count->execute([(int)$idResultat]);
+
+        $nbRepondu = $count->fetch();
+        $nbRepondu = (int)$nbRepondu > 0 ? (int)$nbRepondu : 1;
+        
+        $count->closeCursor();
+
+
+
+        //Récupère les lignes de stat et fait un UNION pour récupérer dans la même requête la moyenne des résultats
+        //Attention ne prend en compte que les répondus, les pourcentages ne compatbilisent pas les non répondus
+        $stats = $db->prepare(
+            "SELECT Q.quantieme, Q.libelle
+            , (COUNT(CASE WHEN Q.reponse = 0 THEN 1 END) * 100) / :nbRepondu AS MoinsMoins
+            , (COUNT(CASE WHEN Q.reponse = 10 THEN 1 END) * 100) / :nbRepondu AS Moins
+            , (COUNT(CASE WHEN Q.reponse = 20 THEN 1 END) * 100) / :nbRepondu AS Plus
+            , (COUNT(CASE WHEN Q.reponse = 30 THEN 1 END) * 100) / :nbRepondu AS PlusPlus
+            FROM autoEvaluation as AE
+            join autoEvaluation_question as Q on Q.id_autoEvaluation = AE.id
+            WHERE AE.id_resultat = :idResultat
+            group by Q.quantieme, Q.libelle
+            
+            UNION
+            
+            SELECT '' as id, 'Moyenne' as libelle
+            , (COUNT(CASE WHEN Q.reponse = 0 THEN 1 END) * 100) / :nbRepondu / MAX(Q.quantieme) AS MoinsMoins
+            , (COUNT(CASE WHEN Q.reponse = 10 THEN 1 END) * 100) / :nbRepondu / MAX(Q.quantieme) AS Moins
+            , (COUNT(CASE WHEN Q.reponse = 20 THEN 1 END) * 100) / :nbRepondu / MAX(Q.quantieme) AS Plus
+            , (COUNT(CASE WHEN Q.reponse = 30 THEN 1 END) * 100) / :nbRepondu / MAX(Q.quantieme) AS PlusPlus
+            from autoEvaluation_question as Q
+            join autoEvaluation as AE on AE.id = Q.id_autoEvaluation AND AE.id_resultat = :idResultat"
+            );
+
+            $stats->bindParam(":idResultat", $idResultat);
+            $stats->bindParam(":nbRepondu", $nbRepondu);
+
+            $stats->execute();
+
+            return $stats;
+
     }
 
 
@@ -181,6 +231,23 @@ class ResultatManager extends Manager{
 
     }
 
+
+
+
+    /**
+     * Archive ou desarchive le le résultat
+     *
+     * @param  mixed $idResultat
+     *
+     * @return void
+     */
+    public function changeArchiverResultat($idResultat, $isArchive){
+        $db = $this->dbConnect();
+        $update = $db->prepare("UPDATE resultat SET is_archive = :bool WHERE id = :id");
+        $update->bindParam(":bool", $isArchive);
+        $update->bindParam(":id", $idResultat);         
+        $update->execute();
+    }
 
 
 }
