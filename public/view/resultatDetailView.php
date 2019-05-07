@@ -150,7 +150,9 @@ endif;
     <input type="submit" value="Retour">
 </form>
 
-<form action="index.php" method="post">
+<!-- Peite entorse à la règle, ne passe pas par l'index.php sinon exporte le code HTML de la page
+dans le csv, obligé de rediriger vers une page vierge de HTML -->
+<form action="controller/downloadController.php" method="post">
     <input type="hidden" name="action" value="do_resultatExportCsv">
     <input type="hidden" name="idResultat" value=<?= $idResultat ?>>
     <input type="submit" value="Exporter en CSV">

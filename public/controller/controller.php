@@ -447,3 +447,9 @@ function do_archiverResultat($idResultat, $isArchive){
     $resultatManager = new ResultatManager();
     $resultatManager->changeArchiverResultat($idResultat, $isArchive);
 }
+
+
+function do_resultatExportCsv($idResultat){
+    $resultatManager = new ResultatManager();
+    $resultatManager->statExportCsv($idResultat);   
+}

@@ -250,4 +250,50 @@ class ResultatManager extends Manager{
     }
 
 
+
+
+    public function statExportCsv($idResultat){
+
+        $entete = $this->getResultatInfosBase($idResultat);
+        $stats = $this->getStatsResultat($idResultat);
+        $now = new DateTime();
+        $filename = $now->format('ymd-His') . '-' . trim(substr($entete['titre'],0,50)) . '.csv';
+        //$filename = "erixxxel.csv";
+
+        
+        $file = fopen('php://output','w');
+        
+        fputcsv($file, ["Informations générales"]);
+        fputcsv($file, [""]);
+        fputcsv($file, ["Titre", $entete['titre']]);
+        fputcsv($file, ["Matière", $entete['matiere']]);
+        fputcsv($file, ["Classe", $entete['classe'] . ' ' . $entete['ClasseNom'] . ' ' . $entete['optionCours']]);
+        fputcsv($file, ["Réponse", $entete['nbRepondu'] . '/' . $entete['nbAutoEval']]);
+        fputcsv($file, ["Envoyé le", $entete['dateCreation']]);
+        fputcsv($file, ["Visible le", $entete['dateAccessible']]);
+        fputcsv($file, ["Dernière réponse", $entete['dateDerReponse']]);
+        fputcsv($file, ["Etat", (bool)$entete['is_archive'] === true ? "Archivé" : "Ouvert"]);
+        fputcsv($file, [""]);
+        fputcsv($file, [""]);
+        fputcsv($file, ["","","","Statistiques"]);
+        fputcsv($file, ["","","","",":(",":|",":)",":D"]);
+        //fputcsv($file, ["", $entete['']]);
+
+        while ($row = $stats->fetch()) {
+            fputcsv($file, ["","", $row['quantieme'], $row['libelle'], round((float)$row['MoinsMoins'], 2), round((float)$row['Moins'], 2), round((float)$row['Plus'], 2), round((float)$row['PlusPlus'], 2)]);
+        }
+
+
+
+        header("Content-type: text/csv");
+        header("Cache-Control: no-store, no-cache");
+        header('Content-Disposition: attachment; filename="' . $filename .'"');
+
+        fclose($file);
+        
+    
+
+    }
+
+
 }

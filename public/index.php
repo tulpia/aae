@@ -147,7 +147,7 @@ try {
                 show_resultatDetail($_POST['idResultat']);
                 break;
 
-                
+           
             default:
                 $isActionDefinie = false;
         }
