@@ -449,7 +449,45 @@ function do_archiverResultat($idResultat, $isArchive){
 }
 
 
-function do_resultatExportCsv($idResultat){
-    $resultatManager = new ResultatManager();
-    $resultatManager->statExportCsv($idResultat);   
+/**
+ * Affiche le profil de l'enseignant
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+function show_profilProf($idUser){
+    require('view/profilProfView.php');
+}
+
+
+/**
+ * affiche le profil de l'élève
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+function show_profilEleve($idUser){
+    require('view/profilEleve.php');
+}
+
+
+/**
+ * Affiche la liste des professeurs
+ *
+ * @return void
+ */
+function show_listeProf(){
+    require('view/listeProfView.php');
+}
+
+
+/**
+ * Affiche la liste des élèves
+ *
+ * @return void
+ */
+function show_listeEleves(){
+    require('view/listeElevesView.php');
 }

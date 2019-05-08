@@ -147,7 +147,30 @@ try {
                 show_resultatDetail($_POST['idResultat']);
                 break;
 
-           
+
+            case "show_profilProf":
+                show_profilProf($_SESSION['idUser']);
+                break;
+
+
+            case "show_profilEleve":
+                show_profilEleve($_SESSION['idUser']);
+                break;
+
+
+            case "show_listeProf":
+                show_listeProf();
+                break;
+
+
+            case "show_listeEleves":
+                show_listeEleves();
+                break;
+
+
+
+
+
             default:
                 $isActionDefinie = false;
         }
