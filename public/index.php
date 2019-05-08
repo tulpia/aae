@@ -11,10 +11,9 @@ try {
         switch ($_POST['action']) {
 
             case "do_login":
-                if(do_login($_POST['login'], $_POST['pwd'], $_POST['isProf'])){
+                if (do_login($_POST['login'], $_POST['pwd'], $_POST['isProf'])) {
                     header("Location: " . $_SERVER['PHP_SELF']);
-                }
-                else{
+                } else {
                     show_login("Login ou mot de passe incorrect");
                 }
                 break;
@@ -124,20 +123,31 @@ try {
 
 
 
-            case "show_passwordForget":       
-            show_passwordForget("");
-            break;
+            case "show_passwordForget":
+                show_passwordForget("");
+                break;
 
 
             case "do_sendPasswordResetMail":
-            if(do_sendPasswordResetMail($_POST['eMail'])){
-                show_login("Le mail de réinitialisation a bien été envoyé à l'adresse " . $_POST['eMail'] . "<br>Pensez à regarder vos Spams");
-            }else{          
-                show_passwordForget("Mail invalide ou ne correspondant à aucun utilisateur dans l'application");
-            }
-            break;
+                if (do_sendPasswordResetMail($_POST['eMail'])) {
+                    show_login("Le mail de réinitialisation a bien été envoyé à l'adresse " . $_POST['eMail'] . "<br>Pensez à regarder vos Spams");
+                } else {
+                    show_passwordForget("Mail invalide ou ne correspondant à aucun utilisateur dans l'application");
+                }
+                break;
 
 
+            case "show_resultatDetail":
+                show_resultatDetail($_POST['idResultat']);
+                break;
+
+
+            case "do_archiverResultat":
+                do_archiverResultat($_POST['idResultat'], $_POST['isArchive']);
+                show_resultatDetail($_POST['idResultat']);
+                break;
+
+           
             default:
                 $isActionDefinie = false;
         }
@@ -160,9 +170,6 @@ try {
             show_login("");
         }
     }
-
-
-
 } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
     echo ('<br><br><br><br><a href="index.php">Retour à l\'accueil</a>');
