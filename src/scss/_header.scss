@@ -1,11 +1,10 @@
-// Header connected
-.header-connected {
+.entire-header-container {
     width: 100%;
-    position: relative;
     height: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 
     .header-connected__img-container {
         position: absolute;
@@ -17,6 +16,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1;
 
         img {
             height: 100%;
@@ -25,18 +25,60 @@
         }
     }
 
-    .header-connected__btn-deconnect {
+    .btn-home {
+        height: auto;
         position: relative;
-        padding: 20px 0;
-        padding-left: 60px;
-        cursor: pointer;
-        z-index: 100;
+        width: auto;
+        z-index: 2;
 
-        p {
-            font-family: $font-bold;
-            font-size: 14px;
-            color: white;
+        a {
+            display: block;
+            width: 45px;
+            height: 45px;
+            background: url('~@svg/icon-home.svg') no-repeat center;
+            background-size: 45px;
         }
+    }
+
+    // Header connected
+    .header-connected {
+        position: relative;
+        height: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+    
+        .header-connected__btn-deconnect {
+            position: relative;
+            padding: 20px 0;
+            cursor: pointer;
+            z-index: 100;
+    
+            form {
+                background: url('~@svg/icon-power.svg') no-repeat center;
+                background-size: 42px;
+                width: 42px;
+                height: 42px;
+
+                .btn-disconnect {
+                    width: 100%;
+                    height: 100%;
+                    visibility: hidden;
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    .account-container {
+        position: relative;
+        z-index: 2;
+        width: auto;
+        height: 100%;
+        align-items: center;
+        padding-left: 55px;
+        cursor: pointer;
 
         &:after {
             content: '';
@@ -46,33 +88,59 @@
             transform: translateY(-50%);
             background: url('~@svg/icon-account-alt.svg') no-repeat center;
             background-size: 35px;
-            width: 35px;
             height: 35px;
+            width: 35px;
         }
 
-        form {
+        >p {
+            font-family: $font-medium;
+            color: white;
+            font-size: 16px;
+        }
+
+        .account-view {
             position: absolute;
-            top: 100%;
+            top: 50px;
             left: 0;
-            width: auto;
-            height: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             transform: translateY(5px);
             opacity: 0;
-            transition: transform 250ms $curve,
+            transition: transform 250ms ease,
                         opacity 250ms linear;
-            pointer-events: none;
+
+            div {
+                form {
+                    width: 320px;
+
+                    @media (max-width: $mobile) {
+                        width: 100%;
+                    }
+                    input[type="submit"] {
+                        border: none;
+                        outline: none;
+                        width: 100%;
+                        padding: 20px 0px;
+                        padding-left: 25px;
+                        background: white;
+                        color: $color-blue;
+                        font-family: $font;
+                        font-size: 14px;
+                        cursor: pointer;
+                        text-align: left;
+
+                        @media (max-width: $mobile) {
+                            padding: 20px 25px;
+                        }
+                    }
+                }
+            }
         }
 
         &.active {
-            form {
+            .account-view {
                 transform: translateY(0px);
                 opacity: 1;
-                transition: transform 250ms $curve,
-                        opacity 250ms linear;
-                pointer-events: initial;
+                transition: transform 250ms ease,
+                            opacity 250ms linear;
             }
         }
     }
