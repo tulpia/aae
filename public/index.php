@@ -168,8 +168,27 @@ try {
                 break;
 
 
+            case "show_profDetailEdit":
+                show_profDetailEdit($_POST['idProf']);
+                break;
+
+            case "show_profDetailNew":
+                show_profDetailNew();
+                break;
 
 
+            case "do_updateProf":
+                do_updateProf($_POST['idProf'], $_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+                break;
+
+            case "do_createProf":
+                do_createProf($_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+                break;
+
+            case "do_deleteProf":
+                do_deleteProf($_POST['idProf']);
+                show_listeProf("L'utilisateur a bien été supprimé");
+                break;
 
             default:
                 $isActionDefinie = false;

@@ -196,11 +196,23 @@ class UserManager extends Manager
      *
      * @return void
      */
-    public function sendPasswordMail($eMail, $password){
+    public function sendPasswordMail($eMail, $password, $isPasswordForgot){
 
-        $subject = "Collège Saint Joseph de Matzenheim - Votre nouveau mot de passe";
+        $subject ="";
+        $message ="";
 
-        $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation " . $password;
+        if ($isPasswordForgot) {
+            $subject = "Collège Saint Joseph de Matzenheim - Votre nouveau mot de passe";
+            $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation " . $password;
+        }
+        else{
+            $subject = "Collège Saint Joseph de Matzenheim - Votre compte a été créé";
+            $message = "Vous avez désormais un compte pour l'application d'auto évaluation du collège Saint-Joseph de Matzenheim. 
+            La présente adresse mail vous servira de login et voici votre mot de passe : " . $password . "  Vous pourrez le changer
+            à tout moment depuis votre profil." ;
+        }
+
+
         $headers = "From : christian.bachmann@college-matzenheim.fr";
         try {
             return mail($eMail, $subject, $message, $headers);
@@ -227,7 +239,7 @@ public function sendPasswordResetMail($eMail){
         if($idUser > 0){
             $randomPassword = $this->generateStrongPassword(9,false,'luds');
 
-            if($this->sendPasswordMail($eMail,$randomPassword)){
+            if($this->sendPasswordMail($eMail,$randomPassword, true)){
                 $this->updateAndHashPassword($idUser,$randomPassword);
                 $isOk = true;
             }            
@@ -238,5 +250,264 @@ public function sendPasswordResetMail($eMail){
 
 }
 
+
+
+/**
+ * Retourne la liste des enseignants
+ *
+ * @return void
+ */
+public function getListProf(){
+    $db = $this->dbConnect();
+    $profs = $db->prepare(
+        "SELECT id, nomPrenom, login,is_admin
+        , (SELECT libelle FROM matiere as M where M.id = U.id_matiere) as matiere
+        FROM users_test as U
+        WHERE is_softDelete = 0
+        AND is_enseignant = 1
+        ORDER BY nomPrenom");
+
+    $profs->execute(); 
+
+    return $profs;
+}
+
+/**
+ * Retourne les infos du prof
+ *
+ * @param  mixed $idProf
+ *
+ * @return void
+ */
+public function getProf($idProf){
+    $db = $this->dbConnect();
+    $profs = $db->prepare(
+        "SELECT id, nomPrenom, login, is_admin, U.id_matiere
+        FROM users_test as U
+        WHERE is_softDelete = 0
+        AND is_enseignant = 1
+        AND id = ?");
+
+    $profs->execute([$idProf]);
+    
+    return $profs->fetch();
+}
+
+
+
+/**
+ * Retourne la liste des élèves d'une année scolaire donnée
+ *
+ * @param  mixed $anneeScolaire
+ *
+ * @return void
+ */
+public function getListEleves($anneeScolaire){
+    $db = $this->dbConnect();
+    $eleves = $db->prepare(
+        "SELECT U.id, U.login
+        , CONCAT(C.libelle, ' ', CN.libelle) as classe
+        , ( SELECT GROUP_CONCAT(O.libelle)
+            FROM optionCours as O, cif_eleve_optionCours as C
+            where C.id_optionCours = O.id
+            AND C.id_users = U.id) as optionCours
+        FROM users_test as U
+        JOIN classe as C on C.id = U.id_classe
+        JOIN classeNom as CN on CN.id = U.id_classeNom
+        WHERE U.is_softDelete = 0
+        AND U.is_enseignant = 0
+        AND U.anneeScolaire = ?
+        ORDER BY login"
+    );
+
+    $eleves->execute([$anneeScolaire]);
+    return $eleves;
+
+}
+
+
+/**
+ * Retourne les infos d'un élève
+ *
+ * @param  mixed $idEleve
+ *
+ * @return void
+ */
+public function getEleve($idEleve){
+    
+    $db = $this->dbConnect();
+    $eleves = $db->prepare(
+        "SELECT U.id, U.login, U.id_classe, U.id_classeNom
+        , ( SELECT GROUP_CONCAT(C.id_optionCours SEPARATOR ';')
+            FROM cif_eleve_optionCours as C
+            where  = C.id_users = U.id) as optionCours
+        FROM users_test as U
+        WHERE U.is_softDelete = 0
+        AND U.is_enseignant = 0");
+
+    $eleves->execute([$idEleve]);
+
+    return $eleves;
+}
+
+
+
+/**
+ * Retourne toutes les années scolaires où des élèves ont été enregistrés, avec l'année en cours comme valeur par défaut
+ *
+ * @return void
+ */
+public function getAnneeScolaireEleves(){
+    $db = $this->dbConnect();
+    $years = $db->prepare(
+        "SELECT DISTINCT anneeScolaire
+        FROM users_test
+        WHERE is_softDelete = 0
+        AND anneeScolaire > 0
+        
+        UNION
+        
+        SELECT YEAR(NOW()) as anneeScolaire
+        
+        ORDER BY anneeScolaire");
+
+        return $years->execute();
+}
+
+
+
+/**
+ * Met à jour le profil professeur
+ *
+ * @param  mixed $idProf
+ * @param  mixed $nomPrenom
+ * @param  mixed $login
+ * @param  mixed $isAdmin
+ * @param  mixed $idMatiere
+ *
+ * @return void
+ */
+public function updateProf($idProf,$nomPrenom, $login, $isAdmin, $idMatiere){
+    
+    $db = $this->dbConnect();
+    $update = $db->prepare(
+        "UPDATE users_test
+        SET nomPrenom = :nomPrenom
+        , login = :login
+        , is_admin = :isAdmin
+        , id_matiere = :idMatiere
+        WHERE id = :id"
+    );
+
+    $update->bindParam(":nomPrenom", $nomPrenom);
+    $update->bindParam(":login", $login);
+    $update->bindParam(":isAdmin", $isAdmin);
+    $update->bindParam(":idMatiere", $idMatiere);
+    $update->bindParam(":id", $idProf);
+
+    $update->execute();
+}
+
+
+
+/**
+ * Créé un nouveau profil de prof
+ *
+ * @param  mixed $nomPrenom
+ * @param  mixed $login
+ * @param  mixed $isAdmin
+ * @param  mixed $idMatiere
+ *
+ * @return void
+ */
+public function insertProf($nomPrenom, $login, $isAdmin, $idMatiere, $password){
+    
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $db = $this->dbConnect();
+    $insert = $db->prepare(
+        "INSERT INTO users_test
+        (nomPrenom, login, password, is_softDelete, is_enseignant, id_matiere, is_admin,dateCreation)
+        VALUES
+        (:nomPrenom, :login, :password, :is_softDelete, :is_enseignant, :id_matiere, :is_admin, NOW())"
+    );
+
+    $isSoftDelete = false;
+    $isEnseignant = true;
+
+    $insert->bindParam(":nomPrenom", $nomPrenom);
+    $insert->bindParam(":login", $login);
+    $insert->bindParam(":password", $hashedPassword);
+    $insert->bindParam(":is_softDelete", $isSoftDelete);
+    $insert->bindParam(":is_enseignant", $isEnseignant);
+    $insert->bindParam(":id_matiere", $idMatiere);
+    $insert->bindParam(":is_admin", $isAdmin);
+
+    $insert->execute();
+
+    return $db->lastInsertId();
+}
+
+
+
+
+/**
+ * Vérifie si le login n'a pas de doublon
+ * si $idUserExclu est renseigné, exclut l'utilisateur de la recherche
+ *
+ * @param  mixed $login
+ * @param  mixed $idUserExclu
+ *
+ * @return void
+ */
+public function isLoginLibre($login, $idUserExclu = 0){
+    $db = $this->dbConnect();
+    $doublons = $db->prepare(
+        "SELECT count(id) as nbDoublons
+        FROM users_test as U
+        WHERE login = :login
+        AND U.is_softDelete = 0
+        AND is_enseignant = 1
+        AND id != :idUserExclu"
+    );
+
+    if(isset($idUserExclu) && (int)$idUserExclu > 0){
+        $idUserExclu = (int)$idUserExclu;
+    }
+    else{
+        $idUserExclu = 0;
+    }
+    
+    $doublons->bindParam(":login", $login);
+    $doublons->bindParam(":idUserExclu", $idUserExclu);
+
+    $doublons->execute();
+
+    $result = $doublons->fetch();
+    $nbDoublons = (int)$result[0];
+
+    return ($nbDoublons === 0);
+
+}
+
+
+/**
+ * Suppression logique de l'utilisateur
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+public function deleteUser($idUser){
+    $db = $this->dbConnect();
+    $update = $db->prepare(
+        "UPDATE users_test
+        SET is_softDelete = 1
+        where id = ?"
+    );
+
+    $update->execute([$idUser]);
+}
 
 }

@@ -478,7 +478,9 @@ function show_profilEleve($idUser){
  *
  * @return void
  */
-function show_listeProf(){
+function show_listeProf($message = ""){
+    $userManager = new UserManager();
+    $listProfs = $userManager->getListProf();
     require('view/listeProfView.php');
 }
 
@@ -491,3 +493,109 @@ function show_listeProf(){
 function show_listeEleves(){
     require('view/listeElevesView.php');
 }
+
+
+
+function show_profDetailNew($message = ""){
+    $matiereManager = new MatiereManager();
+    $matieres = $matiereManager->getMatieres();
+    require('view/profDetailView.php');
+}
+
+
+function show_profDetailEdit($idProf, $message = ""){
+    $userManager = new UserManager();
+    $prof = $userManager->getProf($idProf);
+    $matiereManager = new MatiereManager();
+    $matieres = $matiereManager->getMatieres();
+
+    require('view/profDetailView.php');
+}
+
+
+/**
+ * Met à jour le profil d'un enseignant après avoir
+ *
+ * @param  mixed $idProf
+ * @param  mixed $nomPrenom
+ * @param  mixed $login
+ * @param  mixed $isAdmin
+ * @param  mixed $idMatiere
+ *
+ * @return void
+ */
+function do_updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere){
+    $isError = false;
+    $message = "";
+    
+    $login = strtolower($login);
+
+    $userManager = new UserManager();
+
+    //Verif si adresse mail valide
+    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+        $message = "Merci de saisir une adresse mail valide";
+        $isError = true;
+    }
+    elseif(!$userManager->isLoginLibre($login, $idProf)){
+        $message = "Il existe déjà un compte " . $login;
+        $isError = true;
+    }
+    
+    //Là tout s'est bien passé, on update les infos
+    if(!$isError){
+        $userManager->updateProf($idProf,$nomPrenom, $login, $isAdmin, $idMatiere);
+        $message = "Mise à jour effectuée";
+    }
+    
+    show_profDetailEdit($idProf, $message);
+    
+}
+
+
+function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere){
+
+    $isError = false;
+    $message = "";
+    
+    $login = strtolower($login);
+
+    $userManager = new UserManager();
+
+    //Verif si adresse mail valide
+    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+        $message = "Merci de saisir une adresse mail valide";
+        $isError = true;
+    }
+    elseif(!$userManager->isLoginLibre($login)){
+        $message = "Il existe déjà un compte " . $login;
+        $isError = true;
+    }
+    
+    //Là tout s'est bien passé, Passe à la suite
+    if(!$isError){
+        //Génère un password aléatoire fort
+        $password = $userManager->generateStrongPassword();
+        $password = "1234";
+
+        //L'envoie par mail à l'utilisateur
+        $userManager->sendPasswordMail($login, $password, false);
+        //Créé le prof en BDD
+        $idProf = $userManager->insertProf($nomPrenom,$login, $isAdmin,$idMatiere,$password);
+
+        //Affiche la page
+        show_profDetailEdit($idProf, "Le profil de " . $nomPrenom . " a bien été créé");
+    }
+    else{
+        show_profDetailNew($message);
+    }
+
+}
+
+
+function do_deleteProf($idProf){
+    $userManager = new UserManager();
+    $userManager->deleteUser($idProf);
+}
+
+
