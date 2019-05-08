@@ -70,15 +70,15 @@ require('view/headerUserView.php');
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_questionnaireDelete">
     <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
-    <label class="btn btn-detail">
+    <label class="btn btn-detail btn-supr">
         <input type="submit" value="Supprimer ce questionnaire">
     </label>
 </form>
 
 
 <section>
-    <h2>Questions</h2>
-    <table>
+    <h1>Questions</h1>
+    <table class="aae-table">
         <?php
         while ($question = $questions->fetch()) {
             //Au moins une question dans le tableau, on fait apparaître le bouton
@@ -93,7 +93,7 @@ require('view/headerUserView.php');
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_questionEdit">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
-                        <label class="btn btn-detail">
+                        <label class="btn-question-edit">
                             <input type="submit" value="Editer">
                          </label>
                     </form>
@@ -104,7 +104,7 @@ require('view/headerUserView.php');
                         <input type="hidden" name="action" value="do_questionDelete">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
                         <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
-                        <label class="btn btn-detail">
+                        <label class="btn-question-edit">
                             <input type="submit" value="Supprimer">
                         </label>
                     </form>
@@ -147,7 +147,7 @@ if ($isAuMoinsUneQuestion) {
 
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="show_questionnaireList">
-    <label class="btn btn-detail">
+    <label class="btn btn-detail btn-back">
         <input type="submit" value="Retour à la liste">
     </label>
 </form>

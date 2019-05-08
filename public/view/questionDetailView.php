@@ -17,8 +17,12 @@ require('view/headerUserView.php');
     <input type="hidden" name="idQuestion" value="<?=$question['id']?>">
     <input type="hidden" name="idQuestionnaire" value="<?=$question['id_questionnaire']?>">
     <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" value="<?=$question['libelle']?>" required>
-    <input type="submit" value="Enregistrer">
-    <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer">
+    </label>
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
+    </label>
 </form>
 
 <?php
@@ -29,9 +33,13 @@ require('view/headerUserView.php');
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_questionAdd">
     <input type="hidden" name="idQuestionnaire" value="<?=$idQuestionnaire?>">
-    <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" required>
-    <input type="submit" value="Enregistrer">
-    <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
+    <input type="text" name="libelle" id="" minlength="3" maxlength="200" size="80" required>4
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer">
+    </label>
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer et nouvelle question" name="saveAndOpenNew">
+    </label>
 </form>
 
 <?php
@@ -43,7 +51,9 @@ require('view/headerUserView.php');
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="show_questionnaireDetail">
     <input type="hidden" name="idQuestionnaire" value="<?= $isEdit?$question['id_questionnaire']:$idQuestionnaire?>">
-    <input type="submit" value="Retour au questionnaire">
+    <label class="btn btn-back btn-detail">
+        <input type="submit" value="Retour au questionnaire">
+    </label>
 </form>
 
 
