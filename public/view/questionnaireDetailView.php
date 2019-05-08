@@ -13,13 +13,13 @@ require('view/headerUserView.php');
     <input type="hidden" name="action" value="do_questionnaireUpdate">
     <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
 
-    <div>
+    <div class="input-row">
         <label for="QuestionnaireTitre">Titre</label>
         <input type="text" name="titre" id="QuestionnaireTitre" value="<?= $questionnaire['titre'] ?>" minlength="3" maxlength="200" size="80" required>
     </div>
 
 
-    <div>
+    <div class="input-row">
         <label for="questionnaireClasse">Classe</label>
         <select name="idClasse" id="questionnaireClasse">
             <option value="0">- Aucune -</option>
@@ -39,7 +39,7 @@ require('view/headerUserView.php');
     </div>
 
 
-    <div>
+    <div class="input-row">
         <label for="questionnaireMatiere">Matière</label>
         <select name="idMatiere" id="questionnaireMatiere">
 
@@ -57,9 +57,12 @@ require('view/headerUserView.php');
         </select>
     </div>
 
-
-    <input type="submit" value="Enregistrer le questionnaire">
-    <input type="submit" value="Enregistrer et créer un nouveau questionnaire" name="saveAndOpenNew">
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer le questionnaire">
+    </label>
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer et créer un nouveau questionnaire" name="saveAndOpenNew">
+    </label>
 </form>
 
 
@@ -67,7 +70,9 @@ require('view/headerUserView.php');
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_questionnaireDelete">
     <input type="hidden" name="idQuestionnaire" value="<?= $questionnaire['id'] ?>">
-    <input type="submit" value="Supprimer ce questionnaire">
+    <label class="btn btn-detail">
+        <input type="submit" value="Supprimer ce questionnaire">
+    </label>
 </form>
 
 
@@ -88,7 +93,9 @@ require('view/headerUserView.php');
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_questionEdit">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
-                        <input type="submit" value="Editer">
+                        <label class="btn btn-detail">
+                            <input type="submit" value="Editer">
+                         </label>
                     </form>
                 </td>
                 <td>
@@ -97,7 +104,9 @@ require('view/headerUserView.php');
                         <input type="hidden" name="action" value="do_questionDelete">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
                         <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
-                        <input type="submit" value="Supprimer">
+                        <label class="btn btn-detail">
+                            <input type="submit" value="Supprimer">
+                        </label>
                     </form>
                 </td>
             </tr>
@@ -113,7 +122,9 @@ require('view/headerUserView.php');
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="show_questionNew">
         <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
-        <input type="submit" value="ajouter une question">
+        <label class="btn btn-detail">
+            <input type="submit" value="ajouter une question">
+        </label>
     </form>
 
 </section>
@@ -124,7 +135,9 @@ if ($isAuMoinsUneQuestion) {
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="show_autoEvalDistribuer">
         <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
-        <input type="submit" value="Distribuer ce questionnaire">
+        <label class="btn btn-detail">
+            <input type="submit" value="Distribuer ce questionnaire">
+        </label>
     </form>
 <?php
 }
@@ -134,7 +147,9 @@ if ($isAuMoinsUneQuestion) {
 
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="show_questionnaireList">
-    <input type="submit" value="Retour à la liste">
+    <label class="btn btn-detail">
+        <input type="submit" value="Retour à la liste">
+    </label>
 </form>
 
 
