@@ -1,3 +1,12 @@
+.input-row{
+    margin: 15px 0;
+    display: flex;
+    label{
+        align-self: center;
+        margin-right: 10px;
+    }
+}
+
 .input-container {
     width: 100%;
     height: auto;
@@ -54,5 +63,147 @@
 
     &.input--text {
         margin-bottom: 40px;
+    }
+}
+
+select {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    background: $color-lightgrey;
+    border-bottom: 2px solid $color-blue;
+    border-radius: 7px 7px 0 0;
+    font-family: $font;
+    font-size: 14px;
+    color: $color-darkgrey;
+
+    option, option:disabled {
+        font-family: $font;
+        font-size: 14px;
+        color: $color-darkgrey;
+        border: none;
+    }
+}
+ input[type="text"]{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    background: $color-lightgrey;
+    border-bottom: 2px solid $color-blue;
+    border-radius: 7px 7px 0 0;
+    font-family: $font;
+    font-size: 14px;
+    color: $color-darkgrey;
+
+    option, option:disabled {
+        font-family: $font;
+        font-size: 14px;
+        color: $color-darkgrey;
+        border: none;
+    } 
+ }
+
+.filtre-questionnaire__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &.filtre-questionnaire {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $color-lightgrey;
+    }
+
+    .filtre-questionnaire__formulaire {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .formulaire__choix-quantite {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .formulaire__archive {
+            width: 40%;
+            position: relative;
+            font-family: $font;
+            font-size: 14px;
+            color: $color-darkgrey;
+            cursor: pointer;
+            padding-left: 30px;
+            
+            input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+
+            .checkmark {
+                position: absolute;
+                height: 18px;
+                width: 18px;
+                border: 2px solid $color-blue;
+                border-radius: 5px;
+                background: transparent;
+                top: -3px;
+                left: 0;
+                transition: background 150ms linear;
+
+                &:after {
+                    content: 'x';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 14px;
+                    color: $color-blue;
+                    opacity: 0;
+                    transition: opacity 150ms linear;
+                }
+            }
+
+            input:checked ~ .checkmark {
+
+                &:after {
+                    
+                    opacity: 1;
+                }
+            }        
+        }
+
+        .btn-submit--form {
+            outline: none;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+
+            input {
+                outline: none;
+                border: none;
+                width: 100%;
+                height: 100%;
+                padding: 20px 40px;
+                background: $color-blue;
+                font-family: $font-bold;
+                color: white;
+                text-transform: uppercase;
+                transition: background 150ms linear;
+                font-size: 14px;
+                letter-spacing: 1px;
+                cursor: pointer;
+                border-radius: 10px;
+
+                &:hover {
+                    background: $color-darkblue;
+                }
+            }
+        }
     }
 }

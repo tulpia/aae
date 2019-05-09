@@ -10,13 +10,13 @@ require('view/headerUserView.php');
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="do_questionnaireAdd">
 
-    <div>
+    <div class="input-row">
         <label for="QuestionnaireTitre">Titre</label>
         <input type="text" name="titre" id="QuestionnaireTitre" minlength="3" maxlength="200" size="80" required>
     </div>
 
 
-    <div>
+    <div class="input-row">
         <label for="questionnaireClasse">Classe</label>
         <select name="idClasse" id="questionnaireClasse">
             <option value="0">- Aucune -</option>
@@ -33,7 +33,7 @@ require('view/headerUserView.php');
     </div>
 
 
-    <div>
+    <div class="input-row">
         <label for="questionnaireMatiere">Matière</label>
         <select name="idMatiere" id="questionnaireMatiere">
 
@@ -50,8 +50,9 @@ require('view/headerUserView.php');
         </select>
     </div>
 
-
-    <input type="submit" value="Enregistrer">
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer">
+    </label>
 
 </form>
 
@@ -59,7 +60,9 @@ require('view/headerUserView.php');
 
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="show_questionnaireList">
-    <input type="submit" value="Annuler">
+    <label class="btn btn-supr">
+        <input type="submit" value="Annuler">
+    </label>
 </form>
 
 
