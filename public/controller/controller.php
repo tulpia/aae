@@ -485,15 +485,58 @@ function show_listeProf($message = ""){
 }
 
 
+
+
+
+
 /**
- * Affiche la liste des élèves
+ * Affiche la liste des élèves filtrés
+ *
+ * @return void
+ */
+function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation){
+    $classeManager = new ClasseManager();
+    $listClasse = $classeManager->getClasses();
+
+    $classeNomManager = new classeNomManager();
+    $listClasseNom = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $listOptionCours = $optioCoursManager->getOptionsCours();
+
+    $userManager = new UserManager();
+    $listAnneeScolaire = $userManager->getAnneeScolaireEleves();
+    $listDateCreation = $userManager->getDatesCreationEleves();
+
+        //Charge la liste des élèves uniquement filtrée par l'année scolaire en cours
+    $listEleve = $userManager->getListEleves($filterAnneScolaire,$filterLogin,$filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+
+    require('view/listeElevesView.php');
+
+}
+
+/**
+ * Affiche la liste des élèves avec les valeurs de filtre par défaut
  *
  * @return void
  */
 function show_listeEleves(){
-    require('view/listeElevesView.php');
-}
+    $filterLogin = "";
+    $filterIdClasse = 0;
+    $filterIdClasseNom = 0;
+    $filterIdOptionCours = 0;
+    $filterDateCreation = "1900-01-01";
 
+    //Si mois < juillet, sélectionne par défaut l'année précédent
+    $Now = new DateTime();
+    $filterAnneScolaire = (int)$Now->format('Y');
+    if((int)$Now->format('m') < 7){
+        $filterAnneScolaire--;
+    }
+
+
+    show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+}
 
 
 function show_profDetailNew($message = ""){
@@ -599,3 +642,6 @@ function do_deleteProf($idProf){
 }
 
 
+function show_detailEleve($idEleve){
+    require('view/detailEleveView.php');
+}

@@ -167,6 +167,15 @@ try {
                 show_listeEleves();
                 break;
 
+            case "show_listeElevesFilter":
+            show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation']);
+                break;
+
+
+            case "show_detailEleve":
+                show_detailEleve($_POST['idEleve']);
+                break;
+
 
             case "show_profDetailEdit":
                 show_profDetailEdit($_POST['idProf']);

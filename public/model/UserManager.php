@@ -295,34 +295,104 @@ public function getProf($idProf){
 
 
 
+
 /**
- * Retourne la liste des élèves d'une année scolaire donnée
+ * Retourne la liste des élèves d'une année selon des filtres
  *
  * @param  mixed $anneeScolaire
+ * @param  mixed $login
+ * @param  mixed $idClasse
+ * @param  mixed $idClasseNom
+ * @param  mixed $idOptionCours
+ * @param  mixed $dateCreation
  *
  * @return void
  */
-public function getListEleves($anneeScolaire){
+public function getListEleves($anneeScolaire, $login, $idClasse, $idClasseNom, $idOptionCours, $dateCreation){
     $db = $this->dbConnect();
-    $eleves = $db->prepare(
-        "SELECT U.id, U.login
-        , CONCAT(C.libelle, ' ', CN.libelle) as classe
-        , ( SELECT GROUP_CONCAT(O.libelle)
-            FROM optionCours as O, cif_eleve_optionCours as C
-            where C.id_optionCours = O.id
-            AND C.id_users = U.id) as optionCours
-        FROM users_test as U
-        JOIN classe as C on C.id = U.id_classe
-        JOIN classeNom as CN on CN.id = U.id_classeNom
-        WHERE U.is_softDelete = 0
-        AND U.is_enseignant = 0
-        AND U.anneeScolaire = ?
-        ORDER BY login"
-    );
 
-    $eleves->execute([$anneeScolaire]);
+    $login = trim($login);
+    $idClasse = (int)$idClasse;
+    $idClasseNom = (int)$idClasseNom;
+    $idOptionCours = (int)$idOptionCours;
+    $dateCreation = new DateTime($dateCreation); 
+
+
+    // $eleves = $db->prepare(
+    //     "SELECT U.id, U.login
+    //     , CONCAT(C.libelle, ' ', CN.libelle) as classe
+    //     , ( SELECT GROUP_CONCAT(O.libelle)
+    //         FROM optionCours as O, cif_eleve_optionCours as C
+    //         where C.id_optionCours = O.id
+    //         AND C.id_users = U.id) as optionCours
+    //     FROM users_test as U
+    //     JOIN classe as C on C.id = U.id_classe
+    //     JOIN classeNom as CN on CN.id = U.id_classeNom
+    //     WHERE U.is_softDelete = 0
+    //     AND U.is_enseignant = 0
+    //     AND U.anneeScolaire = ?
+    //     ORDER BY login"
+    // );
+
+
+    $query = "SELECT U.id, U.login
+    , CONCAT(C.libelle, ' ', CN.libelle) as classe
+    , ( SELECT GROUP_CONCAT(O.libelle)
+        FROM optionCours as O, cif_eleve_optionCours as C
+        where C.id_optionCours = O.id
+        AND C.id_users = U.id) as optionCours
+    , CONCAT(U.anneeScolaire, '-', U.anneeScolaire +1) as anneeScolaire
+    , DATE_FORMAT(U.dateCreation, '%d-%m-%Y %H:%i:%s') as dateCreation
+    FROM users_test as U
+    JOIN classe as C on C.id = U.id_classe
+    JOIN classeNom as CN on CN.id = U.id_classeNom
+    LEFT JOIN cif_eleve_optionCours as CIF on CIF.id_users = U.id
+    LEFT JOIN optionCours as O on O.id = CIF.id_optionCours
+    WHERE U.is_softDelete = 0
+    AND U.is_enseignant = 0
+    AND U.anneeScolaire = :anneeScolaire\n";
+        if($login != ""){
+            $query.= "AND U.login like :login\n";
+        }
+        if($idClasse > 0){
+            $query.= "AND U.id_classe = :idClasse\n";
+        }
+        if($idClasseNom > 0){
+            $query.= "AND U.id_classeNom = :idClasseNom\n";
+        }
+        if($idOptionCours > 0){
+            $query.= "AND O.id = :idOptionCours\n";
+        }
+        if($dateCreation > new DateTime('1900-1-1')){
+            $query.= "AND O.id = :dateCreation\n";
+        }
+
+        $query .= "GROUP BY U.id
+        ORDER BY login";
+
+    $eleves = $db->prepare($query);
+    $eleves->bindParam(":anneeScolaire", $anneeScolaire);
+
+    if($login != ""){
+        $likeLogin = $login."%";
+        $eleves->bindParam(":login", $likeLogin);
+    }
+    if($idClasse > 0){
+        $eleves->bindParam(":idClasse", $idClasse);
+    }
+    if($idClasseNom > 0){
+        $eleves->bindParam(":idClasseNom", $idClasseNom);
+    }
+    if($idOptionCours > 0){
+        $eleves->bindParam(":idOptionCours", $idOptionCours);
+    }
+    if($dateCreation > new DateTime('1900-1-1')){
+        $eleves->bindParam(":dateCreation", $dateCreation);
+    }
+
+
+    $eleves->execute();
     return $eleves;
-
 }
 
 
@@ -360,20 +430,41 @@ public function getEleve($idEleve){
 public function getAnneeScolaireEleves(){
     $db = $this->dbConnect();
     $years = $db->prepare(
-        "SELECT DISTINCT anneeScolaire
+        "SELECT DISTINCT anneeScolaire as valueYear, CONCAT(anneeScolaire, '-',anneeScolaire +1) as displayYear
         FROM users_test
         WHERE is_softDelete = 0
         AND anneeScolaire > 0
         
         UNION
         
-        SELECT YEAR(NOW()) as anneeScolaire
+        SELECT YEAR(NOW()) as valueYear, CONCAT(YEAR(NOW()), '-',YEAR(NOW()) +1) as displayYear
         
-        ORDER BY anneeScolaire");
+        ORDER BY valueYear DESC");
 
-        return $years->execute();
-}
+        $years->execute();
 
+        return $years;
+    }
+
+
+
+/**
+ * Récupère les dates de création des élèves
+ *
+ * @return void
+ */
+public function getDatesCreationEleves(){
+    $db = $this->dbConnect();
+    $dateCreas = $db->prepare(
+        'Select DISTINCT dateCreation as valueDate
+        , DATE_FORMAT(dateCreation, "%d-%m-%Y %H:%i:%s") as displayDate
+        from users_test
+        WHERE is_enseignant = 0
+        ORDER by dateCreation DESC');
+
+        $dateCreas->execute();
+        return $dateCreas;
+    }
 
 
 /**
