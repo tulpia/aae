@@ -11,3 +11,52 @@
         border-top: 1px solid #dee2e6;
     }
 }
+
+.smiley-table{
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 50px 0;
+    border-radius: .25rem;
+    text-align: left;
+    line-height: 40px;
+    
+    
+    th, 
+    td{
+        padding: .75rem;
+        vertical-align: top; 
+        border-top: 1px solid #dee2e6;       
+        
+        @media screen and (max-width: $mobile) {
+            float: left;
+            &.clear {clear: left;}
+        }
+
+        label {
+            > input[type="radio"]{
+                display: none;
+
+                + span {
+                    width: 36px;
+                    height: 36px;
+                    display: inline-block;
+                    vertical-align: middle;
+
+                    .a { fill: transparent; } // svg path surface
+                    .b { fill: $color-lightBlue; } // svg path outline
+                }
+
+                &:checked + span { 
+                    .b { fill: $color-blue; } // svg path outline
+                }
+            }
+        }
+
+        &:hover{ cursor: pointer; }        
+    }
+}
