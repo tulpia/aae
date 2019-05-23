@@ -642,6 +642,47 @@ function do_deleteProf($idProf){
 }
 
 
+
+function do_updateEleve($idEleve, $idClasse, $idClasseNom, array $arrayidOptionCours){
+    $userManager = new UserManager();
+    $userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $arrayidOptionCours);
+}
+
+function do_deleteEleve($idEleve){
+    $userManager = new UserManager();
+    $userManager->deleteEleve($idEleve);
+}
+
+
 function show_detailEleve($idEleve){
+    
+    $userManager = new UserManager();
+    $eleve = $userManager->getEleve($idEleve);
+    
+    $classeManager = new ClasseManager();
+    $classes = $classeManager->getClasses();
+
+    $classeNomManager = new ClasseNomManager();
+    $classeNoms = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $optionCours = $optioCoursManager->getOptionsCours();
+
     require('view/detailEleveView.php');
+}
+
+
+function show_ajoutEleves(){
+
+    $classeManager = new ClasseManager();
+    $classes = $classeManager->getClasses();
+
+    $classeNomManager = new ClasseNomManager();
+    $ClasseNoms = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $optionCours = $optioCoursManager->getOptionsCours();
+
+    require('view/ajoutEleveView.php');
+
 }

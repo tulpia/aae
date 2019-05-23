@@ -15,7 +15,7 @@ class ClasseManager extends Manager{
         
         $db = $this->dbConnect();
         $classes = $db->prepare(
-            "select id, libelle
+            "select *
             from classe
             where is_softDelete = 0
             order by id DESC"

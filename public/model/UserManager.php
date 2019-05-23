@@ -407,19 +407,74 @@ public function getEleve($idEleve){
     
     $db = $this->dbConnect();
     $eleves = $db->prepare(
-        "SELECT U.id, U.login, U.id_classe, U.id_classeNom
-        , ( SELECT GROUP_CONCAT(C.id_optionCours SEPARATOR ';')
-            FROM cif_eleve_optionCours as C
-            where  = C.id_users = U.id) as optionCours
+        "SELECT U.id, U.login, U.id_classe, U.id_classeNom, U.anneeScolaire
+        , GROUP_CONCAT(C.id_optionCours SEPARATOR ';') as optionCours
         FROM users_test as U
+        left join cif_eleve_optionCours as C on C.id_users = U.id
         WHERE U.is_softDelete = 0
-        AND U.is_enseignant = 0");
+        AND U.is_enseignant = 0
+        AND U.id = ?");
 
     $eleves->execute([$idEleve]);
 
-    return $eleves;
+    return $eleves->fetch();
 }
 
+
+/**
+ * Met à jour les infos de base de l'élève
+ *
+ * @param  mixed $idEleve
+ * @param  mixed $idClasse
+ * @param  mixed $idClasseNom
+ *
+ * @return void
+ */
+public function updateEleve($idEleve, $idClasse, $idClasseNom, array $arrayidOptionCours){
+    $db = $this->dbConnect();
+    
+    //Màj de base de l'élève
+    $update = $db->prepare("UPDATE users_test
+    SET id_classe = ?,
+    id_classeNom = ?
+    WHERE id = ?");
+    $update->execute([$idClasse, $idClasseNom, $idEleve]);
+
+    //Suppression des options de cours
+    $delete = $db->prepare("DELETE FROM cif_eleve_optionCours WHERE id_users = ?");
+    $delete->execute([$idEleve]);
+
+    //Insert des options de cours
+    if(count($arrayidOptionCours) > 0){
+    
+        $isFirstTime = true;
+
+        $sql = "INSERT INTO cif_eleve_optionCours (id_users, id_optionCours)
+        VALUES";
+        foreach ($arrayidOptionCours as $idOptionCours) {
+            if(!$isFirstTime){
+                $sql .= ',';
+            }else{
+                $isFirstTime = false;
+            }
+            $sql .= ' (' . (int)$idEleve . ', ' . (int)$idOptionCours .')';
+        }
+
+        $insert = $db->prepare($sql);
+        $insert->execute();
+    }
+}
+
+
+function deleteEleve($idEleve){
+    $db = $this->dbConnect();
+    
+    //Màj de base de l'élève
+    $update = $db->prepare("UPDATE users_test
+    SET is_softDelete = 1
+    WHERE id = ?");
+    $update->execute([$idEleve]);
+}
 
 
 /**

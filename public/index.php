@@ -168,7 +168,7 @@ try {
                 break;
 
             case "show_listeElevesFilter":
-            show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation']);
+                show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation']);
                 break;
 
 
@@ -197,6 +197,27 @@ try {
             case "do_deleteProf":
                 do_deleteProf($_POST['idProf']);
                 show_listeProf("L'utilisateur a bien été supprimé");
+                break;
+
+
+            case "do_updateEleve":
+                $arrayIdOptionCours = [];
+                if (isset($_POST['idOptionCours'])) {
+                    $arrayIdOptionCours = (array)$_POST['idOptionCours'];
+                }
+
+                do_updateEleve($_POST['idEleve'], $_POST['idClasse'], $_POST['idClasseNom'], $arrayIdOptionCours);
+                show_listeEleves();
+                break;
+
+            case "do_deleteEleve":
+                do_deleteEleve($_POST['idEleve']);
+                show_listeEleves();
+                break;
+
+
+            case "show_ajoutEleves":
+                show_ajoutEleves();
                 break;
 
             default:

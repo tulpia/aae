@@ -7,12 +7,19 @@ require('view/headerUserView.php');
 ?>
 
 <h1><?= $title ?></h1>
+<br><br>
+
+<!-- Ajout d'un élève -->
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="show_ajoutEleves">
+    <input type="submit" value="Ajouter des élèves">
+</form>
 
 
 <!-- Partie filtres -->
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="show_listeElevesFilter">
-    <p>Filtres</p>
+    <br><br><p>Filtres</p><br>
     <div>
         <label>Identifiant
             <input type="text" name="login" max="200" value="<?=$filterLogin?>">
@@ -91,8 +98,9 @@ require('view/headerUserView.php');
 
 
 <div>
+<br><br>
     <p><?= $listEleve->rowCount() . " élève" . ($listEleve->rowCount() !== 1 ? "s" : "") ?></p>
-
+    <br>
     <table>
         <thead>
             <th>Identifiant</th>
