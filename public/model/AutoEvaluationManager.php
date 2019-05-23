@@ -63,7 +63,7 @@ class AutoEvaluationManager extends Manager{
     public function getAutoEvaluationsEleve(int $idEleve){
         $db = $this->dbConnect();
         $autoEvals = $db->prepare("
-        SELECT A.id, A.id_resultat, R.titre
+        SELECT A.id, A.id_resultat, A.isRepondu, A.dateReponse, R.titre
         , (select M.libelle from matiere as M where M.id = R.id_matiere) as matiere
         , (select P.nomPrenom from users_test as P where P.id = R.id_users) as prof
         , (select COUNT(*) FROM autoEvaluation_question as Q where Q.id_autoEvaluation = A.id) as nbQuestions
@@ -72,7 +72,6 @@ class AutoEvaluationManager extends Manager{
         join resultat as R on R.id = A.id_resultat
         where A.id_users = ?
         and R.dateAccessible <= NOW()
-        and isRepondu = 0
         ");
 
         $autoEvals->execute([$idEleve]);

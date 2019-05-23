@@ -1,5 +1,6 @@
 .title-list {
-    margin: 00px 0 20px 0;
+    padding-top: 50px;
+    margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 1px solid $color-grey;
 
@@ -16,7 +17,6 @@
     height: auto;
     align-items: center;
     position: relative;
-    margin-bottom: 50px;
 
     &:after {
         content: '';
@@ -116,112 +116,165 @@
 
 .list-questions__container {
     width: 100%;
+}
 
-    .question-container {
-        width: 100%;
-        background: $color-lightgrey;
-        height: auto;
-        padding: 35px 25px 25px 25px;
-        cursor: pointer;
-        transform: translateY(0px);
+.question-container {
+    width: 100%;
+    background: $color-lightgrey;
+    height: auto;
+    padding: 35px 25px 25px 25px;
+    cursor: pointer;
+    transform: translateY(0px);
+    transition: transform 250ms $curve, 
+                box-shadow 250ms linear;
+
+    &:hover {
+        box-shadow: 0px 6px 6px -4px rgba(0,0,0,0.25);
+        transform: translateY(-10px);
         transition: transform 250ms $curve, 
-                    box-shadow 250ms linear;
+                box-shadow 250ms linear;
+    }
 
-        &:hover {
-            box-shadow: 0px 6px 6px -4px rgba(0,0,0,0.25);
-            transform: translateY(-10px);
-            transition: transform 250ms $curve, 
-                    box-shadow 250ms linear;
+    &.is-archive {
+        opacity: 0.5;
+    }
+
+    .questions-container__title-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        .question-container__title {
+            font-family: $font-bold;
+            color: $color-black;
+            font-size: 15px;
+            margin-bottom: 15px;
+            width: 60%;
+            line-height: 1.4;
         }
 
-        &.is-archive {
-            opacity: 0.5;
+        .questions-container__btn-editer {
+            height: 60px;
+            width: 60px;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            .btn-editer {
+                width: 100%;
+                height: 100%;
+                display: block;
+                background: white;
+                border-radius: 50%;
+                
+                .btn-editer-text {
+                    opacity: 0;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 50px;
+                    height: 50px;
+                    background: url('~@svg/icon-fleche-alt.svg') no-repeat center;
+                    background-size: 25px;
+                }
+            }
+        }
+    }
+
+
+    .question-container__details {
+        width: 100%;
+        margin-bottom: 20px;
+
+        p {
+            font-family: $font;
+            color: $color-darkgrey;
+            font-size: 14px;
+
+            &.details__matiere {
+                margin-bottom: 10px;
+            }
+
+            &.details__date {
+                position: relative;
+                padding-left: 30px;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    background: url('~@svg/icon-hour-alt.svg') no-repeat center;
+                    background-size: 17px;
+                    width: 20px;
+                    height: 20px;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    &.auto-eval {
+        background: $color-blue;
+        padding: 30px 25px 30px 25px;
+
+        p {
+            color: white !important;
         }
 
         .questions-container__title-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-
             .question-container__title {
-                font-family: $font-bold;
-                color: $color-black;
-                font-size: 15px;
-                margin-bottom: 15px;
-                width: 60%;
-                line-height: 1.4;
+                margin-bottom: 10px;
             }
 
             .questions-container__btn-editer {
-                height: 60px;
-                width: 60px;
-                position: absolute;
-                right: 0;
-                top: 0;
-
                 .btn-editer {
-                    width: 100%;
-                    height: 100%;
-                    display: block;
-                    background: white;
-                    border-radius: 50%;
-                    
-                    .btn-editer-text {
-                        opacity: 0;
-                    }
-
                     &:after {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
+                        background: url('~@svg/icon-fleche-eleve.svg') no-repeat center;
+                        background-size: 25px;
                         width: 50px;
                         height: 50px;
-                        background: url('~@svg/icon-fleche-alt.svg') no-repeat center;
-                        background-size: 25px;
                     }
                 }
             }
         }
-
 
         .question-container__details {
-            width: 100%;
-            margin-bottom: 20px;
-
-            p {
-                font-family: $font;
-                color: $color-darkgrey;
-                font-size: 14px;
-
-                &.details__matiere {
-                    margin-bottom: 10px;
-                }
-
-                &.details__date {
-                    position: relative;
-                    padding-left: 30px;
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        left: 0;
-                        transform: translateY(-50%);
-                        background: url('~@svg/icon-hour-alt.svg') no-repeat center;
-                        background-size: 17px;
-                        width: 20px;
-                        height: 20px;
-                        opacity: 0.7;
-                    }
-                }
+            margin-bottom: 0px;
+            .details__matiere {
+                margin-bottom: 20px;
             }
         }
+    }
 
-        &:not(:last-child) {
-            margin-bottom: 15px;
+    &.expired {
+        background: $color-lightBlue;
+
+        p {
+            color: $color-blue !important;
+        }
+
+        .questions-container__btn-editer {
+            .btn-editer {
+                background: transparent;
+                &:after {
+                    background: url('~@svg/icon-fleche-eleve.svg') no-repeat center;
+                    background-size: 25px;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
         }
     }
 }
@@ -257,129 +310,6 @@
 
         input {
             opacity: 0;
-        }
-    }
-}
-
-.filtre-questionnaire__container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    &.filtre-questionnaire {
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid $color-lightgrey;
-    }
-
-    .filtre-questionnaire__formulaire {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-
-        .formulaire__choix-quantite {
-            width: 100%;
-            margin-bottom: 25px;
-
-            select {
-                width: 100%;
-                border: none;
-                outline: none;
-                padding: 15px 20px;
-                background: $color-lightgrey;
-                border-bottom: 2px solid $color-blue;
-                border-radius: 7px 7px 0 0;
-                font-family: $font;
-                font-size: 14px;
-                color: $color-darkgrey;
-
-                option, option:disabled {
-                    font-family: $font;
-                    font-size: 14px;
-                    color: $color-darkgrey;
-                    border: none;
-                }
-            }
-        }
-
-        .formulaire__archive {
-            width: 40%;
-            position: relative;
-            font-family: $font;
-            font-size: 14px;
-            color: $color-darkgrey;
-            cursor: pointer;
-            padding-left: 30px;
-            
-            input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-                height: 0;
-                width: 0;
-            }
-
-            .checkmark {
-                position: absolute;
-                height: 18px;
-                width: 18px;
-                border: 2px solid $color-blue;
-                border-radius: 5px;
-                background: transparent;
-                top: -3px;
-                left: 0;
-                transition: background 150ms linear;
-
-                &:after {
-                    content: 'x';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    font-size: 14px;
-                    color: $color-blue;
-                    opacity: 0;
-                    transition: opacity 150ms linear;
-                }
-            }
-
-            input:checked ~ .checkmark {
-
-                &:after {
-                    
-                    opacity: 1;
-                }
-            }        
-        }
-
-        .btn-submit--form {
-            outline: none;
-            border: none;
-            text-align: center;
-            cursor: pointer;
-
-            input {
-                outline: none;
-                border: none;
-                width: 100%;
-                height: 100%;
-                padding: 20px 40px;
-                background: $color-blue;
-                font-family: $font-bold;
-                color: white;
-                text-transform: uppercase;
-                transition: background 150ms linear;
-                font-size: 14px;
-                letter-spacing: 1px;
-                cursor: pointer;
-                border-radius: 10px;
-
-                &:hover {
-                    background: $color-darkblue;
-                }
-            }
         }
     }
 }

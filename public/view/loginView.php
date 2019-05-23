@@ -6,7 +6,7 @@ ob_start();
 ?>
 <header class="block-header">
     <div class="block-header__img-container">
-        <img src="dist/images/bg-home.jpg" alt="background-home">
+        <img src="./view/dist/images/bg-home.jpg" alt="background-home">
     </div>
     <h1 class="block-header__title">Bienvenue sur l'application <span>d'auto évaluation</span></h1>
 </header>
