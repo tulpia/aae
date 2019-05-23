@@ -228,7 +228,7 @@ try {
                 show_ajoutEleves();
                 break;
 
-            case "do_updatePassword"
+            case "do_updatePassword" :
                 $messagePassword = do_updatePassword($_POST['idProf'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['newPasswordConfirm']);
                 show_profilProf($_POST['idProf'], "", $messagePassword);
                 break;
