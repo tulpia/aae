@@ -149,7 +149,7 @@ try {
 
 
             case "show_profilProf":
-                show_profilProf($_SESSION['idUser']);
+                show_profilProf($_SESSION['idUser'], "", "");
                 break;
 
 
@@ -187,7 +187,15 @@ try {
 
 
             case "do_updateProf":
-                do_updateProf($_POST['idProf'], $_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+                $message = do_updateProf($_POST['idProf'], $_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+
+                if (isset($_POST['nextAction']))
+                    if ($_POST['nextAction'] == 'show_profilProf') {
+                        show_profilProf($_POST['idProf'], $message, "");
+                    } else {
+                        show_profDetailEdit($_POST['idProf'], $message);
+                    }
+
                 break;
 
             case "do_createProf":
@@ -218,6 +226,11 @@ try {
 
             case "show_ajoutEleves":
                 show_ajoutEleves();
+                break;
+
+            case "do_updatePassword"
+                $messagePassword = do_updatePassword($_POST['idProf'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['newPasswordConfirm']);
+                show_profilProf($_POST['idProf'], "", $messagePassword);
                 break;
 
             default:

@@ -456,9 +456,49 @@ function do_archiverResultat($idResultat, $isArchive){
  *
  * @return void
  */
-function show_profilProf($idUser){
+function show_profilProf($idUser, $message, $messagePassword){
+    $matiereManager = new MatiereManager();
+    $matieres = $matiereManager->getMatieres();
+
+    $userManager = new UserManager();
+    $prof = $userManager->getProf($idUser);
+
     require('view/profilProfView.php');
 }
+
+
+/**
+ * Vérifie et met jour le password
+ *
+ * @param  mixed $idProf
+ * @param  mixed $currentPassword
+ * @param  mixed $newPassword
+ * @param  mixed $newPasswordConfirm
+ *
+ * @return string
+ */
+function do_updatePassword($idProf, $currentPassword, $newPassword, $newPasswordConfirm){
+
+    $messagePassword = "";
+    $isError = false;
+
+
+    //TODO : Verif Ancien Password
+
+    //TODO : trim + 8 Char min
+
+    //TODO : Verif Confirm password
+
+
+
+    if(!$isError){
+        $this.updateAndHashPassword($idProf, $newPassword);
+        $messagePassword = "Mise à jour effectuée";
+    }
+    return $messagePassword;
+}
+                
+
 
 
 /**
@@ -591,8 +631,7 @@ function do_updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere){
         $message = "Mise à jour effectuée";
     }
     
-    show_profDetailEdit($idProf, $message);
-    
+    return $message;    
 }
 
 
