@@ -5,7 +5,7 @@ require_once("Manager.php");
 
 class MatiereManager extends Manager{
     /**
-     * Retourne la liste des noms de classe
+     * Retourne la liste des matières
      *
      * @return void
      */

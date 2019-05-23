@@ -147,7 +147,79 @@ try {
                 show_resultatDetail($_POST['idResultat']);
                 break;
 
-           
+
+            case "show_profilProf":
+                show_profilProf($_SESSION['idUser']);
+                break;
+
+
+            case "show_profilEleve":
+                show_profilEleve($_SESSION['idUser']);
+                break;
+
+
+            case "show_listeProf":
+                show_listeProf();
+                break;
+
+
+            case "show_listeEleves":
+                show_listeEleves();
+                break;
+
+            case "show_listeElevesFilter":
+                show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation']);
+                break;
+
+
+            case "show_detailEleve":
+                show_detailEleve($_POST['idEleve']);
+                break;
+
+
+            case "show_profDetailEdit":
+                show_profDetailEdit($_POST['idProf']);
+                break;
+
+            case "show_profDetailNew":
+                show_profDetailNew();
+                break;
+
+
+            case "do_updateProf":
+                do_updateProf($_POST['idProf'], $_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+                break;
+
+            case "do_createProf":
+                do_createProf($_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
+                break;
+
+            case "do_deleteProf":
+                do_deleteProf($_POST['idProf']);
+                show_listeProf("L'utilisateur a bien été supprimé");
+                break;
+
+
+            case "do_updateEleve":
+                $arrayIdOptionCours = [];
+                if (isset($_POST['idOptionCours'])) {
+                    $arrayIdOptionCours = (array)$_POST['idOptionCours'];
+                }
+
+                do_updateEleve($_POST['idEleve'], $_POST['idClasse'], $_POST['idClasseNom'], $arrayIdOptionCours);
+                show_listeEleves();
+                break;
+
+            case "do_deleteEleve":
+                do_deleteEleve($_POST['idEleve']);
+                show_listeEleves();
+                break;
+
+
+            case "show_ajoutEleves":
+                show_ajoutEleves();
+                break;
+
             default:
                 $isActionDefinie = false;
         }
