@@ -449,7 +449,240 @@ function do_archiverResultat($idResultat, $isArchive){
 }
 
 
-function do_resultatExportCsv($idResultat){
-    $resultatManager = new ResultatManager();
-    $resultatManager->statExportCsv($idResultat);   
+/**
+ * Affiche le profil de l'enseignant
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+function show_profilProf($idUser){
+    require('view/profilProfView.php');
+}
+
+
+/**
+ * affiche le profil de l'élève
+ *
+ * @param  mixed $idUser
+ *
+ * @return void
+ */
+function show_profilEleve($idUser){
+    require('view/profilEleve.php');
+}
+
+
+/**
+ * Affiche la liste des professeurs
+ *
+ * @return void
+ */
+function show_listeProf($message = ""){
+    $userManager = new UserManager();
+    $listProfs = $userManager->getListProf();
+    require('view/listeProfView.php');
+}
+
+
+
+
+
+
+/**
+ * Affiche la liste des élèves filtrés
+ *
+ * @return void
+ */
+function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation){
+    $classeManager = new ClasseManager();
+    $listClasse = $classeManager->getClasses();
+
+    $classeNomManager = new classeNomManager();
+    $listClasseNom = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $listOptionCours = $optioCoursManager->getOptionsCours();
+
+    $userManager = new UserManager();
+    $listAnneeScolaire = $userManager->getAnneeScolaireEleves();
+    $listDateCreation = $userManager->getDatesCreationEleves();
+
+        //Charge la liste des élèves uniquement filtrée par l'année scolaire en cours
+    $listEleve = $userManager->getListEleves($filterAnneScolaire,$filterLogin,$filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+
+    require('view/listeElevesView.php');
+
+}
+
+/**
+ * Affiche la liste des élèves avec les valeurs de filtre par défaut
+ *
+ * @return void
+ */
+function show_listeEleves(){
+    $filterLogin = "";
+    $filterIdClasse = 0;
+    $filterIdClasseNom = 0;
+    $filterIdOptionCours = 0;
+    $filterDateCreation = "1900-01-01";
+
+    //Si mois < juillet, sélectionne par défaut l'année précédent
+    $Now = new DateTime();
+    $filterAnneScolaire = (int)$Now->format('Y');
+    if((int)$Now->format('m') < 7){
+        $filterAnneScolaire--;
+    }
+
+
+    show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+}
+
+
+function show_profDetailNew($message = ""){
+    $matiereManager = new MatiereManager();
+    $matieres = $matiereManager->getMatieres();
+    require('view/profDetailView.php');
+}
+
+
+function show_profDetailEdit($idProf, $message = ""){
+    $userManager = new UserManager();
+    $prof = $userManager->getProf($idProf);
+    $matiereManager = new MatiereManager();
+    $matieres = $matiereManager->getMatieres();
+
+    require('view/profDetailView.php');
+}
+
+
+/**
+ * Met à jour le profil d'un enseignant après avoir
+ *
+ * @param  mixed $idProf
+ * @param  mixed $nomPrenom
+ * @param  mixed $login
+ * @param  mixed $isAdmin
+ * @param  mixed $idMatiere
+ *
+ * @return void
+ */
+function do_updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere){
+    $isError = false;
+    $message = "";
+    
+    $login = strtolower($login);
+
+    $userManager = new UserManager();
+
+    //Verif si adresse mail valide
+    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+        $message = "Merci de saisir une adresse mail valide";
+        $isError = true;
+    }
+    elseif(!$userManager->isLoginLibre($login, $idProf)){
+        $message = "Il existe déjà un compte " . $login;
+        $isError = true;
+    }
+    
+    //Là tout s'est bien passé, on update les infos
+    if(!$isError){
+        $userManager->updateProf($idProf,$nomPrenom, $login, $isAdmin, $idMatiere);
+        $message = "Mise à jour effectuée";
+    }
+    
+    show_profDetailEdit($idProf, $message);
+    
+}
+
+
+function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere){
+
+    $isError = false;
+    $message = "";
+    
+    $login = strtolower($login);
+
+    $userManager = new UserManager();
+
+    //Verif si adresse mail valide
+    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+        $message = "Merci de saisir une adresse mail valide";
+        $isError = true;
+    }
+    elseif(!$userManager->isLoginLibre($login)){
+        $message = "Il existe déjà un compte " . $login;
+        $isError = true;
+    }
+    
+    //Là tout s'est bien passé, Passe à la suite
+    if(!$isError){
+        //Génère un password aléatoire fort
+        $password = $userManager->generateStrongPassword();
+        $password = "1234";
+
+        //L'envoie par mail à l'utilisateur
+        $userManager->sendPasswordMail($login, $password, false);
+        //Créé le prof en BDD
+        $idProf = $userManager->insertProf($nomPrenom,$login, $isAdmin,$idMatiere,$password);
+
+        //Affiche la page
+        show_profDetailEdit($idProf, "Le profil de " . $nomPrenom . " a bien été créé");
+    }
+    else{
+        show_profDetailNew($message);
+    }
+
+}
+
+
+function do_deleteProf($idProf){
+    $userManager = new UserManager();
+    $userManager->deleteUser($idProf);
+}
+
+
+
+function do_updateEleve($idEleve, $idClasse, $idClasseNom, array $arrayidOptionCours){
+    $userManager = new UserManager();
+    $userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $arrayidOptionCours);
+}
+
+function do_deleteEleve($idEleve){
+    $userManager = new UserManager();
+    $userManager->deleteEleve($idEleve);
+}
+
+
+function show_detailEleve($idEleve){
+    
+    $userManager = new UserManager();
+    $eleve = $userManager->getEleve($idEleve);
+    
+    $classeManager = new ClasseManager();
+    $classes = $classeManager->getClasses();
+
+    $classeNomManager = new ClasseNomManager();
+    $classeNoms = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $optionCours = $optioCoursManager->getOptionsCours();
+
+    require('view/detailEleveView.php');
+}
+
+
+function show_ajoutEleves(){
+
+    $classeManager = new ClasseManager();
+    $classes = $classeManager->getClasses();
+
+    $classeNomManager = new ClasseNomManager();
+    $ClasseNoms = $classeNomManager->getClasseNoms();
+
+    $optioCoursManager = new OptionCoursManager();
+    $optionCours = $optioCoursManager->getOptionsCours();
+
+    require('view/ajoutEleveView.php');
+
 }
