@@ -6,7 +6,9 @@ ob_start();
 
 require('view/headerUserView.php');
 ?>
-<h1><?= $title ?></h1>
+<article class="title-list">
+    <h1><?= $title ?></h1>
+</article>
 
 <!-- Form update du questionnaire -->
 <form action="index.php" method="POST">
@@ -56,6 +58,7 @@ require('view/headerUserView.php');
             ?>
         </select>
     </div>
+<div class="input-blank"></div>
 
     <label class="btn btn-detail">
         <input type="submit" value="Enregistrer le questionnaire">
@@ -75,6 +78,7 @@ require('view/headerUserView.php');
     </label>
 </form>
 
+<div class="input-blank"></div>
 
 <section>
     <h1>Questions</h1>
