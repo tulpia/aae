@@ -58,8 +58,8 @@ require('view/headerUserView.php');
         <br>
         <p>Changer de mot de passe</p>
 
-        <?php if (isset($PasswordMessage) && trim($PasswordMessage) != "") : ?>
-            <br><br><h3><?= $PasswordMessage ?></h3><br><br>
+        <?php if (isset($messagePassword) && trim($messagePassword) != "") : ?>
+            <br><br><h2><?= $messagePassword ?></h2><br>
         <?php endif; ?>
 
         <div>

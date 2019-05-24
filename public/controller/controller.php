@@ -479,20 +479,28 @@ function show_profilProf($idUser, $message, $messagePassword){
  */
 function do_updatePassword($idProf, $currentPassword, $newPassword, $newPasswordConfirm){
 
+    $userManager = new UserManager();
+
     $messagePassword = "";
     $isError = false;
 
 
-    //TODO : Verif Ancien Password
-
-    //TODO : trim + 8 Char min
-
-    //TODO : Verif Confirm password
-
-
-
+    //Verif Ancien Password
+    if ($userManager->isPasswordMatch($idProf,$currentPassword) === false){
+        $isError = true;
+        $messagePassword .= "L'ancien mot de passe est érroné";
+    }// Vérif 8 caractères minimum
+    elseif(strlen(trim($newPassword)) < 8 ){
+        $isError = true;
+        $messagePassword .= "Le nouveau mot de passe doit faire 8 caractères minimum";
+    }// Confirmation du nouveau password
+    elseif( $newPassword != $newPasswordConfirm ){
+        $isError = true;
+        $messagePassword .= "Mauvaise confirmation du nouveau mot de passe";
+    }
+    
     if(!$isError){
-        $this.updateAndHashPassword($idProf, $newPassword);
+        $userManager->updateAndHashPassword($idProf, $newPassword);
         $messagePassword = "Mise à jour effectuée";
     }
     return $messagePassword;

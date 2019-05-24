@@ -91,6 +91,31 @@ class UserManager extends Manager
     }
 
 
+    
+    /**
+     * Vérifie si le password du user matche
+     *
+     * @param  mixed $idProf
+     * @param  mixed $password
+     *
+     * @return void
+     */
+    public function isPasswordMatch($idProf, $password){
+        $return = false;
+        
+        $db = $this->dbConnect();
+        $passwordDb = $db->prepare("SELECT password from users_test where id = ?");
+        $passwordDb->execute([$idProf]);
+
+        $result = $passwordDb->fetch();
+        if(isset($result) && $result != null && isset($result['password'])){
+            $return = password_verify($password, $result['password'] );
+        }
+
+        return $return;
+    }
+
+
 
     /**
      * Retourne le 1er id de l'utilisateur actif lié à cette adresse mail
