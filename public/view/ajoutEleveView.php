@@ -2,13 +2,13 @@
 $title = 'Ajouter des élèves';
 ob_start();
 
-require('view/headerUserView.php');
+require('./view/headerUserView.php');
 ?>
 
 <h1><?= $title ?></h1>
 <br>
 
-<form action="index.php" method="post">
+<form action="./model/ajoutController.php" method="post" class="formulaireAjoutEleves">
 
     <div>
         <p>Année Scolaire</p>
@@ -36,7 +36,7 @@ require('view/headerUserView.php');
     <div>
         <br>
         <p>Fichier élève</p>
-        <input type="file" name="" id="" accept=".csv, .xls, .xlsx" required />
+        <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required />
     </div>
 
     <br>
