@@ -8,27 +8,30 @@ require('view/headerUserView.php');
 ?>
 
 <section>
+<article class="title-list">
     <h1><?= $title ?></h1>
+</article>
+   
     <br>
 
     <?php include("message.php"); ?>
 
     <?php while ($row = $listProfs->fetch()) : ?>
 
-        <article>
+        <article class="question-container little">
             <div>
-                <p><?= htmlspecialchars($row['nomPrenom']) ?></p>
+                <p class="question-container__title"><?= htmlspecialchars($row['nomPrenom']) ?></p>
                 <form action="index.php" method="post">
                     <input type="hidden" name="action" value="show_profDetailEdit">
                     <input type="hidden" name="idProf" value="<?= htmlspecialchars($row['id']) ?>">
-                    <label>
+                    <label class="btn-link">
                         <input type="submit" value="Voir">
                     </label>
                 </form>
             </div>
-            <section>
-                <p><?= htmlspecialchars($row['matiere']) ?> <span><?= (bool)$row['is_admin'] === true ? "Administrateur" : ""; ?></span></p>
-                <p><?= htmlspecialchars($row['login']) ?></p>
+            <section class="question-container__details listing">
+                <p class="details__classe"><?= htmlspecialchars($row['matiere']) ?> <span><?= (bool)$row['is_admin'] === true ? "Administrateur" : ""; ?></span></p>
+                <p class="details__classe"><?= htmlspecialchars($row['login']) ?></p>
             </section>
             <br>
         </article>
@@ -39,7 +42,9 @@ require('view/headerUserView.php');
     <div>
         <form action="index.php" method="POST">
             <input type="hidden" name="action" value="show_profDetailNew">
-            <input type="submit" value="Créer un nouvel enseignant">
+            <label class="btn btn-detail">
+                <input type="submit" value="Créer un nouvel enseignant">
+            </label>
         </form>
     </div>
 

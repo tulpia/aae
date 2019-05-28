@@ -23,8 +23,10 @@ ob_start();
 //Le header de l'utilisateur qui permet de retourner à l'accueil ou de se déconnecter (à faire)
 require('view/headerUserView.php');
 ?>
-
+<article class="title-list">
 <h1><?= $title ?></h1>
+</article>
+
 
 <?php include("message.php");?>
 
@@ -47,27 +49,26 @@ require('view/headerUserView.php');
 
 <?php endif; ?>
 
-    <div>
-
-        <label>Nom complet
+    <div class="input-row">
+        <label class="w-100">Nom complet
             <input type="text" name="nomPrenom" value="<?= $nom ?>" required>
         </label>
     </div>
-    <div>
-        <label>E-mail (sert d'identifiant)
+    <div class="input-row">
+        <label class="w-100">E-mail (sert d'identifiant)
             <input type="text" name="login" value="<?= $login ?>" required>
         </label>
     </div>
 
-    <div>
-        <label>
+    <div class="input-row">
+        <label class="w-100">
             <input type="checkbox" name="isAdmin" <?= $isAdmin ? "checked" : "" ?>>
             Administrateur
         </label>
     </div>
 
-    <div>
-        <label>Matière
+    <div class="input-row">
+        <label class="w-100">Matière
             <select name="idMatiere" required>
                 <?php while ($row = $matieres->fetch()) : ?>
                     <option value="<?= htmlspecialchars($row['id']) ?>"<?= ($row['id'] == $idMatiere) ? " selected" : "" ?>><?= htmlspecialchars($row['libelle']) ?></option>
@@ -76,22 +77,27 @@ require('view/headerUserView.php');
         </label>
     </div>
 
-
-    <input type="submit" value="Enregistrer">
+    <label class="btn btn-detail">
+        <input type="submit" value="Enregistrer">
+    </label>    
 
 </form>
 
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_deleteProf">
     <input type="hidden" name="idProf" value="<?= htmlspecialchars($idProf) ?>">
-    <input type="submit" value="Supprimer cet utilisateur">
+    <label class="btn btn-detail btn-supr">
+        <input type="submit" value="Supprimer cet utilisateur">
+    </label>
 </form>
 
 
 
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="show_listeProf">
-    <input type="submit" value="Retour">
+    <label class="btn btn-detail btn-back">
+        <input type="submit" value="Retour">
+    </label>
 </form>
 
 

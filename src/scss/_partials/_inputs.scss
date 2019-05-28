@@ -76,6 +76,7 @@ select {
     border-radius: 7px 7px 0 0;
     font-family: $font;
     font-size: 14px;
+    margin-top: 5px;
     color: $color-darkgrey;
 
     option, option:disabled {
@@ -96,6 +97,7 @@ select {
     font-family: $font;
     font-size: 14px;
     color: $color-darkgrey;
+    margin-top:5px;
 
     option, option:disabled {
         font-family: $font;
