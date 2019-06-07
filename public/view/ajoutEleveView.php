@@ -36,7 +36,7 @@ require('./view/headerUserView.php');
     <div>
         <br>
         <p>Fichier élève</p>
-        <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required />
+        <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required/>
     </div>
 
     <br>
