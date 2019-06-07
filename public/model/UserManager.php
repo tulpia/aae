@@ -445,6 +445,39 @@ public function getEleve($idEleve){
     return $eleves->fetch();
 }
 
+public function getLastLoginEleve($anneeScolaire){
+
+    $db = $this->dbConnect();
+    $result = $db->prepare("SELECT SUBSTR(max(login), 4) as derLogin FROM users_test WHERE is_enseignant = 0 AND is_softDelete = 0 AND anneeScolaire = ?");
+    $result->execute([$anneeScolaire]);
+
+    $lastLogin = $result->fetch();
+    return (int)$lastLogin;
+}
+
+public function createEleve($anneeScolaire, $id) {
+    $db = $this->dbConnect();
+    
+    // Generation du login
+    $login = substr($anneeScolaire, 2) . '-' . $id;
+
+    $insertEleve = $db->prepare(
+        "INSERT INTO users_test
+        (nomPrenom, login, is_softDelete, anneeScolaire, is_enseignant, dateCreation)
+        VALUES
+        (:nomPrenom, :login, :is_softDelete, :anneeScolaire, :is_enseignant, NOW())"
+    );
+
+    $insertEleve->execute(array(
+        ":nomPrenom" => $login,
+        ":login" => $login,
+        ":is_softDelete" => false,
+        ":anneeScolaire" => $anneeScolaire,
+        ":is_enseignant" => false
+    ));
+
+    return $db->lastInsertId();
+}
 
 /**
  * Met à jour les infos de base de l'élève
