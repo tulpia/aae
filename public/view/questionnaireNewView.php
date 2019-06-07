@@ -24,8 +24,8 @@ require('view/headerUserView.php');
             <?php
             while ($row = $classes->fetch()) {
                 $id = htmlspecialchars($row['id']);
-                $libelle = htmlspecialchars($row['libelle']);
-                echo ('<option value="' . $id . '">' . $libelle . '</option>');
+                $libelle = htmlentities($row['libelle']);
+                echo ('<option value="' . $id . '">' . $row['libelle'] . '</option>');
             }
             ?>
 
