@@ -10,6 +10,8 @@ require_once('UserManager.php');
 - Export CSV des élèves Ok et des élèves erreur
 - Feedback utilisateur
 - Virer la limite d'ajout de 3 users pour la mise en prod
+- Si import accidentel en BDD, faire la requête suivante pour tout virer sauf les users de test :
+DELETE FROM `users_test` WHERE id > 6
 */
 
 // FAITE UN BACKUP DE LA BDD AVANT D'EXECUTER CETTE FONCTION
@@ -48,7 +50,7 @@ $csv = array_map('str_getcsv', file($file['tmp_name']));
 
 //Itération sur chaque ligne du fichier
 foreach ($csv as $k => $csvRow) {
-    if ($k < 3) {
+    if ($k < 66666) {
 
         // Declaration des variables
         $idClasse = false;
@@ -76,47 +78,50 @@ foreach ($csv as $k => $csvRow) {
             }
         }
 
-      
+
+
+
+
+         //Récupère les options en toutes lettres du csv dans cet array
+         $options = [];
+         for ($m = 3; $m < 7; $m++) {
+             if (!empty($csvRow[$m])) {
+                 $options[] = strtoupper($csvRow[$m]);
+             }
+         }
+
+         //Vérifie les options cours du CSV et les compare avec la BDD -> insère leur Id dans le tableau  
+         $optionsEleveEnCours = [];
+         foreach ($options as $optionCsv) {
+             foreach ($arrayOptions as $optionBdd) {
+                 if (strtoupper($optionBdd['libelle']) == $optionCsv){
+                     $optionsEleveEnCours[] = $optionBdd['id'];
+                     break;
+                 }
+             }
+         }
+         //Compare la longueur des 2 tableaux, si la même on a tout trouvé en BDD, sinon erreur
+         $isOptionsOk = (count($optionsEleveEnCours) === count($options));
+
+
+        
+
+
 
         //Si la classe et le nom correspondent à la BDD, bingo, on récupère les options et on créé l'élève
-        //Achtung pas de vérification poussée sur les options, si elles sont fausses tant pis.
-        if (isset($idClasse) && isset($idClasseNom)) {
+        if ($idClasse !== false && $idClasseNom !== false && $isOptionsOk) {
 
-            //Récupère les options en toutes lettres du csv dans cet array
-            $options = [];
-            for ($m = 3; $m < 7; $m++) {
-                if (!empty($csvRow[$m])) {
-                    $options[] = strtoupper($csvRow[$m]);
-                }
-            }
+           
 
-            //Vérifie les options cours du CSV et les compare avec la BDD -> insère leur Id dans le tableau
-            $optionsEleveEnCours = [];
-            foreach ($options as $optionCsv) {
-                foreach ($arrayOptions as $optionBdd) {
-                    if (strtoupper($optionBdd['libelle']) == $optionCsv){
-                        $optionsEleveEnCours[] = $optionBdd['id'];
-                        break;
-                    }
-                }
-            }
-
-
-
-            // foreach ($arrayOptions as $key => $value) {
-            //     for ($l = 0; $l < count($options); $l++) {
-            //         if (strtoupper($value['libelle']) == $options[$l]) {
-            //             $optionsEleveEnCours[] = $value['id'];
-            //             break;
-            //         }
-            //     }
-            // }
-            
 
             //Création de l'élève et de ses options de cours s'il en a
 
             //Création du nouveau login
-            $NewLogin = substr($annee, 2) . '-' . ++$lastLoginEleve;
+            $loginPlus = strval(++$lastLoginEleve);
+            while (strlen($loginPlus) < 4) {
+                $loginPlus = "0" . $loginPlus;
+            }
+            $NewLogin = substr($annee, 2) . '-' . $loginPlus;
 
             $newEleve = new \StdClass();
             $newEleve->login = $NewLogin;
@@ -141,8 +146,6 @@ foreach ($csv as $k => $csvRow) {
 //$elevesOkToCsv->FonctionMagiqueQuiFaitDuCsv();
 // /!\ /!\ /!\ /!\ /!\ /!\
 // =======================
-var_dump($elevesOkToCsv);
-die();
 
  // =======================
  // /!\ /!\ /!\ /!\ /!\ /!\
@@ -151,14 +154,20 @@ die();
  // /!\ /!\ /!\ /!\ /!\ /!\
  // =======================
 
+ $msgFeedback = "Terminé !\n" . count($elevesOkToCsv) . ' élèves importés correctement\n' . count($elevesErrorToCsv) . ' élèves en erreur';
 // =======================
  // /!\ /!\ /!\ /!\ /!\ /!\
  //TODO : Feedback opération terminée et télécharger les CSV
  // /!\ /!\ /!\ /!\ /!\ /!\
  // =======================
 
+
+
 $reponse = new \StdClass();
 $reponse->code = 200;
 
 header('Content-Type: application/json');
 echo json_encode($reponse);
+
+//header('Location: index.php');
+
