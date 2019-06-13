@@ -40,11 +40,14 @@ require('./view/headerUserView.php');
 
     <div>
         <label class="btn btn-submit">
-            <input class="btn btn-submit" type="submit" value="Ajouter les élèves">
+            <input class="btn-submit--real" type="submit" value="Ajouter les élèves">
             <div class="loading-container loading-container--submit">
                 <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                     <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
                 </svg>
+            </div>
+            <div class="upload-ok">
+                <p>Done !</p>
             </div>
         </label>
     </div>
@@ -58,6 +61,25 @@ require('./view/headerUserView.php');
             </div>
         </div>
     </form>
+    <div class="oh-shit__container">
+        <p>Vous avez fait une erreur lors de la soumission de votre fichier .csv ? Vous voulez revenir en arrière ?<br>Cliquez sur le bouton ci-dessous.</p>
+        <form action="./controller/ohShitController.php">
+            <label class="btn btn-submit btn-error">
+                <input type="submit" value="'oh shit' button">
+                <div class="loading-container loading-container--submit">
+                    <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                </div>
+                <div class="upload-ok">
+                    <p>Done !</p>
+                </div>
+                <div class="feedback-container">
+                    <p></p>
+                </div>
+            </label>
+        </form>
+    </div>
     <div>
                 <br><br>
                 <article class="title-list">

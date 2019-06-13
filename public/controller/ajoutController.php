@@ -4,29 +4,32 @@ require_once('../model/ClasseNomManager.php');
 require_once('../model/OptionCoursManager.php');
 require_once('../model/UserManager.php');
 
+// On enlève les notices pour éviter que le return du json ne soit pollué par celles-ci
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 /* TODOS :
-- Après l'import : Vider l'input file, vu que le bouton d'import est Fat je les vois bien cliquer à nouveau dessus par Erreur
-- Bouton "CSV Elèves ok" en Vert tape à l'oeil et rajouter des tirets entre les mots (ex: EXPORT-ELEVE-2018.CSV)
+- Après l'import : Vider l'input file, vu que le bouton d'import est Fat je les vois bien cliquer à nouveau dessus par Erreur - DONE
+- Bouton "CSV Elèves ok" en Vert tape à l'oeil et rajouter des tirets entre les mots (ex: EXPORT-ELEVE-2018.CSV) - DONE
 - Faire apparaître en dessous de ce bouton en ROUGE le texte suivant:
     "Pour des soucis de confidentialité aucun nom d'élève ne sera enregistré en base de données.
     Téléchargerez ce fichier contenant la correspondance entre le nom et le matricule de chaque élève
-    Ce fichier est STRICTEMENT CONFIDENTIEL et ne POURRA JAMAIS ETRE REEDITE, gardez le en lieu sûr.
+    Ce fichier est STRICTEMENT CONFIDENTIEL et ne POURRA JAMAIS ETRE REEDITE, gardez le en lieu sûr. - DONE
 
 - Bouton "Erreur" en rouge et rajouter des tirets entre les mots
 - En dessous bouton d'erreur ajouter un texte (couleur noire) :
     "Certains élèves n'ont pas pu être importés suite à une erreur sur le fichier.
-    Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau."
+    Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau." - DONE
 
 - (Celui là vient de me revenir et il sera plus chiant désolé)
 Trouver un moyen de virer les CSV du serveur (ou de les crééer à la volée)
 Car on n'est pas censé stocker sur le serveur la correspondance
-entre le matricule et le nom des élèves.
+entre le matricule et le nom des élèves. - DONE JE CROIS JE SUIS PAS SUR A TESTER
 
 - A part ça, super bon taf \^o^/
 
 - Si import accidentel en BDD, faire la requête suivante dans PHP my Admin
     DELETE FROM users_test WHERE id > 6; DELETE FROM cif_eleve_optionCours where id_users > 6
-  permet de tout virer sauf les users de test :
+  permet de tout virer sauf les users de test : - DONE (voir le ohShitController.php)
 
 */
 
@@ -167,8 +170,11 @@ $reponse->links = [];
 // Exportation d'un csv avec la correspondance matricule - Nom Prénom
 
 // Ouverture et création d'un fichier csv dans le dossier public
-$fileNameEleve = 'exportEleve' . $annee . '.csv';
-$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/aae/public' . '/' . $fileNameEleve, 'w');
+// ATTENTION : Enlever la ligne public au moment de la mise en ligne
+
+$fileNameEleve = 'EXPORT-ELEVES-' . $annee . '.csv';
+$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameEleve, 'w');
+$messageFileEleve = 'Pour des soucis de confidentialité aucun nom d\'élève ne sera enregistré en base de données. Téléchargerez ce fichier contenant la correspondance entre le nom et le matricule de chaque élève. Ce fichier est STRICTEMENT CONFIDENTIEL et ne POURRA JAMAIS ETRE REEDITE, gardez le en lieu sûr.';
 
 // Boucle sur l'array des élèves
 foreach ($elevesOkToCsv as $fields) {
@@ -176,23 +182,51 @@ foreach ($elevesOkToCsv as $fields) {
 }
 fclose($fp);
 
+$arrayTempEleve = [
+    'name'  =>  $fileNameEleve,
+    'message'   =>  $messageFileEleve,
+    'error' =>  false
+];
+
+$fileRejet = $_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameEleve;
+
+// Fonction pour retirer le csv du serveur
+$filesCsv = glob($_SERVER['DOCUMENT_ROOT'] . "/public/*.csv");
+$now   = time();
+
+foreach ($filesCsv as $file) {
+  if (is_file($file)) {
+    if ($now - filemtime($file) >= 60 * 60 * 24 * 2) { // 2 days
+      unlink($file);
+    }
+  }
+}
+
 // Ajout du path du fichier dans la reponse json renvoyée
-$reponse->links[] = $fileNameEleve;
+$reponse->links[] = $arrayTempEleve;
 
 // =======================
 // Exportation d'un csv avec les erreurs
 if (count($elevesErrorToCsv) > 1) {
-    $fileNameErrors = 'exportEleveErrors.csv';
-    $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/aae/public' . '/' . $fileNameErrors, 'w');
+    $fileNameErrors = 'EXPORT-ERRORS' . $annee '.csv';
+    $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameErrors, 'w');
+    $messageFileErrors = "Certains élèves n'ont pas pu être importés suite à une erreur sur le fichier.
+    Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau.";
     
     // Boucle sur l'array des erreurs
     foreach ($elevesErrorToCsv as $fields) {
         fputcsv($fileError, get_object_vars($fields));
     }
     fclose($fileError);
+
+    $arrayTempErrors = [
+        'name'  =>  $fileNameErrors,
+        'message'   =>  $messageFileErrors,
+        'error' =>  true
+    ];
     
     // Ajout du path du fichier dans la reponse json renvoyée
-    $reponse->links[] = $fileNameErrors;
+    $reponse->links[] = $arrayTempErrors;
 }
 
 $msgFeedback = "Terminé ! " . count($elevesOkToCsv) . ' élèves importés correctement, ' . count($elevesErrorToCsv) . ' élèves en erreur';

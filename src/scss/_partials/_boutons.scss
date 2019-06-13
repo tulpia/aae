@@ -90,6 +90,14 @@
             }
         }
     }
+
+    &.btn-error {
+        background: $color-red;
+        
+        &:hover{
+            background: $color-darkred;
+        }
+    }
 }
 .btn-question-edit{
     height: 25px;
