@@ -4,14 +4,14 @@ ob_start();
 
 require('./view/headerUserView.php');
 ?>
-
-<h1><?= $title ?></h1>
-<br>
+<article class="title-list">
+    <h1><?= $title ?></h1>
+</article>
 
 <form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves">
 
-    <div>
-        <p>Année Scolaire</p>
+    <div class="input-row">
+        <label>Année Scolaire</label>
         <select name="anneeScolaire">
 
             <?php
@@ -42,20 +42,20 @@ require('./view/headerUserView.php');
     <br>
     <div>
         <input type="submit" value="Ajouter les élèves">
-        <span style="color: red;"><- Have Fun Alec ;)</span>
-    </div>
-</form>
-
-
-
-<div>
+        <span style="color: red;">
+            <- Have Fun Alec ;)</span>
+        </div>
+    </form>
+    <div>
                 <br><br>
-                <h2>Mode d'emploi</h2>
+                <article class="title-list">
+                    <h1>Mode d'emploi</h1>
+                </article>
                 <br>
-                <p>Structure du fichier élèves :</p>
+                <h1>Structure du fichier élèves :</h1>
                 <p>(ne pas inclure la ligne d'entête : Nom, Prénom, etc ...)</p>
                 <br>
-                <Table>
+                <Table class="aae-table">
                     <thead>
                         <th>Nom</th>
                         <th>Prénom</th>
@@ -93,39 +93,40 @@ require('./view/headerUserView.php');
 
                 <br><br><br>
                 <div>
-                    <p>Valeurs possibles des différents champs :</p>
+                    <h1>Valeurs possibles des différents champs :</h1>
                     <p>(Respectez l'orthographe et les espaces)</p>
+                    <div class="row-layout">
+                        <div class="col-listing">
+                            <br>
+                            <h2>Classes</h2>
+                            <ul>
+                                <?php while ($classe = $classes->fetch()) : ?>
+                                    <li><?= htmlspecialchars($classe['libelleImport']) ?></li>
+                                <?php endwhile ?>
+                            </ul>
+                        </div>
 
-                    <div>
-                        <br>
-                        <p>Classes</p>
-                        <ul>
-                            <?php while ($classe = $classes->fetch()) : ?>
-                                <li><?= htmlspecialchars($classe['libelleImport']) ?></li>
-                            <?php endwhile ?>
-                        </ul>
-                    </div>
+                        <div class="col-listing">
+                            <br>
+                            <h2>Nom de Classe</h2>
+                            <ul>
+                                <?php while ($classeNom = $ClasseNoms->fetch()) : ?>
+                                    <li><?= htmlspecialchars($classeNom['libelle']) ?></li>
+                                <?php endwhile ?>
+                            </ul>
+                        </div>
 
-                    <div>
-                        <br>
-                        <p>Nom de Classe</p>
-                        <ul>
-                            <?php while ($classeNom = $ClasseNoms->fetch()) : ?>
-                                <li><?= htmlspecialchars($classeNom['libelle']) ?></li>
-                            <?php endwhile ?>
-                        </ul>
-                    </div>
+                        
 
-
-
-                    <div>
-                        <br>
-                        <p>Options de cours</p>
-                        <ul>
-                            <?php while ($option = $optionCours->fetch()) : ?>
-                                <li><?= htmlspecialchars($option['libelle']) ?></li>
-                            <?php endwhile ?>
-                        </ul>
+                        <div class="col-listing">
+                            <br>
+                            <h2>Options de cours</h2>
+                            <ul>
+                                <?php while ($option = $optionCours->fetch()) : ?>
+                                    <li><?= htmlspecialchars($option['libelle']) ?></li>
+                                <?php endwhile ?>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>

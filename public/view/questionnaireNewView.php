@@ -4,8 +4,10 @@ ob_start();
 
 require('view/headerUserView.php');
 ?>
+<article class="title-list">
+    <h1><?= $title ?></h1>
+</article>
 
-<h1><?= $title ?></h1>
 
 <form action="index.php" method="post">
     <input type="hidden" name="action" value="do_questionnaireAdd">
