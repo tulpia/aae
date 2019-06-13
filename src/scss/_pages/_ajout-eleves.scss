@@ -1,0 +1,78 @@
+.formulaireAjoutEleves {
+    opacity: 1;
+    pointer-events: initial;
+
+    &.disabled {
+        opacity: 0.9;
+        pointer-events: none;
+    }
+}
+
+.input-file__container {
+    margin: 35px 0;
+
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+.links-container {
+    width: 100%;
+    margin-top: 35px;
+    display: none;
+
+    >p {
+        font-family: $font;
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    .links-container__links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            width: 48%;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: 0.2s;
+            background: $color-lightgrey;
+
+            @media (max-width: $mobile) {
+                width: 100%;
+                
+                &:first-child {
+                    margin-bottom: 15px;
+                }
+            }
+            
+            p {
+                width: 100%;
+                text-align: center;
+                padding: 25px 0;
+                border: none;
+                text-decoration: none;
+                color: $color-darkgrey;
+                font-family: $font-medium;
+                font-size: 14px;
+                text-transform: uppercase;
+                transition: 0.2s;
+                cursor: pointer;
+                letter-spacing: 1px;
+            }
+
+            &:hover {
+                background: $color-grey;
+            }
+        }
+    }
+
+    &.active {
+        display: block;
+    }
+}

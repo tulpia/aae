@@ -33,17 +33,29 @@ require('./view/headerUserView.php');
     </div>
 
 
-    <div>
-        <br>
+    <div class="input-container input-file__container">
         <p>Fichier élève</p>
         <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required />
     </div>
 
-    <br>
     <div>
-        <input type="submit" value="Ajouter les élèves">
-        <span style="color: red;">
-            <- Have Fun Alec ;)</span>
+        <label class="btn btn-submit">
+            <input class="btn btn-submit" type="submit" value="Ajouter les élèves">
+            <div class="loading-container loading-container--submit">
+                <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </div>
+        </label>
+    </div>
+        <div class="links-container">
+            <p class="feedback-container"></p>
+            <p>Vueillez télécharger les fichiers suivants :</p>
+            <div class="links-container__links">
+                <!-- <a href="">
+                    <p>Output.csv</p>
+                </a> -->
+            </div>
         </div>
     </form>
     <div>
