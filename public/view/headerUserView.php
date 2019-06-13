@@ -1,5 +1,4 @@
 <!-- Header user à incorporer sur quasi chaque page -->
-<div class="header-bg-blue"></div>
 
 <!-- //// Ca j'ai viré - David //// -->
 <!-- <header class="header-connected"> -->

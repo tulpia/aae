@@ -1,9 +1,11 @@
 .input-row{
     margin: 15px 0;
     display: flex;
+    justify-content: space-between;
     label{
         align-self: center;
         margin-right: 10px;
+        width: 13%;
     }
 }
 
@@ -70,14 +72,19 @@ select {
     width: 100%;
     border: none;
     outline: none;
-    padding: 15px 20px;
-    background: $color-lightgrey;
-    border-bottom: 2px solid $color-blue;
-    border-radius: 7px 7px 0 0;
+    padding: 10px 20px;
+    background: $input-bg;
+    border: 1px solid $color-lightgrey;
+    border-radius: 7px;
     font-family: $font;
     font-size: 14px;
     margin-top: 5px;
     color: $color-darkgrey;
+    transition: 0.2s;
+    &:focus{
+        background: white;
+        transition: 0.2s;
+    }
 
     option, option:disabled {
         font-family: $font;
@@ -86,18 +93,21 @@ select {
         border: none;
     }
 }
- input[type="text"]{
+ input[type="text"],
+ input[type="email"],
+ input[type="password"]{
     width: 100%;
     border: none;
     outline: none;
-    padding: 15px 20px;
-    background: $color-lightgrey;
-    border-bottom: 2px solid $color-blue;
-    border-radius: 7px 7px 0 0;
+    padding: 10px 20px;
+    background: $input-bg;
+    border: 1px solid $color-lightgrey;
+    border-radius: 7px;
     font-family: $font;
     font-size: 14px;
     color: $color-darkgrey;
     margin-top:5px;
+    transition: 0.2s;
 
     option, option:disabled {
         font-family: $font;
@@ -105,8 +115,21 @@ select {
         color: $color-darkgrey;
         border: none;
     } 
+    &:focus{
+        background: white;
+        transition: 0.2s;
+    }
  }
-
+ .input-row{
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="password"]{
+        width: 90%;
+        justify-content: flex-end;
+        display: flex;
+    }
+}
 .filtre-questionnaire__container {
     width: 100%;
     display: flex;
