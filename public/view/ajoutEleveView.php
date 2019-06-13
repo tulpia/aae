@@ -8,7 +8,9 @@ require('./view/headerUserView.php');
 <h1><?= $title ?></h1>
 <br>
 
-<form action="./model/ajoutController.php" method="post" class="formulaireAjoutEleves">
+<!-- <form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves"> -->
+<form action="index.php" method="post" class="formulaireAjoutEleves">
+    <input type="hidden" name="action" value="do_ajouterElevesBulk">
 
     <div>
         <p>Année Scolaire</p>
@@ -36,14 +38,19 @@ require('./view/headerUserView.php');
     <div>
         <br>
         <p>Fichier élève</p>
-        <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required/>
+        <input type="file" name="fichierEleves" id="fichierEleves" accept=".csv" required />
     </div>
 
     <br>
     <div>
         <input type="submit" value="Ajouter les élèves">
-        <span style="color: red;">
-            <- Have Fun Alec ;)</span> </div> </form> <div>
+        <span style="color: red;"><- Have Fun Alec ;)</span>
+    </div>
+</form>
+
+
+
+<div>
                 <br><br>
                 <h2>Mode d'emploi</h2>
                 <br>
@@ -111,7 +118,7 @@ require('./view/headerUserView.php');
                         </ul>
                     </div>
 
-                    
+
 
                     <div>
                         <br>

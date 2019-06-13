@@ -478,7 +478,7 @@ class UserManager extends Manager
         return $lastLoginInt;
     }
 
-    public function createEleve($anneeScolaire, $login)
+    private function createEleve_old($anneeScolaire, $login)
     {
         $db = $this->dbConnect();
 
@@ -500,6 +500,55 @@ class UserManager extends Manager
         ));
 
         return $db->lastInsertId();
+    }
+
+
+    public function createEleve($anneeScolaire, $login, $idClasse, $idClasseNom, $arrayidOptionCours)
+    {
+        $db = $this->dbConnect();
+
+        $insertEleve = $db->prepare(
+            "INSERT INTO users_test
+        (nomPrenom, login, is_softDelete, anneeScolaire, is_enseignant, dateCreation, id_classe, id_classeNom )
+        VALUES
+        (:nomPrenom, :login, :is_softDelete, :anneeScolaire, :is_enseignant, NOW(), :idClasse, :idClasseNom)"
+        );
+
+        $insertEleve->execute(array(
+            ":nomPrenom" => $login,
+            ":login" => $login,
+            ":is_softDelete" => false,
+            ":anneeScolaire" => $anneeScolaire,
+            ":is_enseignant" => false,
+            ":idClasse" => $idClasse,
+            ":idClasseNom" => $idClasseNom
+        ));
+
+        $idEleve = $db->lastInsertId();
+
+
+
+        //Insert des options de cours
+        if (count($arrayidOptionCours) > 0 && $idEleve > 0 ) {
+
+            $isFirstTime = true;
+
+            $sql = "INSERT INTO cif_eleve_optionCours (id_users, id_optionCours)
+        VALUES";
+            foreach ($arrayidOptionCours as $idOptionCours) {
+                if (!$isFirstTime) {
+                    $sql .= ',';
+                } else {
+                    $isFirstTime = false;
+                }
+                $sql .= ' (' . (int)$idEleve . ', ' . (int)$idOptionCours . ')';
+            }
+
+            $insert = $db->prepare($sql);
+            $insert->execute();
+        }
+
+
     }
 
     /**
