@@ -5,10 +5,25 @@ require_once('../model/OptionCoursManager.php');
 require_once('../model/UserManager.php');
 
 /* TODOS :
-- Export CSV des élèves Ok et des élèves erreur (j'ai préparé des array) - DONE 
-- Bloquer fenêtre pour éviter double clic quand import en cours (ça m'est arrivé faute de feedback) - DONE
-- Feedback utilisateur : Ajout en cours et ajout terminé - DONE
-- Une fois fini, navigation auto vers la liste des élèves - NOT POSSIBLE
+- Après l'import : Vider l'input file, vu que le bouton d'import est Fat je les vois bien cliquer à nouveau dessus par Erreur
+- Bouton "CSV Elèves ok" en Vert tape à l'oeil et rajouter des tirets entre les mots (ex: EXPORT-ELEVE-2018.CSV)
+- Faire apparaître en dessous de ce bouton en ROUGE le texte suivant:
+    "Pour des soucis de confidentialité aucun nom d'élève ne sera enregistré en base de données.
+    Téléchargerez ce fichier contenant la correspondance entre le nom et le matricule de chaque élève
+    Ce fichier est STRICTEMENT CONFIDENTIEL et ne POURRA JAMAIS ETRE REEDITE, gardez le en lieu sûr.
+
+- Bouton "Erreur" en rouge et rajouter des tirets entre les mots
+- En dessous bouton d'erreur ajouter un texte (couleur noire) :
+    "Certains élèves n'ont pas pu être importés suite à une erreur sur le fichier.
+    Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau."
+
+- (Celui là vient de me revenir et il sera plus chiant désolé)
+Trouver un moyen de virer les CSV du serveur (ou de les crééer à la volée)
+Car on n'est pas censé stocker sur le serveur la correspondance
+entre le matricule et le nom des élèves.
+
+- A part ça, super bon taf \^o^/
+
 - Si import accidentel en BDD, faire la requête suivante dans PHP my Admin
     DELETE FROM users_test WHERE id > 6; DELETE FROM cif_eleve_optionCours where id_users > 6
   permet de tout virer sauf les users de test :
@@ -131,7 +146,15 @@ foreach ($csv as $k => $csvRow) {
         //$userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $optionsEleveEnCours);
     } else {
         //Elèves en erreur
-        array_push($elevesErrorToCsv, $csvRow);
+        $newError = new \StdClass();
+        $newError->nom = $csvRow[0];
+        $newError->prenom = $csvRow[1];
+        $newError->classe = $csvRow[2];
+        $newError->optA = $csvRow[3];
+        $newError->optB = $csvRow[4];
+        $newError->optC = $csvRow[5];
+        $newError->optD = $csvRow[6];
+        array_push($elevesErrorToCsv, $newError);
     }
 }
 
@@ -145,7 +168,7 @@ $reponse->links = [];
 
 // Ouverture et création d'un fichier csv dans le dossier public
 $fileNameEleve = 'exportEleve' . $annee . '.csv';
-$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameEleve, 'w');
+$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/aae/public' . '/' . $fileNameEleve, 'w');
 
 // Boucle sur l'array des élèves
 foreach ($elevesOkToCsv as $fields) {
@@ -160,7 +183,7 @@ $reponse->links[] = $fileNameEleve;
 // Exportation d'un csv avec les erreurs
 if (count($elevesErrorToCsv) > 1) {
     $fileNameErrors = 'exportEleveErrors.csv';
-    $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameErrors, 'w');
+    $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/aae/public' . '/' . $fileNameErrors, 'w');
     
     // Boucle sur l'array des erreurs
     foreach ($elevesErrorToCsv as $fields) {
