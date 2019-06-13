@@ -8,9 +8,7 @@ require('./view/headerUserView.php');
 <h1><?= $title ?></h1>
 <br>
 
-<!-- <form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves"> -->
-<form action="index.php" method="post" class="formulaireAjoutEleves">
-    <input type="hidden" name="action" value="do_ajouterElevesBulk">
+<form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves">
 
     <div>
         <p>Année Scolaire</p>

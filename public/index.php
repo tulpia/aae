@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once('controller/ajoutController.php');
 require_once('controller/controller.php');
 
 
@@ -228,13 +227,7 @@ try {
                 show_ajoutEleves();
                 break;
 
-            case "do_ajouterElevesBulk":
-                //show_ajoutElevesWait();    
-                do_ajouterElevesBulk($_POST['anneeScolaire'], $_FILES['fichierEleves']);
-                show_listeEleves();
-                break;
-
-
+                
             case "do_updatePassword":
                 $messagePassword = do_updatePassword($_POST['idProf'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['newPasswordConfirm']);
                 show_profilProf($_POST['idProf'], "", $messagePassword);
