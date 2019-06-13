@@ -5,7 +5,10 @@ ob_start();
 
 require('view/headerUserView.php');
 ?>
-<h1><?=$title?></h1>
+<article class="title-list">
+    <h1><?=$title?></h1>
+</article>
+
 
 
 <?php
