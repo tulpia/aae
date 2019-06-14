@@ -39,6 +39,7 @@
         }
     }
     &.pwd{
+        display: none;
         &:after {
             content: '';
             position: absolute;
@@ -51,6 +52,10 @@
         }
         input{
             padding: 10px 35px;
+        }
+
+        &.active {
+            display: block;
         }
     }  
 }

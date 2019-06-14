@@ -27,8 +27,8 @@ ob_start();
             <input type="hidden" name="action" value="do_login">
             <input type="hidden" name="isProf" value="0">
             <div class="aae-radio">
-                <input type="radio" name="isProf" value="0" id="isprof0" checked><label for="isprof0">Je suis élève</label>
-                <input type="radio" name="isProf" value="1" id="isprof1"><label for="isprof1">Je suis enseignant</label>
+                <input type="radio" name="isProf" value="0" id="isprof0" class="eleveCheck" checked><label for="isprof0">Je suis élève</label>
+                <input type="radio" name="isProf" value="1" id="isprof1" class="profCheck"><label for="isprof1">Je suis enseignant</label>
             </div>
             <div class="input-container login">
                 <input type="text" name="login" placeholder="Identifiant" value="" class="input input--text">
