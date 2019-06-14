@@ -30,7 +30,7 @@
                         </form>
                     </div>
                     <!-- Accès liste des élève (admin)  -->
-                    <div>
+                    <div >
                         <form action="index.php" method="POST">
                             <input type="hidden" name="action" value="show_listeEleves">
                             <input type="submit" value="Liste des élèves">
@@ -40,7 +40,7 @@
     
             <?php else : ?>
                 <!-- Accès mon profil (élève)  -->
-                <div>
+                <div style="display: none;">
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_profilEleve">
                         <input type="submit" value="Mon profil"><!-- Enseignant -->

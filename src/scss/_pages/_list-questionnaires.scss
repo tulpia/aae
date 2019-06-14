@@ -187,6 +187,13 @@
                     transition: 0.2s;
                     background: $color-darkblue;
                 }
+                &.btn-editer__eleve {
+                    background:$color-white;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
             }
         }
     }
