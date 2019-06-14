@@ -173,7 +173,7 @@ $reponse->links = [];
 // ATTENTION : Enlever la ligne public au moment de la mise en ligne
 
 $fileNameEleve = 'EXPORT-ELEVES-' . $annee . '.csv';
-$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameEleve, 'w');
+$fp = fopen($_SERVER['DOCUMENT_ROOT'] . '/' . $fileNameEleve, 'w');
 $messageFileEleve = 'Pour des soucis de confidentialité aucun nom d\'élève ne sera enregistré en base de données. Téléchargerez ce fichier contenant la correspondance entre le nom et le matricule de chaque élève. Ce fichier est STRICTEMENT CONFIDENTIEL et ne POURRA JAMAIS ETRE REEDITE, gardez le en lieu sûr.';
 
 // Boucle sur l'array des élèves
@@ -188,10 +188,10 @@ $arrayTempEleve = [
     'error' =>  false
 ];
 
-$fileRejet = $_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameEleve;
+$fileRejet = $_SERVER['DOCUMENT_ROOT']  . '/' . $fileNameEleve;
 
 // Fonction pour retirer le csv du serveur
-$filesCsv = glob($_SERVER['DOCUMENT_ROOT'] . "/public/*.csv");
+$filesCsv = glob($_SERVER['DOCUMENT_ROOT'] . "*.csv");
 $now   = time();
 
 foreach ($filesCsv as $file) {
@@ -209,7 +209,7 @@ $reponse->links[] = $arrayTempEleve;
 // Exportation d'un csv avec les erreurs
 if (count($elevesErrorToCsv) > 1) {
     $fileNameErrors = 'EXPORT-ERRORS' . $annee . '.csv';
-    $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameErrors, 'w');
+    $fileError = fopen($_SERVER['DOCUMENT_ROOT']  . '/' . $fileNameErrors, 'w');
     $messageFileErrors = "Certains élèves n'ont pas pu être importés suite à une erreur sur le fichier.
     Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau.";
     
