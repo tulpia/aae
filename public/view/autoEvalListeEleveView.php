@@ -58,7 +58,7 @@ require('view/headerUserView.php');
                         <form action="index.php" method="post" class="questions-container__btn-editer">
                             <input type="hidden" name="action" value="show_autoEvalQuestionsEleve">
                             <input type="hidden" name="idAutoEval" value="<?= $idAutoEval ?>">
-                            <label class="btn-editer">
+                            <label class="btn-editer btn-editer__eleve">
                                 <input type="submit" value="Go !" class="btn-editer-text">
                             </label>
                         </form>
