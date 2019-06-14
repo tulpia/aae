@@ -11,3 +11,27 @@
         }
     }
 }
+.input-listcol{
+    label{
+        margin-bottom: 10px;
+    }
+    .option-class{
+        margin: 12px 0;
+        &:last-child{
+            margin-bottom: 30px;
+        }
+    }
+    .first-class{
+        margin-top:20px;
+    }
+}
+.row-choice{
+    display: flex;
+    margin: 20px 0;
+    .option-choice{
+        width: 25%;
+    }
+}
+.row{
+    margin: 25px 0;
+}
