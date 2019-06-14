@@ -31,10 +31,10 @@ ob_start();
                 <input type="radio" name="isProf" value="1" id="isprof1"><label for="isprof1">Je suis enseignant</label>
             </div>
             <div class="input-container login">
-                <input type="text" name="login" placeholder="id Eleve ou Mail Prof" value="" class="input input--text">
+                <input type="text" name="login" placeholder="Identifiant" value="" class="input input--text">
             </div>
             <div class="input-container pwd">
-                <input type="password" name="pwd" placeholder="Password (visible uniquement quand enseignant)" value="" class="input input--text">
+                <input type="password" name="pwd" placeholder="Mot de passe" value="" class="input input--text">
             </div>
             <label class="btn btn-submit">
                 <input type="submit" value="Connexion">
@@ -58,7 +58,7 @@ ob_start();
     <form action="index.php" method="POST" class="right_content">
         <input type="hidden" name="action" value="show_passwordForget">
         <label class="btn-link">
-            <input type="submit" value="Mot de passe oublié ? (visible uniquement quand enseignant)">
+            <input type="submit" value="Mot de passe oublié ?">
         </label>
     </form>
 

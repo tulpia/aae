@@ -208,7 +208,7 @@ $reponse->links[] = $arrayTempEleve;
 // =======================
 // Exportation d'un csv avec les erreurs
 if (count($elevesErrorToCsv) > 1) {
-    $fileNameErrors = 'EXPORT-ERRORS' . $annee '.csv';
+    $fileNameErrors = 'EXPORT-ERRORS' . $annee . '.csv';
     $fileError = fopen($_SERVER['DOCUMENT_ROOT'] . '/public' . '/' . $fileNameErrors, 'w');
     $messageFileErrors = "Certains élèves n'ont pas pu être importés suite à une erreur sur le fichier.
     Téléchargez le fichier d'erreurs, corrigez-le et importez-le à nouveau.";

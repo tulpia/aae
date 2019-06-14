@@ -53,7 +53,7 @@ require('./view/headerUserView.php');
     </div>
         <div class="links-container">
             <p class="feedback-container"></p>
-            <p>Vueillez télécharger les fichiers suivants :</p>
+            <p>Veuillez télécharger les fichiers suivants :</p>
             <div class="links-container__links">
                 <!-- <a href="">
                     <p>Output.csv</p>
