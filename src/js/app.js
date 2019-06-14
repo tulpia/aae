@@ -2,3 +2,4 @@
 import '@js/home.js'
 import '@js/header.js'
 import '@js/pageProf.js'
+import '@js/ajoutEleve.js'

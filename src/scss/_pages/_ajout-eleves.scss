@@ -1,0 +1,180 @@
+.formulaireAjoutEleves {
+    opacity: 1;
+    pointer-events: initial;
+
+    &.disabled {
+        opacity: 0.9;
+        pointer-events: none;
+    }
+}
+
+.input-file__container {
+    margin: 35px 0;
+
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+.links-container {
+    width: 100%;
+    margin-top: 35px;
+    display: none;
+
+    >p {
+        font-family: $font;
+        position: relative;
+        margin-bottom: 15px;
+    }
+
+    .links-container__links {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+
+            @media (max-width: $mobile) {
+                width: 100%;
+            }
+
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                width: 100%;
+                border-radius: 5px;
+                box-sizing: border-box;
+                transition: 0.2s;
+                background: rgb(29, 134, 29);
+                margin-bottom: 15px;
+                
+                p {
+                    width: 100%;
+                    text-align: center;
+                    padding: 25px 0;
+                    border: none;
+                    text-decoration: none;
+                    color: white;
+                    font-family: $font-medium;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    transition: 0.2s;
+                    cursor: pointer;
+                    letter-spacing: 1px;
+                }
+    
+                &:hover {
+                    background: rgb(24, 104, 24);
+                }
+            }
+
+            .warning {
+                width: 100%;
+                line-height: 1.5;
+                font-family: $font;
+                font-size: 16px;
+                color: $color-red;
+
+                @media (max-width: $mobile) {
+                    margin-bottom: 25px;
+                }
+            }
+
+            &.error {
+                a {
+                    background: $color-red;
+    
+                    p {
+                        color: white;
+                    }
+        
+                    &:hover {
+                        background: $color-darkred;                    
+                    }
+                }
+
+                .warning {
+                    color: $color-black;
+                }
+            }
+        }
+    }
+
+    &.active {
+        display: block;
+    }
+}
+
+.upload-ok {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $color-darkblue;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    transform: translateY(100%);
+    transition: transform 250ms $curve;
+
+    p {
+        text-align: center;
+        border: none;
+        text-decoration: none;
+        color: white;
+        font-family: $font-medium;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    &.active {
+        transform: translateY(0%);
+        transition: transform 250ms $curve;
+    }
+}
+
+.oh-shit__container {
+    padding-top: 10px;
+    border-top: 1px solid $color-grey;
+    margin-top: 30px;
+    width: 100%;
+    display: none;
+    position: relative;
+
+    >p {
+        color: $color-black;
+        margin-bottom: 25px;
+    }
+
+    .feedback-container {
+        position: absolute;
+        bottom: -20px;
+        width: 100%;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: 0.2s;
+
+        p {
+            color: $color-grey;
+            font-family: $font;
+        }
+
+        &.active {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+    }
+
+    &.active {
+        display: block;
+    }
+}

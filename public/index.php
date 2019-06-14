@@ -3,7 +3,6 @@ session_start();
 require_once('controller/controller.php');
 
 
-
 try {
     $isActionDefinie = isset($_POST['action']);
 
@@ -107,7 +106,8 @@ try {
 
 
             case "show_autoEvalListEleve":
-                show_autoEvalListEleve($_SESSION['idUser']);
+                $message = isset($_POST['message']) ? $_POST['message'] : "" ;
+                show_autoEvalListEleve($_SESSION['idUser'], $message);
                 break;
 
 
@@ -117,8 +117,9 @@ try {
 
 
             case "do_ReponseEleveEnregistrer":
+                $message = isset($_POST['message']) ? $_POST['message'] : "" ;
                 do_ReponseEleveEnregistrer($_POST['idAutoEval'], $_POST['commentaire'], $_POST['arrayIdReponse']);
-                show_autoEvalListEleve($_SESSION['idUser']);
+                show_autoEvalListEleve($_SESSION['idUser'], $message);
                 break;
 
 
@@ -228,7 +229,8 @@ try {
                 show_ajoutEleves();
                 break;
 
-            case "do_updatePassword" :
+                
+            case "do_updatePassword":
                 $messagePassword = do_updatePassword($_POST['idProf'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['newPasswordConfirm']);
                 show_profilProf($_POST['idProf'], "", $messagePassword);
                 break;
@@ -247,7 +249,7 @@ try {
             if ((bool)$_SESSION['isProf'] === true) {
                 show_questionnairesList($_SESSION['idUser']);
             } else {
-                show_autoEvalListEleve($_SESSION['idUser']);
+                show_autoEvalListEleve($_SESSION['idUser'], "");
             }
         } else {
             //Sinon déconnexion

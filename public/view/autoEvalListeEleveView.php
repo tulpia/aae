@@ -18,6 +18,9 @@ require('view/headerUserView.php');
         <h1><?= $title ?></h1>
     </article>
 
+
+    <?php include("message.php"); ?>
+
     <section class="autoeval__new-questions">
         <?php
         if ($nbAutoEval < 1) {
@@ -35,15 +38,17 @@ require('view/headerUserView.php');
                 $nbQuestionsText = $nbQuestions . " question" . ($nbQuestions !== 1 ? 's' : '');
 
                 $dateVisible = new DateTime($row['dateAccessible']);
-                $formatter = new IntlDateFormatter(
-                    'fr_FR',
-                    IntlDateFormatter::MEDIUM,
-                    IntlDateFormatter::NONE,
-                    'Europe/Paris',
-                    IntlDateFormatter::GREGORIAN,
-                    null
-                );
-                $dateText = $formatter->format($dateVisible);
+                // $formatter = new IntlDateFormatter(
+                //     'fr_FR',
+                //     IntlDateFormatter::MEDIUM,
+                //     IntlDateFormatter::NONE,
+                //     'Europe/Paris',
+                //     IntlDateFormatter::GREGORIAN,
+                //     null
+                // );
+                // $dateText = $formatter->format($dateVisible);
+
+                $dateText = $dateVisible->format('d-m-Y');
                 ?>
                 <?php if ($isRepondu === 0) {
                 ?>
@@ -60,7 +65,7 @@ require('view/headerUserView.php');
                     </div>
                     <section class="question-container__details">
                         <p class="details__matiere"><?= $matiere; ?>, <?= $prof; ?></p>
-                        <p class="details__date"><?= $dateText; ?></p>
+                        <p class="details__date"><?= "Ajouté le " . $dateText; ?></p>
                     </section>
                 </article>
                 <?php
@@ -73,7 +78,7 @@ require('view/headerUserView.php');
     ?>
     </section>
 
-    <section class="autoeval__old-questions">
+    <!-- <section class="autoeval__old-questions">
         <div class="old-questions__separateur">
             <p>Antérieur</p>
         </div>
@@ -97,8 +102,8 @@ require('view/headerUserView.php');
                     <p class="details__matiere">Réponse enregistrée le <?= $dateReponse; ?></p>
                 </section>
             </article>
-        <?php } ?>
-    </section>
+        <?php } ?> 
+    </section>-->
 </section>
 
 <!-- </main> -->

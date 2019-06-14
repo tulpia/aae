@@ -346,7 +346,7 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
  *
  * @return void
  */
-function show_autoEvalListEleve($idUser){
+function show_autoEvalListEleve($idUser, $message){
     $AutoEval = new AutoEvaluationManager();
     $autoEvals = $AutoEval->getAutoEvaluationsEleve($idUser);
 
@@ -733,3 +733,5 @@ function show_ajoutEleves(){
     require('view/ajoutEleveView.php');
 
 }
+
+

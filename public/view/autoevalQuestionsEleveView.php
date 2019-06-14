@@ -19,6 +19,7 @@ require('view/headerUserView.php');
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="do_ReponseEleveEnregistrer">
         <input type="hidden" name="idAutoEval" value="<?= $idAutoEval ?>">
+        <input type="hidden" name="message" value="Merci !<br>Ton auto évaluation a été enregistrée.">
 
         <table class="smiley-table">
 

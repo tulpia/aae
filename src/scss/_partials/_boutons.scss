@@ -61,6 +61,43 @@
             background: $color-darkred;
         }
     }
+
+    &.btn-submit {
+        outline: none;
+        border: initial;
+        position: relative;
+        overflow: hidden;
+        
+        &:hover {
+            background: $color-darkblue;
+        }
+
+        .loading-container--submit {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            display: flex;
+            z-index: 3;
+            transform: translateY(100%);
+            transition: transform 250ms $curve;
+
+            &.active {
+                transform: translateY(0%);
+                transition: transform 250ms $curve;
+            }
+        }
+    }
+
+    &.btn-error {
+        background: $color-red;
+        
+        &:hover{
+            background: $color-darkred;
+        }
+    }
 }
 .btn-question-edit{
     height: 25px;
