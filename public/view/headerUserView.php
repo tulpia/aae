@@ -17,7 +17,7 @@
                 <div>
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_profilProf">
-                        <input type="submit" value="Mon profil (Prof)">
+                        <input type="submit" value="Mon profil"><!-- Enseignant -->
                     </form>
                 </div>
     
@@ -43,7 +43,7 @@
                 <div>
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_profilEleve">
-                        <input type="submit" value="Mon profil (élève)">
+                        <input type="submit" value="Mon profil"><!-- Enseignant -->
                     </form>
                 </div>
             <?php endif; ?>
