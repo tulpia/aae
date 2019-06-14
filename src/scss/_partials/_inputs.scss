@@ -6,6 +6,9 @@
         align-self: center;
         margin-right: 10px;
         width: 13%;
+        &.large-label{
+            width: 20%;
+        }
     }
 
     @media (max-width: $tablet) {
@@ -101,6 +104,9 @@ select {
         background: white;
         transition: 0.2s;
     }
+    &:hover{
+        border-color: $color-blue;
+    }
 
     option, option:disabled {
         font-family: $font;
@@ -111,7 +117,8 @@ select {
 }
  input[type="text"],
  input[type="email"],
- input[type="password"]{
+ input[type="password"],
+ input[type="date"]{
     width: 100%;
     border: none;
     outline: none;
@@ -124,6 +131,9 @@ select {
     color: $color-darkgrey;
     margin-top:5px;
     transition: 0.2s;
+    &:hover{
+        border-color: $color-blue;
+    }
 
     option, option:disabled {
         font-family: $font;
