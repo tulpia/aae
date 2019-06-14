@@ -35,7 +35,7 @@ class UserManager extends Manager
 
         $query = "Select " . ($isReturnOnlyId ? "U.id " : "* ");
         $query .= "FROM users_test as U
-    where U.is_eleve = 1
+    where U.is_enseignant = 0
     and U.id_classe = :idClasse
     and id_classeNom in(" .  $inIdClasseNom . ")
     and is_softDelete = 0
