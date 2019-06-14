@@ -19,13 +19,13 @@ require('view/headerUserView.php');
     <?php while ($row = $listProfs->fetch()) : ?>
 
         <article class="question-container little">
-            <div>
+            <div class="questions-container__title-container">
                 <p class="question-container__title"><?= htmlspecialchars($row['nomPrenom']) ?></p>
-                <form action="index.php" method="post">
+                <form action="index.php" method="post" class="questions-container__btn-editer">
                     <input type="hidden" name="action" value="show_profDetailEdit">
                     <input type="hidden" name="idProf" value="<?= htmlspecialchars($row['id']) ?>">
-                    <label class="btn-link">
-                        <input type="submit" value="Voir">
+                    <label class="btn-editer">
+                        <input type="submit" value="Voir" class="btn-editer-text">
                     </label>
                 </form>
             </div>
