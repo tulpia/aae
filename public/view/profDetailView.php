@@ -86,7 +86,7 @@ require('view/headerUserView.php');
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_deleteProf">
     <input type="hidden" name="idProf" value="<?= htmlspecialchars($idProf) ?>">
-    <label class="btn btn-detail btn-supr">
+    <label class="btn btn-detail btn-error">
         <input type="submit" value="Supprimer cet utilisateur">
     </label>
 </form>

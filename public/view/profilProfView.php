@@ -1,5 +1,5 @@
 <?php
-$title = 'mon profil';
+$title = 'Mon profil';
 ob_start();
 
 //Le header de l'utilisateur qui permet de retourner à l'accueil ou de se déconnecter (à faire)
@@ -23,7 +23,7 @@ require('view/headerUserView.php');
 
 
         <div class="input-row">
-            <label>E-mail (sert d'identifiant)</label>
+            <label>E-mail d'identification</label>
             <input type="email" name="login" value="<?= $prof['login'] ?>" required>
         </div>
 
@@ -41,7 +41,7 @@ require('view/headerUserView.php');
             </select>
         </div>       
         <label class="btn btn-detail">
-            <input type="submit" value="Modifier">
+            <input type="submit" value="Enregistrer les modifications">
         </label>
 
     </form>
@@ -76,11 +76,11 @@ require('view/headerUserView.php');
         </div>
 
         <div class="input-row">
-            <label>Réécrire nouveau mot de passe</label>
+            <label>Réécrire le nouveau mot de passe</label>
             <input type="password" name="newPasswordConfirm" required>
         </div>
         <label class="btn btn-detail">
-            <input type="submit" value="Modifier">
+            <input type="submit" value="Enregistrer les modifications">
         </label>
 
     </form>
