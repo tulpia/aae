@@ -10,6 +10,8 @@ require('view/headerUserView.php');
     <h1><?= $title ?></h1>
 </article>
 
+<?php include("message.php"); ?>
+
 <!-- Ajout d'un élève -->
 <form action="index.php" method="POST">
     <label class="btn btn-detail">

@@ -26,10 +26,11 @@ require_once('model/UserManager.php');
  *
  * @return void
  */
-function do_login($login, $pwd, $isProf){
-    
+function do_login($login, $pwd, $isProf)
+{
+
     $isLogged = false;
-    
+
     $User = new UserManager();
     $user = $User->getAuthentifiedUser($login, $pwd, $isProf);
 
@@ -39,10 +40,9 @@ function do_login($login, $pwd, $isProf){
             $_SESSION['idUser'] = (int)$user['id'];
             $_SESSION['nameUser'] = htmlspecialchars($user['nomPrenom']);
 
-            if((bool)$user['is_enseignant'] === true && isset($user['is_admin'])){
+            if ((bool)$user['is_enseignant'] === true && isset($user['is_admin'])) {
                 $_SESSION['isAdmin'] = (bool)$user['is_admin'];
-            }
-            else{
+            } else {
                 $_SESSION['isAdmin'] = false;
             }
             $isLogged = true;
@@ -54,7 +54,8 @@ function do_login($login, $pwd, $isProf){
 
 
 
-function do_disconnect(){
+function do_disconnect()
+{
     try {
         session_unset();
         session_destroy();
@@ -63,7 +64,8 @@ function do_disconnect(){
     }
 }
 
-function show_login($message){
+function show_login($message)
+{
     require('view/loginView.php');
 }
 
@@ -75,11 +77,12 @@ function show_login($message){
  *
  * @return void
  */
-function show_questionnairesList($idProf){
-   
+function show_questionnairesList($idProf, $message)
+{
+
     $QuestionnaireManager = new QuestionnaireManager();
     $ListeQuestionnaires = $QuestionnaireManager->getQuestionnaires($idProf);
-    
+
     require('view/questionnaireListeView.php');
 }
 
@@ -92,16 +95,17 @@ function show_questionnairesList($idProf){
  *
  * @return void
  */
-function show_questionnaireNew($idProf){
- 
-     //Récupère les classes
-     $ClasseManager = new ClasseManager();
-     $classes = $ClasseManager->getClasses();
- 
-     //Récupère les matières
-     $MatiereManager = new MatiereManager();
-     $matieres = $MatiereManager->getMatieres();
- 
+function show_questionnaireNew($idProf)
+{
+
+    //Récupère les classes
+    $ClasseManager = new ClasseManager();
+    $classes = $ClasseManager->getClasses();
+
+    //Récupère les matières
+    $MatiereManager = new MatiereManager();
+    $matieres = $MatiereManager->getMatieres();
+
     require('view/questionnaireNewView.php');
 }
 
@@ -115,12 +119,13 @@ function show_questionnaireNew($idProf){
  *
  * @return void
  */
-function show_questionnaireDetail($idProf, $idQuestionnaire){
+function show_questionnaireDetail($idProf, $idQuestionnaire, $message)
+{
 
     //Récupère les infos du questionnaire
     $QuestionnaireManager = new QuestionnaireManager();
     $questionnaire = $QuestionnaireManager->getQuestionnaire($idQuestionnaire);
-    
+
     //Récupère les questions du questionnaire
     $QuestionManager = new QuestionnaireQuestionManager();
     $questions = $QuestionManager->getQuestions($idQuestionnaire);
@@ -132,7 +137,7 @@ function show_questionnaireDetail($idProf, $idQuestionnaire){
     //Récupère les matières
     $MatiereManager = new MatiereManager();
     $matieres = $MatiereManager->getMatieres();
-        
+
     require('view/questionnaireDetailView.php');
 }
 
@@ -147,8 +152,9 @@ function show_questionnaireDetail($idProf, $idQuestionnaire){
  *
  * @return id
  */
-function do_questionnaireAdd($idProf, $idClasse, $idMatiere, $titre){
-    $Questionnaire = new QuestionnaireManager();    
+function do_questionnaireAdd($idProf, $idClasse, $idMatiere, $titre)
+{
+    $Questionnaire = new QuestionnaireManager();
     return $Questionnaire->insertQuestionnaire($idProf, $titre, $idClasse, $idMatiere);
 }
 
@@ -164,7 +170,8 @@ function do_questionnaireAdd($idProf, $idClasse, $idMatiere, $titre){
  *
  * @return void
  */
-function do_questionnaireUpdate($idQuestionnaire, $idClasse, $idMatiere, $titre){
+function do_questionnaireUpdate($idQuestionnaire, $idClasse, $idMatiere, $titre)
+{
     $Questionnaire = new QuestionnaireManager();
     $Questionnaire->updateQuestionnaire($idQuestionnaire, $titre, $idClasse, $idMatiere);
 }
@@ -177,16 +184,20 @@ function do_questionnaireUpdate($idQuestionnaire, $idClasse, $idMatiere, $titre)
  *
  * @return void
  */
-function do_questionnaireDelete($idQuestionnaire){
+function do_questionnaireDelete($idQuestionnaire)
+{
     $Questionnaire = new QuestionnaireManager();
     $Questionnaire->deleteQuestionnaire($idQuestionnaire);
 }
 
 
 
-function show_questionNew($idQuestionnaire){
-    // $Questionnaire = new QuestionnaireManager();
-    // $questionnaire = $Questionnaire->getQuestionnaire($idQuestionnaire);
+function show_questionNew($idQuestionnaire, $message)
+{
+
+    //Récupère les questions du questionnaire
+    $QuestionManager = new QuestionnaireQuestionManager();
+    $questions = $QuestionManager->getQuestions($idQuestionnaire);
 
     $isEdit = false;
     require('view/questionDetailView.php');
@@ -201,19 +212,22 @@ function show_questionNew($idQuestionnaire){
  *
  * @return void
  */
-function do_questionAdd($idQuestionnaire, $libelle){
+function do_questionAdd($idQuestionnaire, $libelle)
+{
     $Question = new QuestionnaireQuestionManager();
     return $Question->insertQuestion($idQuestionnaire, $libelle);
 }
 
 
-function do_questionUpdate($idQuestion, $libelle){
+function do_questionUpdate($idQuestion, $libelle)
+{
     $Question = new QuestionnaireQuestionManager();
     return $Question->updateQuestion($idQuestion, $libelle);
 }
 
 
-function do_questionDelete($idQuestion){
+function do_questionDelete($idQuestion)
+{
     $Question = new QuestionnaireQuestionManager();
     $Question->deleteQuestion($idQuestion);
 }
@@ -227,10 +241,15 @@ function do_questionDelete($idQuestion){
  *
  * @return void
  */
-function show_questionEdit($idQuestion){
+function show_questionEdit($idQuestion, $idQuestionnaire)
+{
     $Question = new QuestionnaireQuestionManager();
     $question = $Question->getQuestion($idQuestion);
-     
+
+    //Récupère les questions du questionnaire
+    $QuestionManager = new QuestionnaireQuestionManager();
+    $questions = $QuestionManager->getQuestions($idQuestionnaire);
+
     $isEdit = true;
     require('view/questionDetailView.php');
 }
@@ -261,7 +280,7 @@ function show_autoEvalDistribuer($idQuestionnaire)
     $optionCours = $Option->getOptionsCours();
 
     $Matiere = new MatiereManager();
-    $matieres =$Matiere->getMatieres();
+    $matieres = $Matiere->getMatieres();
 
     require('view/autoEvalDistribuerView.php');
 }
@@ -286,20 +305,21 @@ function show_autoEvalDistribuer($idQuestionnaire)
  *
  * @return void
  */
-function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms){
-    
-    
+function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms)
+{
+
+
     //Créé une ligne de résultat que le prof pourra consulter pour avoir ses statistiques
     $Resultat = new ResultatManager();
     $idResultat = $Resultat->insertResultat($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis);
-    
+
     //Créé les lignes de Cif_Resultat_classeNom pour savoir quels noms de classes sont concernés par cette autoévaluation
     $Cif = new CifResultatClasseNomManager();
     foreach ($idClasseNoms as $idClasseNom) {
         $Cif->insertCifResultatClasseNom($idResultat, $idClasseNom);
     }
 
-    
+
 
 
     //Récupère aussi l'année de la rentrée scolaire des élèves pour savoir à qui s'adresser.
@@ -309,25 +329,25 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
     $castDate = new DateTime($dateAccessible);
     $anneeScolaire = (int)($castDate->format('Y'));
     $mois = (int)($castDate->format('m'));
-    if($mois < 9){
+    if ($mois < 9) {
         --$anneeScolaire;
     }
-    
+
     //Récupère les id des élèves concernés
     $Users = new UserManager();
     $idEleves = $Users->getElevesFromOptions($idClasse, $idClasseNoms, $idOptionCours, $anneeScolaire, true);
-    
+
 
 
     $AutoEval = new AutoEvaluationManager();
     $AutoEvalQuestion = new AutoEvaluationQuestionManager();
-    
+
     //Pour chaque élève, créé une autoévaluation et y copie les questions qui proviennent du modèle de questionnaire
     foreach ($idEleves as $row) {
         $idEleve = $row['id'];
-        
+
         $idAutoEval = $AutoEval->insertAutoEvaluation($idEleve, $idResultat);
-        $AutoEvalQuestion->insertBatchAutoEvaluationQuestion($idAutoEval,$idQuestionnaire);
+        $AutoEvalQuestion->insertBatchAutoEvaluationQuestion($idAutoEval, $idQuestionnaire);
     }
 
 
@@ -346,7 +366,8 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
  *
  * @return void
  */
-function show_autoEvalListEleve($idUser, $message){
+function show_autoEvalListEleve($idUser, $message)
+{
     $AutoEval = new AutoEvaluationManager();
     $autoEvals = $AutoEval->getAutoEvaluationsEleve($idUser);
 
@@ -361,11 +382,12 @@ function show_autoEvalListEleve($idUser, $message){
  *
  * @return void
  */
-function show_autoEvalQuestionsEleve($idAutoEval){
-    
+function show_autoEvalQuestionsEleve($idAutoEval)
+{
+
     $AutoEval = new AutoEvaluationManager();
     $autoEval = $AutoEval->getAutoEvaluationInfosBase($idAutoEval);
-    
+
     $Question = new AutoEvaluationQuestionManager();
     $questions = $Question->getAutoEvaluationQuestions($idAutoEval);
 
@@ -382,12 +404,13 @@ function show_autoEvalQuestionsEleve($idAutoEval){
  *
  * @return void
  */
-function do_ReponseEleveEnregistrer($idAutoEval, $commentaire, $arrayIdReponse){
+function do_ReponseEleveEnregistrer($idAutoEval, $commentaire, $arrayIdReponse)
+{
     $Question = new AutoEvaluationQuestionManager();
     $Question->updateBatchAutoEvaluationQuestion($arrayIdReponse);
 
     $AutoEval = new AutoEvaluationManager();
-    $AutoEval->updateAutoEvalTerminee($idAutoEval,$commentaire);
+    $AutoEval->updateAutoEvalTerminee($idAutoEval, $commentaire);
 }
 
 
@@ -399,7 +422,8 @@ function do_ReponseEleveEnregistrer($idAutoEval, $commentaire, $arrayIdReponse){
  *
  * @return void
  */
-function show_passwordForget($message){
+function show_passwordForget($message)
+{
     require('view/passwordForgetView.php');
 }
 
@@ -410,7 +434,8 @@ function show_passwordForget($message){
  *
  * @return void
  */
-function do_sendPasswordResetMail($eMail){
+function do_sendPasswordResetMail($eMail)
+{
     $UserManager = new UserManager();
     return $UserManager->sendPasswordResetMail($eMail);
 }
@@ -424,7 +449,8 @@ function do_sendPasswordResetMail($eMail){
  *
  * @return void
  */
-function show_resultatDetail($idResultat){
+function show_resultatDetail($idResultat, $message)
+{
     $idResultat = (int)$idResultat;
 
     $resultatManager = new ResultatManager();
@@ -443,7 +469,8 @@ function show_resultatDetail($idResultat){
  *
  * @return void
  */
-function do_archiverResultat($idResultat, $isArchive){
+function do_archiverResultat($idResultat, $isArchive)
+{
     $resultatManager = new ResultatManager();
     $resultatManager->changeArchiverResultat($idResultat, $isArchive);
 }
@@ -456,7 +483,8 @@ function do_archiverResultat($idResultat, $isArchive){
  *
  * @return void
  */
-function show_profilProf($idUser, $message, $messagePassword){
+function show_profilProf($idUser, $message, $messagePassword)
+{
     $matiereManager = new MatiereManager();
     $matieres = $matiereManager->getMatieres();
 
@@ -477,7 +505,8 @@ function show_profilProf($idUser, $message, $messagePassword){
  *
  * @return string
  */
-function do_updatePassword($idProf, $currentPassword, $newPassword, $newPasswordConfirm){
+function do_updatePassword($idProf, $currentPassword, $newPassword, $newPasswordConfirm)
+{
 
     $userManager = new UserManager();
 
@@ -486,26 +515,26 @@ function do_updatePassword($idProf, $currentPassword, $newPassword, $newPassword
 
 
     //Verif Ancien Password
-    if ($userManager->isPasswordMatch($idProf,$currentPassword) === false){
+    if ($userManager->isPasswordMatch($idProf, $currentPassword) === false) {
         $isError = true;
         $messagePassword .= "L'ancien mot de passe est érroné";
-    }// Vérif 8 caractères minimum
-    elseif(strlen(trim($newPassword)) < 8 ){
+    } // Vérif 8 caractères minimum
+    elseif (strlen(trim($newPassword)) < 8) {
         $isError = true;
         $messagePassword .= "Le nouveau mot de passe doit faire 8 caractères minimum";
-    }// Confirmation du nouveau password
-    elseif( $newPassword != $newPasswordConfirm ){
+    } // Confirmation du nouveau password
+    elseif ($newPassword != $newPasswordConfirm) {
         $isError = true;
         $messagePassword .= "Mauvaise confirmation du nouveau mot de passe";
     }
-    
-    if(!$isError){
+
+    if (!$isError) {
         $userManager->updateAndHashPassword($idProf, $newPassword);
         $messagePassword = "Mise à jour effectuée";
     }
     return $messagePassword;
 }
-                
+
 
 
 
@@ -516,7 +545,8 @@ function do_updatePassword($idProf, $currentPassword, $newPassword, $newPassword
  *
  * @return void
  */
-function show_profilEleve($idUser){
+function show_profilEleve($idUser)
+{
     require('view/profilEleve.php');
 }
 
@@ -526,7 +556,8 @@ function show_profilEleve($idUser){
  *
  * @return void
  */
-function show_listeProf($message = ""){
+function show_listeProf($message = "")
+{
     $userManager = new UserManager();
     $listProfs = $userManager->getListProf();
     require('view/listeProfView.php');
@@ -542,7 +573,8 @@ function show_listeProf($message = ""){
  *
  * @return void
  */
-function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation){
+function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation, $message)
+{
     $classeManager = new ClasseManager();
     $listClasse = $classeManager->getClasses();
 
@@ -556,11 +588,10 @@ function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClas
     $listAnneeScolaire = $userManager->getAnneeScolaireEleves();
     $listDateCreation = $userManager->getDatesCreationEleves();
 
-        //Charge la liste des élèves uniquement filtrée par l'année scolaire en cours
-    $listEleve = $userManager->getListEleves($filterAnneScolaire,$filterLogin,$filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+    //Charge la liste des élèves uniquement filtrée par l'année scolaire en cours
+    $listEleve = $userManager->getListEleves($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
 
     require('view/listeElevesView.php');
-
 }
 
 /**
@@ -568,7 +599,8 @@ function show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClas
  *
  * @return void
  */
-function show_listeEleves(){
+function show_listeEleves($message)
+{
     $filterLogin = "";
     $filterIdClasse = 0;
     $filterIdClasseNom = 0;
@@ -578,23 +610,25 @@ function show_listeEleves(){
     //Si mois < juillet, sélectionne par défaut l'année précédent
     $Now = new DateTime();
     $filterAnneScolaire = (int)$Now->format('Y');
-    if((int)$Now->format('m') < 7){
+    if ((int)$Now->format('m') < 7) {
         $filterAnneScolaire--;
     }
 
 
-    show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation);
+    show_listeElevesFilter($filterAnneScolaire, $filterLogin, $filterIdClasse, $filterIdClasseNom, $filterIdOptionCours, $filterDateCreation, $message);
 }
 
 
-function show_profDetailNew($message = ""){
+function show_profDetailNew($message = "")
+{
     $matiereManager = new MatiereManager();
     $matieres = $matiereManager->getMatieres();
     require('view/profDetailView.php');
 }
 
 
-function show_profDetailEdit($idProf, $message = ""){
+function show_profDetailEdit($idProf, $message = "")
+{
     $userManager = new UserManager();
     $prof = $userManager->getProf($idProf);
     $matiereManager = new MatiereManager();
@@ -615,55 +649,55 @@ function show_profDetailEdit($idProf, $message = ""){
  *
  * @return void
  */
-function do_updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere){
+function do_updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere)
+{
     $isError = false;
     $message = "";
-    
+
     $login = strtolower($login);
 
     $userManager = new UserManager();
 
     //Verif si adresse mail valide
-    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+    if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
         $message = "Merci de saisir une adresse mail valide";
         $isError = true;
-    }
-    elseif(!$userManager->isLoginLibre($login, $idProf)){
+    } elseif (!$userManager->isLoginLibre($login, $idProf)) {
         $message = "Il existe déjà un compte " . $login;
         $isError = true;
     }
-    
+
     //Là tout s'est bien passé, on update les infos
-    if(!$isError){
-        $userManager->updateProf($idProf,$nomPrenom, $login, $isAdmin, $idMatiere);
+    if (!$isError) {
+        $userManager->updateProf($idProf, $nomPrenom, $login, $isAdmin, $idMatiere);
         $message = "Mise à jour effectuée";
     }
-    
-    return $message;    
+
+    return $message;
 }
 
 
-function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere){
+function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere)
+{
 
     $isError = false;
     $message = "";
-    
+
     $login = strtolower($login);
 
     $userManager = new UserManager();
 
     //Verif si adresse mail valide
-    if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
+    if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
         $message = "Merci de saisir une adresse mail valide";
         $isError = true;
-    }
-    elseif(!$userManager->isLoginLibre($login)){
+    } elseif (!$userManager->isLoginLibre($login)) {
         $message = "Il existe déjà un compte " . $login;
         $isError = true;
     }
-    
+
     //Là tout s'est bien passé, Passe à la suite
-    if(!$isError){
+    if (!$isError) {
         //Génère un password aléatoire fort
         $password = $userManager->generateStrongPassword();
         $password = "1234";
@@ -671,41 +705,43 @@ function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere){
         //L'envoie par mail à l'utilisateur
         $userManager->sendPasswordMail($login, $password, false);
         //Créé le prof en BDD
-        $idProf = $userManager->insertProf($nomPrenom,$login, $isAdmin,$idMatiere,$password);
+        $idProf = $userManager->insertProf($nomPrenom, $login, $isAdmin, $idMatiere, $password);
 
         //Affiche la page
         show_profDetailEdit($idProf, "Le profil de " . $nomPrenom . " a bien été créé");
-    }
-    else{
+    } else {
         show_profDetailNew($message);
     }
-
 }
 
 
-function do_deleteProf($idProf){
+function do_deleteProf($idProf)
+{
     $userManager = new UserManager();
     $userManager->deleteUser($idProf);
 }
 
 
 
-function do_updateEleve($idEleve, $idClasse, $idClasseNom, array $arrayidOptionCours){
+function do_updateEleve($idEleve, $idClasse, $idClasseNom, array $arrayidOptionCours)
+{
     $userManager = new UserManager();
     $userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $arrayidOptionCours);
 }
 
-function do_deleteEleve($idEleve){
+function do_deleteEleve($idEleve)
+{
     $userManager = new UserManager();
     $userManager->deleteEleve($idEleve);
 }
 
 
-function show_detailEleve($idEleve){
-    
+function show_detailEleve($idEleve)
+{
+
     $userManager = new UserManager();
     $eleve = $userManager->getEleve($idEleve);
-    
+
     $classeManager = new ClasseManager();
     $classes = $classeManager->getClasses();
 
@@ -719,7 +755,8 @@ function show_detailEleve($idEleve){
 }
 
 
-function show_ajoutEleves(){
+function show_ajoutEleves()
+{
 
     $classeManager = new ClasseManager();
     $classes = $classeManager->getClasses();
@@ -731,7 +768,4 @@ function show_ajoutEleves(){
     $optionCours = $optioCoursManager->getOptionsCours();
 
     require('view/ajoutEleveView.php');
-
 }
-
-

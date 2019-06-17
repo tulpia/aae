@@ -10,7 +10,7 @@ if ($isActionDefinie) {
 
         case "refreshResultats":
             $AutoEvalManager = new ResultatManager();
-            $results = $AutoEvalManager->getResultatsList($_POST['idProf'], $_POST['nbLimit'], $_POST['isAfficheUniquementEnCours']);
+            $results = $AutoEvalManager->getResultatsList($_POST['idProf'], $_POST['nbLimit'], isset($_POST['isAfficheUniquementEnCours']));
 
             $reponse = new \StdClass();
             $reponse->code = 200;

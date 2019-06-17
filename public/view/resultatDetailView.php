@@ -49,6 +49,10 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
 
 <h1><?= $title ?></h1>
 
+
+<?php include("message.php"); ?>
+
+
 <table>
     <tr>
         <td>Titre</td>
@@ -164,7 +168,7 @@ dans le csv, obligé de rediriger vers une page vierge de HTML -->
     <input type="hidden" name="idResultat" value="<?= $idResultat ?>">
     
     <?php
-    if ((bool)$resultatInfosBase['is_archive'] === false) :
+    if ((bool)$resultatInfosBase['is_archive'] == false) :
     ?>
     
     <input type="hidden" name="isArchive" value="1">

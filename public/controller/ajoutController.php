@@ -148,6 +148,15 @@ foreach ($csv as $k => $csvRow) {
         $userManager->createEleve($annee, $NewLogin, $idClasse, $idClasseNom, $optionsEleveEnCours);
         //$userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $optionsEleveEnCours);
     } else {
+        $errorMsg = "";
+        if(!$idClasse){
+            $errorMsg = "La classe est erronée"; 
+        }elseif(!$idClasseNom){
+            $errorMsg = "Le nom de la classe est faux";
+        }elseif(!$isOptionsOk){
+            $errorMsg = "Une des options est erronée";
+        }
+
         //Elèves en erreur
         $newError = new \StdClass();
         $newError->nom = $csvRow[0];
@@ -157,6 +166,7 @@ foreach ($csv as $k => $csvRow) {
         $newError->optB = $csvRow[4];
         $newError->optC = $csvRow[5];
         $newError->optD = $csvRow[6];
+        $newError->msg = $errorMsg;
         array_push($elevesErrorToCsv, $newError);
     }
 }

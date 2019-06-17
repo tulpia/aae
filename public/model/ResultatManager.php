@@ -242,6 +242,7 @@ class ResultatManager extends Manager{
      * @return void
      */
     public function changeArchiverResultat($idResultat, $isArchive){
+        $isArchive = (bool)$isArchive;
         $db = $this->dbConnect();
         $update = $db->prepare("UPDATE resultat SET is_archive = :bool WHERE id = :id");
         $update->bindParam(":bool", $isArchive);

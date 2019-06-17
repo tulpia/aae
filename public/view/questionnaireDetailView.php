@@ -10,6 +10,8 @@ require('view/headerUserView.php');
     <h1><?= $title ?></h1>
 </article>
 
+<?php include("message.php"); ?>
+
 <!-- Form update du questionnaire -->
 <form action="index.php" method="POST">
     <input type="hidden" name="action" value="do_questionnaireUpdate">
@@ -97,6 +99,7 @@ require('view/headerUserView.php');
                     <form action="index.php" method="POST">
                         <input type="hidden" name="action" value="show_questionEdit">
                         <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
+                        <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
                         <label class="btn-question-edit">
                             <input type="submit" value="Editer">
                          </label>

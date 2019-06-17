@@ -11,12 +11,9 @@ ob_start();
     <h1 class="block-header__title">Bienvenue sur l'application <span>d'auto évaluation</span></h1>
 </header>
 
-<?php
-    if(isset($message) && $message != ''){
-        echo("<p><br><br>" . $message . "<br><br></p>");
-    }
-?>
 
+
+<?php include("message.php"); ?>
 
 
 

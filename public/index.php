@@ -25,7 +25,7 @@ try {
 
 
             case "show_questionnaireDetail":
-                show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire']);
+                show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire'],"");
                 break;
 
 
@@ -36,7 +36,7 @@ try {
 
             case "do_questionnaireAdd":
                 $insertedId = do_questionnaireAdd($_SESSION['idUser'], $_POST['idClasse'], $_POST['idMatiere'], $_POST['titre']);
-                show_questionnaireDetail($_SESSION['idUser'], (int)$insertedId);
+                show_questionnaireDetail($_SESSION['idUser'], (int)$insertedId,"");
                 break;
 
 
@@ -45,7 +45,7 @@ try {
                 if (isset($_POST['saveAndOpenNew'])) {
                     show_questionnaireNew($_SESSION['idUser']);
                 } else {
-                    show_questionnairesList($_SESSION['idUser']);
+                    show_questionnairesList($_SESSION['idUser'], "Questionnaire mis à jour");
                 }
 
                 break;
@@ -53,26 +53,26 @@ try {
 
             case "do_questionnaireDelete":
                 do_questionnaireDelete($_POST['idQuestionnaire']);
-                show_questionnairesList($_SESSION['idUser']);
+                show_questionnairesList($_SESSION['idUser'], "Questionnaire supprimé");
                 break;
 
 
             case "show_questionNew":
-                show_questionNew($_POST['idQuestionnaire']);
+                show_questionNew($_POST['idQuestionnaire'],"");
                 break;
 
 
             case "show_questionEdit":
-                show_questionEdit($_POST['idQuestion']);
+                show_questionEdit($_POST['idQuestion'], $_POST['idQuestionnaire']);
                 break;
 
 
             case "do_questionAdd":
                 $insertedId = do_questionAdd($_POST['idQuestionnaire'], $_POST['libelle']);
                 if (isset($_POST['saveAndOpenNew'])) {
-                    show_questionNew($_POST['idQuestionnaire']);
+                    show_questionNew($_POST['idQuestionnaire'], "Effectué");
                 } else {
-                    show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire']);
+                    show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire'], "Question ajoutée");
                 }
                 break;
 
@@ -80,16 +80,16 @@ try {
             case "do_questionUpdate":
                 do_questionUpdate($_POST['idQuestion'], $_POST['libelle']);
                 if (isset($_POST['saveAndOpenNew'])) {
-                    show_questionNew($_POST['idQuestionnaire']);
+                    show_questionNew($_POST['idQuestionnaire'], "Effectué");
                 } else {
-                    show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire']);
+                    show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire'], "Question mise à jour");
                 }
                 break;
 
 
             case "do_questionDelete":
                 do_questionDelete($_POST['idQuestion']);
-                show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire']);
+                show_questionnaireDetail($_SESSION['idUser'], $_POST['idQuestionnaire'], "Question supprimée");
                 break;
 
 
@@ -101,7 +101,7 @@ try {
             case "do_autoEvalDistribuer":
                 $isCommentairePermis = isset($_POST['isCommentairePermis']);
                 do_autoEvalDistribuer($_POST['idQuestionnaire'], $_SESSION['idUser'], $_POST['idMatiere'], $_POST['idClasse'], $_POST['idOptionCours'], $_POST['dateAccessible'], $_POST['titre'], $isCommentairePermis, $_POST['IdClasseNoms']);
-                show_questionnairesList($_SESSION['idUser']);
+                show_questionnairesList($_SESSION['idUser'], "Autoévaluation distribuée");
                 break;
 
 
@@ -139,13 +139,15 @@ try {
 
 
             case "show_resultatDetail":
-                show_resultatDetail($_POST['idResultat']);
+                show_resultatDetail($_POST['idResultat'],"");
                 break;
 
 
             case "do_archiverResultat":
                 do_archiverResultat($_POST['idResultat'], $_POST['isArchive']);
-                show_resultatDetail($_POST['idResultat']);
+
+                $message = (bool)$_POST['isArchive'] ? "Archivé" : "Réouvert";
+                show_resultatDetail($_POST['idResultat'], $message);
                 break;
 
 
@@ -165,11 +167,11 @@ try {
 
 
             case "show_listeEleves":
-                show_listeEleves();
+                show_listeEleves("");
                 break;
 
             case "show_listeElevesFilter":
-                show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation']);
+                show_listeElevesFilter($_POST['anneeScolaire'], $_POST['login'], $_POST['idclasse'], $_POST['idclasseNom'], $_POST['idOptionCours'], $_POST['dateCreation'],"");
                 break;
 
 
@@ -216,12 +218,12 @@ try {
                 }
 
                 do_updateEleve($_POST['idEleve'], $_POST['idClasse'], $_POST['idClasseNom'], $arrayIdOptionCours);
-                show_listeEleves();
+                show_listeEleves("Elève mis à jour");
                 break;
 
             case "do_deleteEleve":
                 do_deleteEleve($_POST['idEleve']);
-                show_listeEleves();
+                show_listeEleves("Elève supprimé");
                 break;
 
 
@@ -247,7 +249,7 @@ try {
         //Affichage des fenêtres par défaut pour le prof ou l'élève
         if (isset($_SESSION['idUser'])) {
             if ((bool)$_SESSION['isProf'] === true) {
-                show_questionnairesList($_SESSION['idUser']);
+                show_questionnairesList($_SESSION['idUser'], "");
             } else {
                 show_autoEvalListEleve($_SESSION['idUser'], "");
             }

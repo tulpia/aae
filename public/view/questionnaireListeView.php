@@ -6,6 +6,8 @@ ob_start();
 require('view/headerUserView.php');
 
 ?>
+
+
 <form action="index.php" method="post" class="btn-add-question__container">
     <input type="hidden" name="action" value="show_questionnaireNew">
     <label class="btn-add-question">
@@ -23,6 +25,9 @@ require('view/headerUserView.php');
 
 <section class="prof-content__container">
     <section class="questionnaires sec-onglet" data-name="questionnaire">
+
+        <?php include("message.php"); ?>
+
         <article class="title-list">
             <h1>Mes modèles de questionnaire</h1>
         </article>
@@ -31,7 +36,7 @@ require('view/headerUserView.php');
             <form action="./model/filtreController.php" method="post" class="filtre-questionnaire__formulaire filtreFormulaireQuestionnaires">
                 <input type="hidden" name="action" class="refreshQuestionnaires" value="refreshQuestionnaires">
                 <input type="hidden" name="idProf" value="<?= $idProf ?>">
-                
+
                 <label class="formulaire__choix-quantite">
                     <select name="nbLimit">
                         <!-- <option disabled selected>Derniers résultats</option> -->
@@ -109,7 +114,7 @@ require('view/headerUserView.php');
             <form action="./model/filtreController.php" method="post" class="filtre-questionnaire__formulaire filtreFormulaireResultats">
                 <input type="hidden" name="action" value="refreshResultats">
                 <input type="hidden" name="idProf" value="<?= $idProf ?>">
-                
+
                 <label class="formulaire__choix-quantite">
                     <select name="nbLimit">
                         <!-- <option disabled selected>Derniers résultats</option> -->

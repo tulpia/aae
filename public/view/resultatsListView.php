@@ -7,8 +7,6 @@ require('view/headerUserView.php');
 ?>
 
 
-
-
 <form action="index.php" method="post" class="filtreFormulaire">
     <input type="hidden" name="action" value="show_resultatsList">
     <input type="hidden" name="idProf" value="<?= $idProf ?>">
