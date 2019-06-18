@@ -94,15 +94,15 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
 <br>
 <h2>Questions</h2>
 
-<table>
+<table class="smiley-table result-table">
     <thead>
         <tr>
             <th> </th>
             <th> </th>
-            <th>:(</th>
-            <th>:|</th>
-            <th>:)</th>
-            <th>:D</th>
+            <th class="result-head very-dissatisfied"></th>
+            <th class="result-head dissatisfied"></th>
+            <th class="result-head satisfied"> </th>
+            <th class="result-head very-satisfied"></th>
         </tr>
 
     </thead>
