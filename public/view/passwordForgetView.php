@@ -5,11 +5,7 @@ ob_start();
 
 <a href="index.php">Retour à l'accueil</a>
 
-<?php
-if (isset($message) && $message !== "") {
-    echo ("<br><br><p>" . htmlspecialchars($message) . "</p><br><br>");
-}
-?>
+<?php include("message.php"); ?>
 
 
 <form action="index.php" method="POST">

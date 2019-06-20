@@ -700,7 +700,7 @@ function do_createProf($nomPrenom, $login, $isAdmin, $idMatiere)
     if (!$isError) {
         //Génère un password aléatoire fort
         $password = $userManager->generateStrongPassword();
-        $password = "1234";
+        //$password = "1234";
 
         //L'envoie par mail à l'utilisateur
         $userManager->sendPasswordMail($login, $password, false);
@@ -769,3 +769,4 @@ function show_ajoutEleves()
 
     require('view/ajoutEleveView.php');
 }
+
