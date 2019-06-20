@@ -49,15 +49,6 @@ ob_start();
     </form>
 
 
-    <!-- <form action="index.php" method="post">
-        <input type="hidden" name="action" value="mailTest">
-        <input type="hidden" name="mail" value="sayhelloroger@gmail.com">
-        <label class="btn btn-submit">
-                <input type="submit" value="Envoyer un mail de test">
-            </label>
-    </form>
-
-
     <p class="card">
         <br><br>
         Hey Salut ! C'est moi la balise dégueu !<br>
@@ -76,9 +67,6 @@ ob_start();
         Login : 18-0002<br><br>
 
     </p> -->
-
-
-
 
 </section>
 

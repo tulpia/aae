@@ -47,14 +47,14 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
 }
 
 ?>
-
-<h1><?= $title ?></h1>
-
+<article class="title-list">
+    <h1><?= $title ?></h1>
+</article>
 
 <?php include("message.php"); ?>
 
 
-<table>
+<table class="aae-table info-table">
     <tr>
         <td>Titre</td>
         <td><?= $titre ?></td>
@@ -93,107 +93,109 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
         <td>Commentaires autorisés</td>
         <td><?= $is_commentairePermis ?></td>
     </tr>
-
 </table>
 
-<br>
-<h2>Questions</h2>
+<div class="input-blank"></div>
 
-<table>
-    <thead>
-        <tr>
-            <th> </th>
-            <th> </th>
-            <th>:(</th>
-            <th>:|</th>
-            <th>:)</th>
-            <th>:D</th>
-        </tr>
-
-    </thead>
-    <tbody>
-
-        <?php
-        while ($row = $resultatStats->fetch()) :
-            $quantieme = isset($row['quantieme']) ? htmlspecialchars($row['quantieme']) : '';
-            $question = isset($row['libelle']) ? trim(htmlspecialchars($row['libelle'])) : "-";
-            $moinsmoins = isset($row['MoinsMoins']) ? round((float)$row['MoinsMoins'], 2) . '%' : '0%';
-            $moins = isset($row['Moins']) ? round((float)$row['Moins'], 2) . '%' : '0%';
-            $plus = isset($row['Plus']) ? round((float)$row['Plus'], 2) . '%' : '0%';
-            $plusplus = isset($row['PlusPlus']) ? round((float)$row['PlusPlus'], 2) . '%' : '0%';
-            ?>
+<section>
+    <h1>Questions</h1>
+    <table class="smiley-table result-table">
+        <thead>
             <tr>
-                <td><?= $quantieme ?></td>
-                <td><?= $question ?></td>
-                <td><?= $moinsmoins ?></td>
-                <td><?= $moins ?></td>
-                <td><?= $plus ?></td>
-                <td><?= $plusplus ?></td>
+                <th> </th>
+                <th> </th>
+                <th class="result-head very-dissatisfied"></th>
+                <th class="result-head dissatisfied"></th>
+                <th class="result-head satisfied"> </th>
+                <th class="result-head very-satisfied"></th>
             </tr>
 
-        <?php
-    endwhile;
-    ?>
+        </thead>
+        <tbody>
 
-    </tbody>
-</table>
+            <?php
+            while ($row = $resultatStats->fetch()) :
+                $quantieme = isset($row['quantieme']) ? htmlspecialchars($row['quantieme']) : '';
+                $question = isset($row['libelle']) ? trim(htmlspecialchars($row['libelle'])) : "-";
+                $moinsmoins = isset($row['MoinsMoins']) ? round((float)$row['MoinsMoins'], 2) . '%' : '0%';
+                $moins = isset($row['Moins']) ? round((float)$row['Moins'], 2) . '%' : '0%';
+                $plus = isset($row['Plus']) ? round((float)$row['Plus'], 2) . '%' : '0%';
+                $plusplus = isset($row['PlusPlus']) ? round((float)$row['PlusPlus'], 2) . '%' : '0%';
+                ?>
+                <tr>
+                    <td><?= $quantieme ?></td>
+                    <td><?= $question ?></td>
+                    <td><?= $moinsmoins ?></td>
+                    <td><?= $moins ?></td>
+                    <td><?= $plus ?></td>
+                    <td><?= $plusplus ?></td>
+                </tr>
 
+            <?php
+        endwhile;
+        ?>
 
-<?php
-if ((bool)$resultatInfosBase['is_commentairePermis'] === true) :
-    ?>
-
-    <section>
-        <h2>Commentaires</h2>
-        <textarea name="" id="" cols="30" rows="10"><?= $commentaires ?></textarea>
-    </section>
-
-<?php
-endif;
-?>
-
-
-
-
-<form action="index.php" method="post">
-    <input type="submit" value="Retour">
-</form>
-
-<!-- Peite entorse à la règle, ne passe pas par l'index.php sinon exporte le code HTML de la page
-dans le csv, obligé de rediriger vers une page vierge de HTML -->
-<form action="controller/downloadController.php" method="post">
-    <input type="hidden" name="action" value="do_resultatExportCsv">
-    <input type="hidden" name="idResultat" value=<?= $idResultat ?>>
-    <input type="submit" value="Exporter en CSV">
-</form>
+        </tbody>
+    </table>
 
 
-<form action="index.php" method="post">
-    <input type="hidden" name="action" value="do_archiverResultat">
-    <input type="hidden" name="idResultat" value="<?= $idResultat ?>">
-    
     <?php
-    if ((bool)$resultatInfosBase['is_archive'] == false) :
-    ?>
-    
-    <input type="hidden" name="isArchive" value="1">
-    <input type="submit" value="Archiver cette autoévaluation">
-    
-    <?php
-    else:
-    ?>
-    
-    <input type="hidden" name="isArchive" value="0">
-    <input type="submit" value="Rouvrir l'autoévaluation">
-    
+    if ((bool)$resultatInfosBase['is_commentairePermis'] === true) :
+        ?>
+
+        <section>
+            <h2>Commentaires</h2>
+            <textarea name="" id="" cols="30" rows="10"><?= $commentaires ?></textarea>
+        </section>
+
     <?php
     endif;
     ?>
-    
-</form>
 
 
+    <form action="index.php" method="post">
+        <label class="btn btn-detail btn-back">
+            <input type="submit" value="Retour">
+        </label>
+    </form>
 
+    <!-- Peite entorse à la règle, ne passe pas par l'index.php sinon exporte le code HTML de la page
+    dans le csv, obligé de rediriger vers une page vierge de HTML -->
+    <form action="controller/downloadController.php" method="post">
+        <input type="hidden" name="action" value="do_resultatExportCsv">
+        <input type="hidden" name="idResultat" value=<?= $idResultat ?>>
+        <label class="btn btn-detail">
+            <input type="submit" value="Exporter en CSV">
+        </label>
+    </form>
+
+    <form action="index.php" method="post">
+        <input type="hidden" name="action" value="do_archiverResultat">
+        <input type="hidden" name="idResultat" value="<?= $idResultat ?>">
+        
+        <?php
+        if ((bool)$resultatInfosBase['is_archive'] == false) :
+        ?>
+        
+        <input type="hidden" name="isArchive" value="1">
+        <input type="submit" value="Archiver cette autoévaluation">
+        
+        <?php
+        else:
+        ?>
+        
+        <input type="hidden" name="isArchive" value="0">
+        <label class="btn btn-detail">
+            <input type="submit" value="Rouvrir l'autoévaluation">
+        </label>
+        
+        <?php
+        endif;
+        ?>
+        
+    </form>
+</section>
+<!-- // -->
 
 
 

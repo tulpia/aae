@@ -20,11 +20,9 @@
     overflow: hidden;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 50px 0;
-    border-radius: .25rem;
+    // border-radius: .25rem;
     text-align: left;
     line-height: 40px;
-    
     
     th, 
     td{
@@ -58,5 +56,50 @@
         }
 
         &:hover{ cursor: pointer; }        
+    }
+
+    &.result-table {
+        .result-head {
+            vertical-align: middle;
+            padding: 2em 0.75em;
+        }
+        
+        td, 
+        th {
+            &:not(:nth-of-type(2)) { 
+                text-align: center; 
+            }
+
+            @media screen and (max-width: $mobile) {
+                float: none;
+            }
+
+            &:first-of-type { padding-left: 0; }
+        }
+        
+
+        .very-dissatisfied { 
+            background: url('~@svg/icon-sentiment-very-dissatisfied.svg') no-repeat center;
+        }
+        .dissatisfied { 
+            background: url('~@svg/icon-sentiment-dissatisfied.svg') no-repeat center;
+        }
+        .satisfied { 
+            background: url('~@svg/icon-sentiment-satisfied.svg') no-repeat center;
+        }
+        .very-satisfied { 
+            background: url('~@svg/icon-sentiment-very-satisfied.svg') no-repeat center;
+        }
+
+        tbody tr:last-of-type { background: $color-lightBlue; }
+    }
+}
+
+.info-table {
+    tr {
+        td, th { 
+            border-top: none; 
+            padding: .3rem;
+        }
     }
 }

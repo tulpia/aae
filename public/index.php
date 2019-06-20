@@ -243,10 +243,6 @@ try {
                 show_profilProf($_POST['idProf'], "", $messagePassword);
                 break;
 
-            case "mailTest":
-                do_envoiMailTest($_POST['mail']);
-                show_login("Mail envoyé");
-
             default:
                 $isActionDefinie = false;
         }
