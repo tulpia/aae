@@ -736,6 +736,13 @@ function do_deleteEleve($idEleve)
 }
 
 
+function do_deleteEleveDate($dateCreation)
+{
+    $userManager = new UserManager();
+    $userManager->deleteEleveFromDate($dateCreation);
+}
+
+
 function show_detailEleve($idEleve)
 {
 

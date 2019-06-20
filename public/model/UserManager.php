@@ -231,14 +231,14 @@ class UserManager extends Manager
         if ($isPasswordForgot) {
             $subject = "Collège Saint Joseph de Matzenheim - Votre nouveau mot de passe";
             $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation
-            \r\n" . $password . 
-            "\r\nVous pourrez le changer à tout moment depuis votre profil.";
+            \r\n" . $password .
+                "\r\nVous pourrez le changer à tout moment depuis votre profil.";
         } else {
             $subject = "Collège Saint Joseph de Matzenheim - Votre compte a été créé";
             $message = "Vous avez désormais un compte pour l'application d'auto évaluation du collège Saint-Joseph de Matzenheim. 
             \r\nLa présente adresse mail vous servira de login et voici votre mot de passe :
-            \r\n" . $password . 
-            "\r\nVous pourrez le changer à tout moment depuis votre profil.";
+            \r\n" . $password .
+                "\r\nVous pourrez le changer à tout moment depuis votre profil.";
         }
 
         $message .= "\r\n\r\nVous pouvez y accéder via cette adresse : " . $actual_link;
@@ -446,7 +446,7 @@ class UserManager extends Manager
 
         $db = $this->dbConnect();
         $eleves = $db->prepare(
-            "SELECT U.id, U.login, U.id_classe, U.id_classeNom, U.anneeScolaire
+            "SELECT U.id, U.login, U.id_classe, U.id_classeNom, U.anneeScolaire, U.dateCreation
         , GROUP_CONCAT(C.id_optionCours SEPARATOR ';') as optionCours
         FROM users_test as U
         left join cif_eleve_optionCours as C on C.id_users = U.id
@@ -510,16 +510,19 @@ class UserManager extends Manager
     }
 
 
-    public function createEleve($anneeScolaire, $login, $idClasse, $idClasseNom, $arrayidOptionCours)
+    public function createEleve($anneeScolaire, $login, $idClasse, $idClasseNom, $arrayidOptionCours, $dateCreation)
     {
+        
         $db = $this->dbConnect();
 
         $insertEleve = $db->prepare(
             "INSERT INTO users_test
         (nomPrenom, login, is_softDelete, anneeScolaire, is_enseignant, dateCreation, id_classe, id_classeNom )
         VALUES
-        (:nomPrenom, :login, :is_softDelete, :anneeScolaire, :is_enseignant, NOW(), :idClasse, :idClasseNom)"
+        (:nomPrenom, :login, :is_softDelete, :anneeScolaire, :is_enseignant, :dateCreation, :idClasse, :idClasseNom)"
         );
+
+        $dateCreation = $dateCreation->format('Y-m-d H:i:s');
 
         $insertEleve->execute(array(
             ":nomPrenom" => $login,
@@ -528,6 +531,7 @@ class UserManager extends Manager
             ":anneeScolaire" => $anneeScolaire,
             ":is_enseignant" => false,
             ":idClasse" => $idClasse,
+            ":dateCreation" => $dateCreation,
             ":idClasseNom" => $idClasseNom
         ));
 
@@ -536,7 +540,7 @@ class UserManager extends Manager
 
 
         //Insert des options de cours
-        if (count($arrayidOptionCours) > 0 && $idEleve > 0 ) {
+        if (count($arrayidOptionCours) > 0 && $idEleve > 0) {
 
             $isFirstTime = true;
 
@@ -554,8 +558,6 @@ class UserManager extends Manager
             $insert = $db->prepare($sql);
             $insert->execute();
         }
-
-
     }
 
     /**
@@ -611,8 +613,22 @@ class UserManager extends Manager
         //Màj de base de l'élève
         $update = $db->prepare("UPDATE users_test
     SET is_softDelete = 1
-    WHERE id = ?");
+    WHERE id = ?
+    AND is_enseignant = 0");
         $update->execute([$idEleve]);
+    }
+
+
+    function deleteEleveFromDate($dateCreation)
+    {
+        $db = $this->dbConnect();
+
+        //Màj de base de l'élève
+        $update = $db->prepare("UPDATE users_test
+    SET is_softDelete = 1
+    WHERE dateCreation = ?
+    AND is_enseignant = 0");
+        $update->execute([$dateCreation]);
     }
 
 

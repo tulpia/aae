@@ -225,6 +225,12 @@ try {
                 do_deleteEleve($_POST['idEleve']);
                 show_listeEleves("Elève supprimé");
                 break;
+            
+            case "do_deleteEleveDate":
+                do_deleteEleveDate($_POST['dateCreation']);
+                show_listeEleves("Les élèves créés le " . htmlspecialchars($_POST['dateCreation']) . "\n ont été supprimés");
+            break;
+            
 
 
             case "show_ajoutEleves":

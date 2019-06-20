@@ -67,7 +67,12 @@ $annee = (int)$eleve['anneeScolaire'];
     <input type="submit" value="Supprimer cet élève">
 </form>
 
-
+<form action="index.php" method="POST">
+    <input type="hidden" name="dateCreation" value="<?= htmlspecialchars($eleve['dateCreation']) ?>">
+    <input type="hidden" name="action"  value="do_deleteEleveDate">
+    <input type="submit" value="Supprimer tous les élèves
+    créés le <?= htmlspecialchars($eleve['dateCreation']) ?>">
+</form>
 
 
 

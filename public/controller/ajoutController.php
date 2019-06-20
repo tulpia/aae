@@ -33,6 +33,7 @@ entre le matricule et le nom des élèves. - DONE JE CROIS JE SUIS PAS SUR A TES
 
 */
 
+$dateCreation = New DateTime();
 
 $annee = (int)$_POST['anneeScolaire'];
 $elevesOkToCsv = [];
@@ -145,8 +146,8 @@ foreach ($csv as $k => $csvRow) {
         array_push($elevesOkToCsv, $newEleve);
 
 
-        $userManager->createEleve($annee, $NewLogin, $idClasse, $idClasseNom, $optionsEleveEnCours);
-        //$userManager->updateEleve($idEleve, $idClasse, $idClasseNom, $optionsEleveEnCours);
+        $userManager->createEleve($annee, $NewLogin, $idClasse, $idClasseNom, $optionsEleveEnCours, $dateCreation);
+        
     } else {
         $errorMsg = "";
         if(!$idClasse){
