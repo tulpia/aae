@@ -769,3 +769,13 @@ function show_ajoutEleves()
 
     require('view/ajoutEleveView.php');
 }
+
+function do_envoiMailTest($mail){
+    $subject = 'Test mail';
+    $message = "Ca geht's tu !\r\nBien ou bien ?\r\nCa biche ?\r\néèêëàâäiîï \^o^/";
+    try {
+        mail($mail, $subject, $message); 
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
+}
