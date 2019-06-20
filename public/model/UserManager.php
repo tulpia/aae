@@ -224,23 +224,27 @@ class UserManager extends Manager
      */
     public function sendPasswordMail($eMail, $password, $isPasswordForgot)
     {
-
+        $actual_link = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
         $subject = "";
         $message = "";
 
         if ($isPasswordForgot) {
             $subject = "Collège Saint Joseph de Matzenheim - Votre nouveau mot de passe";
-            $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation\r\n" . $password . "\r\nVous pourrez le changer
-            à tout moment depuis votre profil.";
+            $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation
+            \r\n" . $password . 
+            "\r\nVous pourrez le changer à tout moment depuis votre profil.";
         } else {
             $subject = "Collège Saint Joseph de Matzenheim - Votre compte a été créé";
             $message = "Vous avez désormais un compte pour l'application d'auto évaluation du collège Saint-Joseph de Matzenheim. 
-            La présente adresse mail vous servira de login et voici votre mot de passe :\r\n" . $password . "\r\nVous pourrez le changer
-            à tout moment depuis votre profil.";
+            \r\nLa présente adresse mail vous servira de login et voici votre mot de passe :
+            \r\n" . $password . 
+            "\r\nVous pourrez le changer à tout moment depuis votre profil.";
         }
 
+        $message .= "\r\n\r\nVous pouvez y accéder via cette adresse : " . $actual_link;
 
-        $message = wordwrap($message, 70, "\r\n");
+
+        //$message = wordwrap($message, 70, "\r\n");
 
         //$headers = "From : christian.bachmann@college-matzenheim.fr";
         try {
