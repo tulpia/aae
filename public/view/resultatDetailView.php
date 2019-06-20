@@ -31,6 +31,7 @@ $nbRepondu = isset($resultatInfosBase['nbRepondu']) ? (int)$resultatInfosBase['n
 $nbAutoEval = isset($resultatInfosBase['nbAutoEval']) ? (int)$resultatInfosBase['nbAutoEval'] : 0;
 $nbReponses = $nbRepondu . ' / ' . $nbAutoEval;
 
+$anneeScolaire = htmlSpecialChars($resultatInfosBase['anneeScolaire']);
 
 $dateDerniereReponse = isset($resultatInfosBase['dateDerReponse']) ? htmlspecialchars($resultatInfosBase['dateDerReponse']) : "-";
 $dateEnvoi = isset($resultatInfosBase['dateCreation']) ? htmlspecialchars($resultatInfosBase['dateCreation']) : "-";
@@ -65,6 +66,10 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
     <tr>
         <td>Nombre de réponses</td>
         <td><?= $nbReponses ?></td>
+    </tr>
+    <tr>
+        <td>Année scolaire</td>
+        <td><?= $anneeScolaire ?></td>
     </tr>
     <tr>
         <td>Créé le</td>

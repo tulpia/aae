@@ -40,20 +40,21 @@ class ResultatManager extends Manager{
     public function getResultatsList($idProf, $nbLimit, $isAfficheUniquementEnCours){
 
         $db = $this->dbConnect();
-        $query = "SELECT R.id, R.is_archive
-        , R.titre, DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+        $query = "SELECT R.id, R.is_archive, R.titre, DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+        , CONCAT(anneeScolaire, '-',anneeScolaire +1) as anneeScolaire
         , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
         , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
         , (SELECT COUNT(id) from autoEvaluation as AE2 where AE2.id_resultat = R.id) as nbAutoEval
         , (SELECT DATE_FORMAT(MAX(AE3.dateReponse), '%d/%m/%Y') from autoEvaluation as AE3 where AE3.id_resultat = R.id) as dateDerReponse
-        , (Select C.libelle from classe as C where C.id = R.id_classe) as classe
-        , ( select GROUP_CONCAT(N.libelle) as classeNom
+        , (SELECT C.libelle from classe as C where C.id = R.id_classe) as classe
+        , ( SELECT GROUP_CONCAT(N.libelle) as classeNom
             FROM classeNom as N, cif_resultat_classeNom as C
             WHERE N.id = C.id_classeNom
             and C.id_resultat = R.id) as ClasseNom
-        , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
+        , ( SELECT O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
         from resultat as R
         where id_users = ?\n";
+
         if((bool)$isAfficheUniquementEnCours === true){
             $query .= "and is_archive = 0\n"; 
         }
@@ -87,6 +88,7 @@ class ResultatManager extends Manager{
             , R.titre, R.is_commentairePermis
             , DATE_FORMAT(dateCreation, '%d/%m/%Y') as dateCreation
             , DATE_FORMAT(dateAccessible, '%d/%m/%Y') as dateAccessible
+            , CONCAT(anneeScolaire, '-',anneeScolaire +1) as anneeScolaire
             , (select M.libelle FROM matiere as M where M.id = R.id_matiere) as matiere
             , (SELECT COUNT(id) from autoEvaluation as AE1 where AE1.id_resultat = R.id AND AE1.isRepondu = 1) as nbRepondu
             , COUNT(AE.id) as nbAutoEval
@@ -124,7 +126,7 @@ class ResultatManager extends Manager{
         $count->execute([(int)$idResultat]);
 
         $nbRepondu = $count->fetch();
-        $nbRepondu = (int)$nbRepondu > 0 ? (int)$nbRepondu : 1;
+        $nbRepondu = (int)$nbRepondu[0] > 0 ? (int)$nbRepondu[0] : 1;
         
         $count->closeCursor();
 
@@ -181,7 +183,7 @@ class ResultatManager extends Manager{
      *
      * @return void
      */
-    public function insertResultat($idQuestionnaire, $idMatiere, $idProf, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis){
+    public function insertResultat($idQuestionnaire, $idMatiere, $idProf, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $anneeScolaire){
         
         //Champs Nullable
         if(!isset($idMatiere) || (int)$idMatiere < 1){
@@ -205,14 +207,15 @@ class ResultatManager extends Manager{
                 
         $db = $this->dbConnect();
         $insert = $db->prepare(
-            "INSERT INTO resultat(id_questionnaire, id_users, id_matiere, id_classe, id_optionCours, dateCreation, dateAccessible, titre, is_archive, is_commentairePermis, is_softDelete)
-            VALUES(:id_questionnaire, :id_user, :id_matiere, :id_classe, :id_optionCours, NOW(), :dateAccessible, :titre, 0, :is_commentairePermis, 0)"
+            "INSERT INTO resultat(id_questionnaire, id_users, id_matiere, id_classe, id_optionCours, dateCreation, dateAccessible, titre, is_archive, is_commentairePermis, is_softDelete, anneeScolaire)
+            VALUES(:id_questionnaire, :id_user, :id_matiere, :id_classe, :id_optionCours, NOW(), :dateAccessible, :titre, 0, :is_commentairePermis, 0, :anneeScolaire)"
         );
 
         $insert->bindParam(":id_questionnaire", $idQuestionnaire);
         $insert->bindParam(":id_user", $idProf);
         $insert->bindParam(":id_matiere", $idMatiere);      
         $insert->bindParam(":id_classe", $idClasse);
+        $insert->bindParam(":anneeScolaire", $anneeScolaire);
         
         if($idOptionCours > 0){
             $insert->bindParam(":id_optionCours", $idOptionCours);
@@ -267,6 +270,7 @@ class ResultatManager extends Manager{
         fputcsv($file, ["Informations générales"]);
         fputcsv($file, [""]);
         fputcsv($file, ["Titre", $entete['titre']]);
+        fputcsv($file, ["Année scolaire", $entete['anneeScolaire']]);
         fputcsv($file, ["Matière", $entete['matiere']]);
         fputcsv($file, ["Classe", $entete['classe'] . ' ' . $entete['ClasseNom'] . ' ' . $entete['optionCours']]);
         fputcsv($file, ["Réponse", $entete['nbRepondu'] . '/' . $entete['nbAutoEval']]);

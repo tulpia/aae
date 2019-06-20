@@ -100,7 +100,7 @@ try {
 
             case "do_autoEvalDistribuer":
                 $isCommentairePermis = isset($_POST['isCommentairePermis']);
-                do_autoEvalDistribuer($_POST['idQuestionnaire'], $_SESSION['idUser'], $_POST['idMatiere'], $_POST['idClasse'], $_POST['idOptionCours'], $_POST['dateAccessible'], $_POST['titre'], $isCommentairePermis, $_POST['IdClasseNoms']);
+                do_autoEvalDistribuer($_POST['idQuestionnaire'], $_SESSION['idUser'], $_POST['idMatiere'], $_POST['idClasse'], $_POST['idOptionCours'], $_POST['dateAccessible'], $_POST['titre'], $isCommentairePermis, $_POST['IdClasseNoms'], $_POST['anneeScolaire']);
                 show_questionnairesList($_SESSION['idUser'], "Autoévaluation distribuée");
                 break;
 
@@ -192,12 +192,12 @@ try {
             case "do_updateProf":
                 $message = do_updateProf($_POST['idProf'], $_POST['nomPrenom'], $_POST['login'], isset($_POST['isAdmin']), $_POST['idMatiere']);
 
-                if (isset($_POST['nextAction']))
-                    if ($_POST['nextAction'] == 'show_profilProf') {
-                        show_profilProf($_POST['idProf'], $message, "");
-                    } else {
-                        show_profDetailEdit($_POST['idProf'], $message);
-                    }
+                if (isset($_POST['nextAction']) && $_POST['nextAction'] == 'show_profilProf'){
+                    show_profilProf($_POST['idProf'], $message, "");
+                } else {
+                    show_profDetailEdit ($_POST ['idProf'], $message);
+                }
+
 
                 break;
 

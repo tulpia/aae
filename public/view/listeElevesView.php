@@ -16,7 +16,7 @@ require('view/headerUserView.php');
 <form action="index.php" method="POST">
     <label class="btn btn-detail">
         <input type="hidden" name="action" value="show_ajoutEleves">
-        <input type="submit" value="Ajouter des élèves">
+        <input type="submit" value="++   Ajouter des élèves   ++">
     </label>
 </form>
 

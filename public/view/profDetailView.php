@@ -32,6 +32,8 @@ require('view/headerUserView.php');
 
 
 
+
+
 <form action="index.php" method="POST">
 
     <?php if ($isEdit) : ?>
@@ -77,9 +79,16 @@ require('view/headerUserView.php');
 
 </form>
 
+<form action="index.php" method="POST">
+    <input type="hidden" name="action" value="show_listeProf">
+    <label class="btn btn-detail btn-back">
+        <input type="submit" value="Retour">
+    </label>
+</form>
+
 
 <?php if ($isEdit) : ?>
-
+    <br><br><br>
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="do_deleteProf">
         <input type="hidden" name="idProf" value="<?= htmlspecialchars($idProf) ?>">
@@ -91,12 +100,7 @@ require('view/headerUserView.php');
 <?php endif; ?>
 
 
-<form action="index.php" method="POST">
-    <input type="hidden" name="action" value="show_listeProf">
-    <label class="btn btn-detail btn-back">
-        <input type="submit" value="Retour">
-    </label>
-</form>
+
 
 
 

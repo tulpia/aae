@@ -62,6 +62,7 @@ $annee = (int)$eleve['anneeScolaire'];
 </form>
 
 <form action="index.php" method="POST">
+    <br><br><br>
     <input type="hidden" name="idEleve" value="<?= htmlspecialchars($eleve['id']) ?>">
     <input type="hidden" name="action"  value="do_deleteEleve">
     <input type="submit" value="Supprimer cet élève">
