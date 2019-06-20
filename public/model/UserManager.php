@@ -230,18 +230,21 @@ class UserManager extends Manager
 
         if ($isPasswordForgot) {
             $subject = "Collège Saint Joseph de Matzenheim - Votre nouveau mot de passe";
-            $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation " . $password;
+            $message = "Voici votre nouveau mot de passe pour l'application d'auto évaluation\r\n" . $password . "\r\nVous pourrez le changer
+            à tout moment depuis votre profil.";
         } else {
             $subject = "Collège Saint Joseph de Matzenheim - Votre compte a été créé";
             $message = "Vous avez désormais un compte pour l'application d'auto évaluation du collège Saint-Joseph de Matzenheim. 
-            La présente adresse mail vous servira de login et voici votre mot de passe : " . $password . "  Vous pourrez le changer
+            La présente adresse mail vous servira de login et voici votre mot de passe :\r\n" . $password . "\r\nVous pourrez le changer
             à tout moment depuis votre profil.";
         }
 
 
-        $headers = "From : christian.bachmann@college-matzenheim.fr";
+        $message = wordwrap($message, 70, "\r\n");
+
+        //$headers = "From : christian.bachmann@college-matzenheim.fr";
         try {
-            return mail($eMail, $subject, $message, $headers);
+            return mail($eMail, $subject, $message);
         } catch (\Throwable $th) {
             return false;
         }

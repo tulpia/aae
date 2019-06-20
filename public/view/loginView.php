@@ -39,18 +39,7 @@ ob_start();
         </form>
     </section>
 
-    <!-- Interface prof avec l'id_user = 4 et admin -->
-    <!-- <section class="block-login__block-prof">
-        <form action="index.php" method="post" class="block-prof__form-container">
-            <input type="hidden" name="action" value="login">
-            <input type="hidden" name="isProf" value="1">
-            <input type="hidden" name="login" value="">
-            <input type="hidden" name="pwd" value="">
-            <label class="btn btn-prof">
-                <input type="submit" value="Interface enseignant">
-            </label>
-        </form>
-    </section>-->
+   
 
     <form action="index.php" method="POST" class="right_content">
         <input type="hidden" name="action" value="show_passwordForget">
@@ -60,7 +49,7 @@ ob_start();
     </form>
 
 
-    <form action="index.php" method="post">
+    <!-- <form action="index.php" method="post">
         <input type="hidden" name="action" value="mailTest">
         <input type="hidden" name="mail" value="sayhelloroger@gmail.com">
         <label class="btn btn-submit">
@@ -86,7 +75,7 @@ ob_start();
         Elève 02<br>
         Login : 18-0002<br><br>
 
-    </p>
+    </p> -->
 
 
 
