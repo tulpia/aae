@@ -20,8 +20,7 @@
     overflow: hidden;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 50px 0;
-    border-radius: .25rem;
+    // border-radius: .25rem;
     text-align: left;
     line-height: 40px;
     
@@ -74,6 +73,8 @@
             @media screen and (max-width: $mobile) {
                 float: none;
             }
+
+            &:first-of-type { padding-left: 0; }
         }
         
 
@@ -88,6 +89,17 @@
         }
         .very-satisfied { 
             background: url('~@svg/icon-sentiment-very-satisfied.svg') no-repeat center;
+        }
+
+        tbody tr:last-of-type { background: $color-lightBlue; }
+    }
+}
+
+.info-table {
+    tr {
+        td, th { 
+            border-top: none; 
+            padding: .3rem;
         }
     }
 }
