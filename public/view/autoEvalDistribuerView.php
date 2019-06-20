@@ -41,6 +41,29 @@ require('view/headerUserView.php');
 
 
     <div class="input-row">
+        <label>Année Scolaire</label>
+        <select name="anneeScolaire">
+
+            <?php
+            $currentYear = (int)date("Y");
+            $years = [];
+
+            if ((int)date("m") < 8) {
+                $currentYear--;
+            }
+            $years = [$currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
+
+            foreach ($years as $year) : ?>
+
+                <option value="<?= $year ?>" <?= $year == $currentYear ? " selected" : "" ?>><?= $year . '-' . ($year + 1) ?></option>
+
+            <?php endforeach ?>
+
+        </select>
+    </div>
+
+
+    <div class="input-row">
         <!-- Date à partir de laquelle l'autoéval sera visible par les élèves -->
         <label class="large-label">Visible à partir du</label>
         <input type="date" name="dateAccessible" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>" required>

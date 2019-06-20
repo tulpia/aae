@@ -140,10 +140,11 @@ require('view/headerUserView.php');
 if ($isAuMoinsUneQuestion) {
     ?>
     <form action="index.php" method="POST">
+    <br><br><br>
         <input type="hidden" name="action" value="show_autoEvalDistribuer">
         <input type="hidden" name="idQuestionnaire" value="<?= $idQuestionnaire ?>">
         <label class="btn btn-detail">
-            <input type="submit" value="Distribuer ce questionnaire">
+            <input type="submit" value="++    Distribuer ce questionnaire    ++">
         </label>
     </form>
 <?php

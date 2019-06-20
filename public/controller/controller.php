@@ -305,13 +305,13 @@ function show_autoEvalDistribuer($idQuestionnaire)
  *
  * @return void
  */
-function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms)
+function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $idClasseNoms, $anneeScolaire)
 {
 
 
     //Créé une ligne de résultat que le prof pourra consulter pour avoir ses statistiques
     $Resultat = new ResultatManager();
-    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis);
+    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $anneeScolaire);
 
     //Créé les lignes de Cif_Resultat_classeNom pour savoir quels noms de classes sont concernés par cette autoévaluation
     $Cif = new CifResultatClasseNomManager();
@@ -321,17 +321,16 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
 
 
 
-
     //Récupère aussi l'année de la rentrée scolaire des élèves pour savoir à qui s'adresser.
     //On part sur la date d'accessibilité de l'autoévaluation
     //de septembre à Décembre on garde la date telle quelle
     //de janvier à août inclus on fait année - 1
-    $castDate = new DateTime($dateAccessible);
-    $anneeScolaire = (int)($castDate->format('Y'));
-    $mois = (int)($castDate->format('m'));
-    if ($mois < 9) {
-        --$anneeScolaire;
-    }
+    // $castDate = new DateTime($dateAccessible);
+    // $anneeScolaire = (int)($castDate->format('Y'));
+    // $mois = (int)($castDate->format('m'));
+    // if ($mois < 9) {
+    //     --$anneeScolaire;
+    // }
 
     //Récupère les id des élèves concernés
     $Users = new UserManager();
@@ -733,6 +732,13 @@ function do_deleteEleve($idEleve)
 {
     $userManager = new UserManager();
     $userManager->deleteEleve($idEleve);
+}
+
+
+function do_deleteEleveDate($dateCreation)
+{
+    $userManager = new UserManager();
+    $userManager->deleteEleveFromDate($dateCreation);
 }
 
 
