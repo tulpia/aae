@@ -311,7 +311,7 @@ function do_autoEvalDistribuer($idQuestionnaire, $idProf, $idMatiere, $idClasse,
 
     //Créé une ligne de résultat que le prof pourra consulter pour avoir ses statistiques
     $Resultat = new ResultatManager();
-    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idProf, $idMatiere, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $anneeScolaire);
+    $idResultat = $Resultat->insertResultat($idQuestionnaire, $idMatiere, $idProf, $idClasse, $idOptionCours, $dateAccessible, $titre, $isCommentairePermis, $anneeScolaire);
 
     //Créé les lignes de Cif_Resultat_classeNom pour savoir quels noms de classes sont concernés par cette autoévaluation
     $Cif = new CifResultatClasseNomManager();

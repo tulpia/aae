@@ -206,13 +206,12 @@ class ResultatManager extends Manager{
 
                 
         $db = $this->dbConnect();
-        $insert = $db->prepare(
-            "INSERT INTO resultat(id_questionnaire, id_users, id_matiere, id_classe, id_optionCours, dateCreation, dateAccessible, titre, is_archive, is_commentairePermis, is_softDelete, anneeScolaire)
-            VALUES(:id_questionnaire, :id_user, :id_matiere, :id_classe, :id_optionCours, NOW(), :dateAccessible, :titre, 0, :is_commentairePermis, 0, :anneeScolaire)"
+        $insert = $db->prepare("INSERT INTO resultat(id_questionnaire, id_users, id_matiere, id_classe, id_optionCours, dateCreation, dateAccessible, titre, is_archive, is_commentairePermis, is_softDelete, anneeScolaire)
+        VALUES(:id_questionnaire, :id_users, :id_matiere, :id_classe, :id_optionCours, NOW(), :dateAccessible, :titre, 0, :is_commentairePermis, 0, :anneeScolaire)"
         );
 
         $insert->bindParam(":id_questionnaire", $idQuestionnaire);
-        $insert->bindParam(":id_user", $idProf);
+        $insert->bindParam(":id_users", $idProf);
         $insert->bindParam(":id_matiere", $idMatiere);      
         $insert->bindParam(":id_classe", $idClasse);
         $insert->bindParam(":anneeScolaire", $anneeScolaire);
