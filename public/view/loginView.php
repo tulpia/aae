@@ -49,24 +49,7 @@ ob_start();
     </form>
 
 
-    <p class="card">
-        <br><br>
-        Hey Salut ! C'est moi la balise dégueu !<br>
-        Voilà les id de test pour se connecteur<br><br>
-
-        Prof 01<br>
-        Login : sayhelloroger@gmail.com  /  pwd : 1234<br><br>
-
-        Prof 02<br>
-        Login : david.klein.fr@protonmail.com  /  pwd : 1234<br><br>
-
-        Elève 01<br>
-        Login : 18-0001 <br><br>
-
-        Elève 02<br>
-        Login : 18-0002<br><br>
-
-    </p>
+   
 
 </section>
 

@@ -178,8 +178,12 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
         ?>
         
         <input type="hidden" name="isArchive" value="1">
-        <input type="submit" value="Archiver cette autoévaluation">
         
+        <label class="btn btn-detail btn-back">
+            <input type="submit" value="Archiver cette autoévaluation">
+        </label>
+
+
         <?php
         else:
         ?>
