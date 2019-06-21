@@ -66,7 +66,7 @@ ob_start();
         Elève 02<br>
         Login : 18-0002<br><br>
 
-    </p> -->
+    </p>
 
 </section>
 
