@@ -83,9 +83,11 @@
     transition: transform 250ms $curve,
                 opacity 250ms linear;
     visibility: hidden;
+    display: none;
 
     &.active {
         visibility: visible;
+        display: block;
         transform: translateY(0px);
         opacity: 1;
         transition: transform 250ms $curve,
@@ -95,20 +97,18 @@
 
 .resultats {
     width: 100%;
-    position: absolute;
-    height: auto;
     transform: translateY(10px);
-    top: 0;
-    left: 0;
     opacity: 0;
     transition: transform 250ms $curve,
                 opacity 250ms linear;
     visibility: hidden;
+    display: none;
 
     &.active {
         visibility: visible;
         transform: translateY(0px);
         opacity: 1;
+        display: block;
         transition: transform 250ms $curve,
                     opacity 250ms linear;
     }
