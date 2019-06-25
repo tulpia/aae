@@ -23,17 +23,17 @@ require('view/headerUserView.php');
 
 
         <div class="input-row">
-            <label>E-mail d'identification</label>
+            <label class="large-label">E-mail d'identification</label>
             <input type="email" name="login" value="<?= $prof['login'] ?>" required>
         </div>
 
         <div class="input-row">
-            <label>Prénom et nom</label>
+            <label class="large-label">Prénom et nom</label>
             <input type="text" name="nomPrenom" value="<?= $prof['nomPrenom'] ?>" required>
         </div>
 
         <div class="input-row">
-            <label>Matière</label>
+            <label class="large-label">Matière</label>
             <select name="idMatiere">
                     <?php while ($matiere = $matieres->fetch()) : ?>
                         <option value="<?= htmlspecialchars($matiere['id']) ?>" <?= $matiere['id'] == $prof["id_matiere"] ? " selected" : "" ?>><?= htmlspecialchars($matiere['libelle']) ?></option>
@@ -66,17 +66,17 @@ require('view/headerUserView.php');
         <?php endif; ?>
 
         <div class="input-row">
-            <label>Ancien mot de passe</label>
+            <label class="large-label">Mot de passe actuel</label>
             <input type="password" name="currentPassword" required>
         </div>
 
         <div class="input-row">
-            <label>Nouveau mot de passe</label>
+            <label class="large-label">Nouveau mot de passe</label>
             <input type="password" name="newPassword" required>
         </div>
 
         <div class="input-row">
-            <label>Réécrire le nouveau mot de passe</label>
+            <label class="large-label">Confirmer le mot de passe</label>
             <input type="password" name="newPasswordConfirm" required>
         </div>
         <label class="btn btn-detail">

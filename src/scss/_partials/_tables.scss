@@ -12,6 +12,163 @@
     }
 }
 
+.data-table {
+  width: 100%;
+  margin-bottom: 1.5em;
+  border-spacing: 0;
+  
+  @media (min-width: $bp-medium) {
+    font-size: .9em; 
+  }
+  
+  @media (min-width: $bp-large) {
+    font-size: 1em; 
+  }
+  
+  thead {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    padding: 0;
+    border: 0;
+    height: 1px; 
+    width: 1px; 
+    overflow: hidden;
+    
+    @media (min-width: $bp-medium) {
+      position: relative;
+      clip: auto;
+      height: auto;
+      width: auto;
+      overflow: auto;
+    }
+    
+    th {
+      background-color: $color-blue;
+      border: 1px solid $color-blue;
+      font-weight: normal;
+      text-align: center;
+      color: white;
+      
+      &:first-of-type {
+        text-align: left; 
+      }
+    }
+  }
+  
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    padding: 0;
+    text-align: left;
+    white-space: normal;
+  }
+  
+  tr {   
+    @media (min-width: $bp-medium) {
+      display: table-row; 
+    }
+  }
+  
+  th,
+  td {
+    padding: .5em;
+    vertical-align: middle;
+    
+    @media (min-width: $bp-small) {
+      padding: .75em .5em; 
+    }
+    
+    @media (min-width: $bp-medium) {
+      display: table-cell;
+      padding: .5em;
+    }
+    
+    @media (min-width: $bp-large) {
+      padding: .75em .5em; 
+    }
+    
+    @media (min-width: $bp-xl) {
+      padding: .75em; 
+    }
+  }
+  
+  tbody {
+    @media (min-width: $bp-medium) {
+      display: table-row-group; 
+    }
+    
+    tr {
+      margin-bottom: 1em;
+      
+      @media (min-width: $bp-medium) {
+        display: table-row;
+        border-width: 1px;
+      }
+      
+      &:last-of-type {
+        margin-bottom: 0; 
+      }
+    }
+    
+    th[scope="row"] {
+      background-color: $color-blue;
+      color: white;
+      
+      @media (min-width: $bp-small) {
+        border-left: 1px solid  $color-blue;
+        border-bottom: 1px solid  $color-blue;
+      }
+      
+      @media (min-width: $bp-medium) {
+        background-color: transparent;
+        color: $color-darkgrey;
+        text-align: left;
+      }
+    }
+    
+    td {
+      text-align: right;
+
+      .btn-question-edit {
+        margin-left: 0;
+      }
+      
+      @media (min-width: $bp-medium) {
+        border-left: 1px solid  $color-blue;
+        border-bottom: 1px solid  $color-blue;
+        text-align: left; 
+      }
+      
+      &:last-of-type {
+        @media (min-width: $bp-medium) {
+          border-right: 1px solid  $color-blue;
+        } 
+      }
+    }
+
+    td[data-title]:before {
+      content: attr(data-title);
+      float: left;
+      font-size: .8em;
+      color: $color-grey;
+      
+      @media (min-width: $bp-small) {
+        font-size: .9em; 
+      }
+      
+      @media (min-width: $bp-medium) {
+        content: none; 
+      }
+
+      @media (max-width: $bp-medium) {
+        margin-right: 1em;
+      }
+    } 
+  }
+}
+
 .smiley-table{
     width: 100%;
     max-width: 100%;

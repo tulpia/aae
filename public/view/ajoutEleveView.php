@@ -11,7 +11,7 @@ require('./view/headerUserView.php');
 <form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves">
 
     <div class="input-row">
-        <label>Année Scolaire</label>
+        <label class="medium-label">Année Scolaire</label>
         <select name="anneeScolaire">
 
             <?php
@@ -87,7 +87,7 @@ require('./view/headerUserView.php');
                 </article>
                 <br>
                 <h1>Structure du fichier élèves :</h1>
-                <p>(ne pas inclure la ligne d'entête : Nom, Prénom, etc ...)</p>
+                <p>(ne pas inclure la ligne d'entête : Nom, Prénom, etc.)</p>
                 <br>
                 <Table class="aae-table">
                     <thead>
@@ -167,8 +167,8 @@ require('./view/headerUserView.php');
 
                 <br><br><br>
                 <h3>Pour des soucis de confidentialité aucun nom d'élève ne sera enregistré en base de données.<br>
-                    A la fin de l'import vous téléchargerez un fichier contenant la correspondance entre le nom et le matricule de chaque élève<br>
-                    Ce fichier est <strong>strictement confidentiel et ne pourra jamais être réédité</strong>, gardez le en lieu sûr.</h3>
+                    À la fin de l'import vous téléchargerez un fichier contenant la correspondance entre le nom et le matricule de chaque élève.<br>
+                    Ce fichier est <strong>strictement confidentiel et ne pourra jamais être réédité</strong>, gardez-le en lieu sûr.</h3>
 
     </div>
 

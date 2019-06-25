@@ -29,12 +29,12 @@ require('view/headerUserView.php');
     </article>
     
     <div class="input-row">
-        <label>Identifiant</label>
+        <label class="medium-label">Identifiant</label>
         <input type="text" name="login" max="200" value="<?=$filterLogin?>">
     </div>
 
     <div class="input-row">
-        <label>Année Scolaire</label>
+        <label class="medium-label">Année Scolaire</label>
         <select name="anneeScolaire">
                 <?php
                 while ($annee = $listAnneeScolaire->fetch()) :
@@ -46,7 +46,7 @@ require('view/headerUserView.php');
 
 
     <div class="input-row">
-        <label>Classe</label>
+        <label class="medium-label">Classe</label>
         <select name="idclasse">
                 <option value="0">- Toutes -</option>
                 <?php
@@ -58,7 +58,7 @@ require('view/headerUserView.php');
     </div>
 
     <div class="input-row">
-        <label>Nom de la classe</label>
+        <label class="medium-label">Nom de la classe</label>
         <select name="idclasseNom">
                 <option value="0">- Tous -</option>
                 <?php
@@ -70,7 +70,7 @@ require('view/headerUserView.php');
     </div>
 
     <div class="input-row">
-        <label>Option de cours</label>
+        <label class="medium-label">Option de cours</label>
         <select name="idOptionCours">
                 <option value="0">- Toutes -</option>
                 <?php
@@ -82,7 +82,7 @@ require('view/headerUserView.php');
     </div>
 
     <div class="input-row">
-        <label>Date de création</label>
+        <label class="medium-label">Date de création</label>
         <select name="dateCreation">
                 <option value="1900-01-01">- Toutes -</option>
                 <?php
@@ -104,14 +104,17 @@ require('view/headerUserView.php');
 <br><br>
     <h1><?= $listEleve->rowCount() . " élève" . ($listEleve->rowCount() !== 1 ? "s" : "") ?></h1>
     <br>
-    <table  class="aae-table">
+    
+    <table  class="data-table">
         <thead>
-            <th>Identifiant</th>
-            <th>Classe</th>
-            <th>Option de cours</th>
-            <th>Année scolaire</th>
-            <th>Créé le</th>
-            <th></th>
+            <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Classe</th>
+                <th scope="col">Option de cours</th>
+                <th scope="col">Année scolaire</th>
+                <th scope="col">Créé le</th>
+                <th scope="col"></th>
+            </tr>
         </thead>
 
         <?php while ($eleve = $listEleve->fetch()) :
@@ -122,13 +125,12 @@ require('view/headerUserView.php');
             $anneeScolaireText = htmlspecialchars($eleve['anneeScolaire']);
             $dateCreaText = htmlspecialchars($eleve['dateCreation']);
             ?>
-
-            <tr>
-                <td><?=$identifiant?></td>
-                <td><?=$classeText?></td>
-                <td><?=$optionCoursText?></td>
-                <td><?=$anneeScolaireText?></td>
-                <td><?=$dateCreaText?></td>
+            <tbody>
+                <th scope="row"><?=$identifiant?></th>
+                <td data-title="Classe"><?=$classeText?></td>
+                <td data-title="Option de cours"><?=$optionCoursText?></td>
+                <td data-title="Année scolaire"><?=$anneeScolaireText?></td>
+                <td data-title="Créé le"><?=$dateCreaText?></td>
                 <td>
                     <form action="index.php" method="POST">
                         <label class="btn-question-edit">
@@ -138,7 +140,7 @@ require('view/headerUserView.php');
                         </label>
                     </form>
                 </td>
-            </tr>
+            </tbody>
 
         <?php endwhile; ?>
 
