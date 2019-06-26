@@ -126,13 +126,24 @@
         color: $color-darkgrey;
         text-align: left;
       }
+
+      @media (max-width: $bp-medium) {
+
+      }
     }
     
     td {
-      text-align: right;
+      font-size: .85em;
+      line-height: 1;
 
       .btn-question-edit {
         margin-left: 0;
+        text-align: left;
+      }
+
+      @media (min-width: $bp-small) {
+        font-size: inherit;
+        line-height: inherit;
       }
       
       @media (min-width: $bp-medium) {
@@ -144,14 +155,22 @@
       &:last-of-type {
         @media (min-width: $bp-medium) {
           border-right: 1px solid  $color-blue;
-        } 
+        }
+
+        @media (max-width: $bp-medium) {
+          margin-bottom: 25px;
+
+          input[type="submit"] {
+            text-align: left;
+            padding-left: 0;
+          }
+        }
       }
     }
 
     td[data-title]:before {
-      content: attr(data-title);
+      content: attr(data-title)" : " ;
       float: left;
-      font-size: .8em;
       color: $color-grey;
       
       @media (min-width: $bp-small) {
@@ -164,8 +183,34 @@
 
       @media (max-width: $bp-medium) {
         margin-right: 1em;
+        clear: left;
       }
     } 
+  }
+}
+
+.data-example {
+  tbody {
+    
+    th[scope="row"] {
+      &:before {
+        content: "Ligne " ;
+      }
+
+      @media (min-width: $bp-medium) {
+        &:before {
+          content: "" ;
+        }
+      }
+    }
+
+    td {
+      &:last-of-type {
+        @media (max-width: $bp-medium) {
+          border: none;
+        }
+      }
+    }    
   }
 }
 

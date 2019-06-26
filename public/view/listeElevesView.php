@@ -124,22 +124,31 @@ require('view/headerUserView.php');
             $optionCoursText = htmlspecialchars($eleve['optionCours']);
             $anneeScolaireText = htmlspecialchars($eleve['anneeScolaire']);
             $dateCreaText = htmlspecialchars($eleve['dateCreation']);
+
+            if (empty ($optionCoursText )) {
+                // Champ vide ?
+                $optionCoursText = "&nbsp;";
+            }
+
             ?>
+
             <tbody>
-                <th scope="row"><?=$identifiant?></th>
-                <td data-title="Classe"><?=$classeText?></td>
-                <td data-title="Option de cours"><?=$optionCoursText?></td>
-                <td data-title="Année scolaire"><?=$anneeScolaireText?></td>
-                <td data-title="Créé le"><?=$dateCreaText?></td>
-                <td>
-                    <form action="index.php" method="POST">
-                        <label class="btn-question-edit">
-                            <input type="hidden" name="action" value="show_detailEleve">
-                            <input type="hidden" name="idEleve" value="<?=$idEleve?>">
-                            <input type="submit" value="Voir">
-                        </label>
-                    </form>
-                </td>
+                <tr>
+                    <th scope="row"><?=$identifiant?></th>
+                    <td data-title="Classe"><?=$classeText?></td>
+                    <td data-title="Option de cours"><?=$optionCoursText?></td>
+                    <td data-title="Année scolaire"><?=$anneeScolaireText?></td>
+                    <td data-title="Créé le"><?=$dateCreaText?></td>
+                    <td>
+                        <form action="index.php" method="POST">
+                            <label class="btn-question-edit">
+                                <input type="hidden" name="action" value="show_detailEleve">
+                                <input type="hidden" name="idEleve" value="<?=$idEleve?>">
+                                <input type="submit" value="Voir">
+                            </label>
+                        </form>
+                    </td>
+                </tr>
             </tbody>
 
         <?php endwhile; ?>

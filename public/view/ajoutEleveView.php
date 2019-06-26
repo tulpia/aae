@@ -87,9 +87,46 @@ require('./view/headerUserView.php');
                 </article>
                 <br>
                 <h1>Structure du fichier élèves :</h1>
-                <p>(ne pas inclure la ligne d'entête : Nom, Prénom, etc.)</p>
+                <p>Ne pas inclure la ligne d'entête : « Nom », « Prénom », etc., et la numérotation des lignes.</p>
                 <br>
-                <Table class="aae-table">
+
+                <table class="data-table data-example">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Classe + Nom Classe</th>
+                            <th scope="col">Option 1</th>
+                            <th scope="col">Option 2</th>
+                            <th scope="col">Option 3</th>
+                            <th scope="col">Option 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td data-title="Nom">Dupond</td>
+                            <td data-title="Prénom">Martine</td>
+                            <td data-title="Classe + Nom Classe">06A</td>
+                            <td data-title="Option 1">Allemand LV1</td>
+                            <td data-title="Option 2">Anglais LV1</td>
+                            <td data-title="Option 3">LCA Latin</td>
+                            <td data-title="Option 4">LCR</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td data-title="Nom">Meyer</td>
+                            <td data-title="Prénom">Eric</td>
+                            <td data-title="Classe + Nom Classe">03A</td>
+                            <td data-title="Option 1">Anglais LV1</td>
+                            <td data-title="Option 2">&nbsp;</td>
+                            <td data-title="Option 3">&nbsp;</td>
+                            <td data-title="Option 4">&nbsp;</td>
+                        </tr>       
+                    </tbody>
+                </table>
+<!--                 <Table class="aae-table">
                     <thead>
                         <th>Nom</th>
                         <th>Prénom</th>
@@ -117,7 +154,7 @@ require('./view/headerUserView.php');
                         <td></td>
                         <td></td>
                     </tr>
-                </Table>
+                </Table> -->
 
 
                 <br>
