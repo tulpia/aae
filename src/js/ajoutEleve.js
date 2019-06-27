@@ -79,7 +79,7 @@ if (document.querySelector('.formulaireAjoutEleves')) {
             btnSubmit.disabled = true;
 
             // Ajout de la classe active au oh shit container
-            ohShitContainer.classList.add('active');
+            // ohShitContainer.classList.add('active');
 
             // -----FEEDBACK
             feedback.classList.add('active');
@@ -99,49 +99,49 @@ if (document.querySelector('.formulaireAjoutEleves')) {
     });
 
     // Oh Shit - requete ajax
-    const formOhShit = ohShitContainer.querySelector('form');
-    const ohShitFeedback = ohShitContainer.querySelector('.feedback-container');
-    const ohShitUploadOk = ohShitContainer.querySelector('.upload-ok');
-    const ohShitLoader = ohShitContainer.querySelector('.loading-container');
+    // const formOhShit = ohShitContainer.querySelector('form');
+    // const ohShitFeedback = ohShitContainer.querySelector('.feedback-container');
+    // const ohShitUploadOk = ohShitContainer.querySelector('.upload-ok');
+    // const ohShitLoader = ohShitContainer.querySelector('.loading-container');
 
-    formOhShit.addEventListener('submit', e => {
-      e.preventDefault();
+    // formOhShit.addEventListener('submit', e => {
+    //   e.preventDefault();
 
-      ohShitLoader.classList.add('active');
+    //   ohShitLoader.classList.add('active');
 
-      axios({
-        method: 'post',
-        url: formOhShit.getAttribute('action'),
-        config: {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      })
-        .then(response => {
-          console.log(response);
+    //   axios({
+    //     method: 'post',
+    //     url: formOhShit.getAttribute('action'),
+    //     config: {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //     }
+    //   })
+    //     .then(response => {
+    //       console.log(response);
 
-          if (response.data.code === 200) {
-            // On jarte le loader
-            if (ohShitLoader.classList.contains('active')) {
-              ohShitLoader.classList.remove('active');
-            }
+    //       if (response.data.code === 200) {
+    //         // On jarte le loader
+    //         if (ohShitLoader.classList.contains('active')) {
+    //           ohShitLoader.classList.remove('active');
+    //         }
 
-            // On ajoute un done sur le bouton
-            if (!ohShitUploadOk.classList.contains('active')) {
-              ohShitUploadOk.classList.add('active');
-            }
+    //         // On ajoute un done sur le bouton
+    //         if (!ohShitUploadOk.classList.contains('active')) {
+    //           ohShitUploadOk.classList.add('active');
+    //         }
 
-            // On ajoute la classe au feedback container
-            if (!ohShitFeedback.classList.contains('active')) {
-              ohShitFeedback.querySelector('p').innerHTML = response.data.message;
-              ohShitFeedback.classList.add('active');
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    });
+    //         // On ajoute la classe au feedback container
+    //         if (!ohShitFeedback.classList.contains('active')) {
+    //           ohShitFeedback.querySelector('p').innerHTML = response.data.message;
+    //           ohShitFeedback.classList.add('active');
+    //         }
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // });
   });
 }

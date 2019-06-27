@@ -402,7 +402,7 @@ class UserManager extends Manager
             $query .= "AND O.id = :idOptionCours\n";
         }
         if ($dateCreation > new DateTime('1900-1-1')) {
-            $query .= "AND O.id = :dateCreation\n";
+            $query .= "AND U.dateCreation = :dateCreation\n";
         }
 
         $query .= "GROUP BY U.id
@@ -425,6 +425,7 @@ class UserManager extends Manager
             $eleves->bindParam(":idOptionCours", $idOptionCours);
         }
         if ($dateCreation > new DateTime('1900-1-1')) {
+            $dateCreation = $dateCreation->format('Y-m-d H:i:s');
             $eleves->bindParam(":dateCreation", $dateCreation);
         }
 

@@ -2,19 +2,25 @@
     margin: 15px 0;
     display: flex;
     justify-content: space-between;
+    
     label{
         align-self: center;
         margin-right: 10px;
         width: 13%;
+        
         &.large-label{
-            width: 20%;
+            width: 40%;
+        }
+
+         &.medium-label{
+            width: 30%;
         }
     }
 
     @media (max-width: $tablet) {
         flex-direction: column;
 
-        label {
+        label, label.large-label, label.medium-label {
             width: 100%;
             margin-bottom: 5px;
             align-self: flex-start;
@@ -196,6 +202,11 @@ select {
             color: $color-darkgrey;
             cursor: pointer;
             padding-left: 30px;
+
+            @media screen and (max-width: $mobile) { 
+                width: 100%;
+                margin-bottom: 25px;
+            }  
             
             input {
                 position: absolute;
@@ -231,11 +242,10 @@ select {
 
             input:checked ~ .checkmark {
 
-                &:after {
-                    
+                &:after {      
                     opacity: 1;
                 }
-            }        
+            }     
         }
 
         .btn-submit--form {

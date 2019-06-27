@@ -13,7 +13,8 @@ try {
                 if (do_login($_POST['login'], $_POST['pwd'], $_POST['isProf'])) {
                     header("Location: " . $_SERVER['PHP_SELF']);
                 } else {
-                    show_login("Login ou mot de passe incorrect");
+                    $message = (bool)$_POST['isProf'] ? "Login ou mot de passe incorrect" : "Login incorrect";
+                    show_login($message);
                 }
                 break;
 

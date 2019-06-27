@@ -99,7 +99,7 @@ class ResultatManager extends Manager{
             WHERE N.id = C.id_classeNom
             and C.id_resultat = R.id) as ClasseNom
             , (select O.libelle from optionCours as O where O.id = R.id_optionCours) as optionCours
-            , GROUP_CONCAT(AE.commentaire SEPARATOR '<br>') as commentaires
+            , GROUP_CONCAT(AE.commentaire SEPARATOR '|') as commentaires
             from resultat as R
             join autoEvaluation as AE ON R.id = AE.id_resultat
             where R.id = ?");

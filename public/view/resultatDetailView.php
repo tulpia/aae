@@ -43,7 +43,7 @@ $is_commentairePermis = (isset($resultatInfosBase['is_commentairePermis']) && (b
 $commentaires = "";
 if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commentaires']) != '') {
     $commentaires = htmlspecialchars($resultatInfosBase['commentaires']);
-    $commentaires = str_replace("|", "&#013;&#010;", $commentaires);
+    $commentaires = str_replace("|", "&#13;&#10;", $commentaires);
 }
 
 ?>
@@ -99,18 +99,18 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
 
 <section>
     <h1>Questions</h1>
-    <table class="smiley-table result-table">
+    <table class="data-table result-table">
         <thead>
             <tr>
-                <th> </th>
-                <th> </th>
-                <th class="result-head very-dissatisfied"></th>
-                <th class="result-head dissatisfied"></th>
-                <th class="result-head satisfied"> </th>
-                <th class="result-head very-satisfied"></th>
+                <th scope="col"></th>
+                <th scope="col" data-title="Résultats"></th>
+                <th scope="col" class="icon-cell very-dissatisfied"></th>
+                <th scope="col" class="icon-cell dissatisfied"></th>
+                <th scope="col" class="icon-cell satisfied"> </th>
+                <th scope="col" class="icon-cell very-satisfied"></th>
             </tr>
-
         </thead>
+
         <tbody>
 
             <?php
@@ -122,13 +122,14 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
                 $plus = isset($row['Plus']) ? round((float)$row['Plus'], 2) . '%' : '0%';
                 $plusplus = isset($row['PlusPlus']) ? round((float)$row['PlusPlus'], 2) . '%' : '0%';
                 ?>
+
                 <tr>
-                    <td><?= $quantieme ?></td>
-                    <td><?= $question ?></td>
-                    <td><?= $moinsmoins ?></td>
-                    <td><?= $moins ?></td>
-                    <td><?= $plus ?></td>
-                    <td><?= $plusplus ?></td>
+                    <th scope="row"><?=$quantieme?></th>
+                    <th scope="row" class="question" data-num="<?=$quantieme?>"><?=$question?></th>
+                    <td data-title="very-dissatisfied"><?= $moinsmoins ?></td>
+                    <td data-title="dissatisfied"><?= $moins ?></td>
+                    <td data-title="satisfied"><?= $plus ?></td>
+                    <td data-title="very-satisfied"><?= $plusplus ?></td>
                 </tr>
 
             <?php
@@ -137,7 +138,6 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
 
         </tbody>
     </table>
-
 
     <?php
     if ((bool)$resultatInfosBase['is_commentairePermis'] === true) :
