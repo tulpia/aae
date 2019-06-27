@@ -46,21 +46,21 @@ require('view/headerUserView.php');
     <?php endif; ?>
 
     <div class="input-row">
-        <label class="w-100">Nom complet</label>
+        <label class="w-100 large-label">Nom complet</label>
         <input type="text" name="nomPrenom" value="<?= $nom ?>" required>
     </div>
     <div class="input-row">
-        <label class="w-100">E-mail (sert d'identifiant)</label>
+        <label class="w-100 large-label">E-mail (sert d'identifiant)</label>
         <input type="text" name="login" value="<?= $login ?>" required> 
     </div>
 
     <div>
-        <label class="w-100">Administrateur</label>
+        <label class="w-100 large-label">Administrateur</label>
             <input type="checkbox" name="isAdmin" <?= $isAdmin ? "checked" : "" ?>>
     </div>
 
     <div class="input-row">
-        <label class="w-100">Matière</label>
+        <label class="w-100 large-label">Matière</label>
             <select name="idMatiere" required>
                 <?php while ($row = $matieres->fetch()) : ?>
                     <option value="<?= htmlspecialchars($row['id']) ?>" <?= ($row['id'] == $idMatiere) ? " selected" : "" ?>><?= htmlspecialchars($row['libelle']) ?></option>

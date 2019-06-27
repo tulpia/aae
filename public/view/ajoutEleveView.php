@@ -11,7 +11,7 @@ require('./view/headerUserView.php');
 <form action="./controller/ajoutController.php" method="post" class="formulaireAjoutEleves">
 
     <div class="input-row">
-        <label>Année Scolaire</label>
+        <label class="medium-label">Année Scolaire</label>
         <select name="anneeScolaire">
 
             <?php
@@ -87,38 +87,45 @@ require('./view/headerUserView.php');
                 </article>
                 <br>
                 <h1>Structure du fichier élèves :</h1>
-                <p>(ne pas inclure la ligne d'entête : Nom, Prénom, etc ...)</p>
+                <p>Ne pas inclure la ligne d'entête : « Nom », « Prénom », etc., et la numérotation des lignes.</p>
                 <br>
-                <Table class="aae-table">
-                    <thead>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Classe + Nom Classe</th>
-                        <th>Option 1</th>
-                        <th>Option 2</th>
-                        <th>Option 3</th>
-                        <th>Option 4</th>
-                    </thead>
-                    <tr>
-                        <td>Dupond</td>
-                        <td>Martine</td>
-                        <td>06A</td>
-                        <td>Allemand LV1</td>
-                        <td>Anglais LV1</td>
-                        <td>LCA Latin</td>
-                        <td>LCR</td>
-                    </tr>
-                    <tr>
-                        <td>Meyer</td>
-                        <td>Eric</td>
-                        <td>03A</td>
-                        <td>Anglais LV1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </Table>
 
+                <table class="data-table data-example">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Classe + Nom Classe</th>
+                            <th scope="col">Option 1</th>
+                            <th scope="col">Option 2</th>
+                            <th scope="col">Option 3</th>
+                            <th scope="col">Option 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td data-title="Nom">Dupond</td>
+                            <td data-title="Prénom">Martine</td>
+                            <td data-title="Classe + Nom Classe">06A</td>
+                            <td data-title="Option 1">Allemand LV1</td>
+                            <td data-title="Option 2">Anglais LV1</td>
+                            <td data-title="Option 3">LCA Latin</td>
+                            <td data-title="Option 4">LCR</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td data-title="Nom">Meyer</td>
+                            <td data-title="Prénom">Eric</td>
+                            <td data-title="Classe + Nom Classe">03A</td>
+                            <td data-title="Option 1">Anglais LV1</td>
+                            <td data-title="Option 2">&nbsp;</td>
+                            <td data-title="Option 3">&nbsp;</td>
+                            <td data-title="Option 4">&nbsp;</td>
+                        </tr>       
+                    </tbody>
+                </table>
 
                 <br>
                 <p>Les options sont facultatives, laisser la cellule vide si l'élève n'a pas d'options</p>
@@ -128,7 +135,7 @@ require('./view/headerUserView.php');
                 <br><br><br>
                 <div>
                     <h1>Valeurs possibles des différents champs :</h1>
-                    <p>(Respectez l'orthographe et les espaces)</p>
+                    <p>Respectez l'orthographe et les espaces.</p>
                     <div class="row-layout">
                         <div class="col-listing">
                             <br>
@@ -167,8 +174,8 @@ require('./view/headerUserView.php');
 
                 <br><br><br>
                 <h3>Pour des soucis de confidentialité aucun nom d'élève ne sera enregistré en base de données.<br>
-                    A la fin de l'import vous téléchargerez un fichier contenant la correspondance entre le nom et le matricule de chaque élève<br>
-                    Ce fichier est <strong>strictement confidentiel et ne pourra jamais être réédité</strong>, gardez le en lieu sûr.</h3>
+                    À la fin de l'import vous téléchargerez un fichier contenant la correspondance entre le nom et le matricule de chaque élève.<br>
+                    Ce fichier est <strong>strictement confidentiel et ne pourra jamais être réédité</strong>, gardez-le en lieu sûr.</h3>
 
     </div>
 
