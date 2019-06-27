@@ -61,7 +61,7 @@ require('./view/headerUserView.php');
             </div>
         </div>
     </form>
-    <div class="oh-shit__container">
+    <!-- <div class="oh-shit__container">
         <p>Vous avez fait une erreur lors de la soumission de votre fichier .csv ? Vous voulez revenir en arrière ?<br>Cliquez sur le bouton ci-dessous.</p>
         <form action="./controller/ohShitController.php">
             <label class="btn btn-submit btn-error">
@@ -79,7 +79,7 @@ require('./view/headerUserView.php');
                 </div>
             </label>
         </form>
-    </div>
+    </div> -->
     <div>
                 <br><br>
                 <article class="title-list">
