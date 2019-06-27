@@ -125,8 +125,8 @@ require('view/headerUserView.php');
             $anneeScolaireText = htmlspecialchars($eleve['anneeScolaire']);
             $dateCreaText = htmlspecialchars($eleve['dateCreation']);
 
+            // Ajouter un espace dans les cellules vides pour optimiser l'affichage sur mobile
             if (empty ($optionCoursText )) {
-                // Champ vide ?
                 $optionCoursText = "&nbsp;";
             }
 

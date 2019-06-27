@@ -126,10 +126,6 @@
         color: $color-darkgrey;
         text-align: left;
       }
-
-      @media (max-width: $bp-medium) {
-
-      }
     }
     
     td {
@@ -215,93 +211,200 @@
 }
 
 .smiley-table{
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    background-color: transparent;
-    overflow: hidden;
-    border-collapse: separate;
-    border-spacing: 0;
-    // border-radius: .25rem;
-    text-align: left;
-    line-height: 40px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  // border-radius: .25rem;
+  text-align: left;
+  line-height: 40px;
+  
+  th, 
+  td{
+    padding: .75rem;
+    vertical-align: top; 
+    border-top: 1px solid #dee2e6;       
     
-    th, 
-    td{
-        padding: .75rem;
-        vertical-align: top; 
-        border-top: 1px solid #dee2e6;       
-        
-        @media screen and (max-width: $mobile) {
-            float: left;
-            &.clear {clear: left;}
-        }
-
-        label {
-            > input[type="radio"]{
-                display: none;
-
-                + span {
-                    width: 36px;
-                    height: 36px;
-                    display: inline-block;
-                    vertical-align: middle;
-
-                    .a { fill: transparent; } // svg path surface
-                    .b { fill: $color-lightBlue; } // svg path outline
-                }
-
-                &:checked + span { 
-                    .b { fill: $color-blue; } // svg path outline
-                }
-            }
-        }
-
-        &:hover{ cursor: pointer; }        
+    @media screen and (max-width: $mobile) {
+        float: left;
+        &.clear {clear: left;}
     }
 
-    &.result-table {
-        .result-head {
-            vertical-align: middle;
-            padding: 2em 0.75em;
-        }
-        
-        td, 
-        th {
-            &:not(:nth-of-type(2)) { 
-                text-align: center; 
-            }
+    label {
+      > input[type="radio"]{
+        display: none;
 
-            @media screen and (max-width: $mobile) {
-                float: none;
-            }
+        + span {
+          width: 36px;
+          height: 36px;
+          display: inline-block;
+          vertical-align: middle;
 
-            &:first-of-type { padding-left: 0; }
-        }
-        
-
-        .very-dissatisfied { 
-            background: url('~@svg/icon-sentiment-very-dissatisfied.svg') no-repeat center;
-        }
-        .dissatisfied { 
-            background: url('~@svg/icon-sentiment-dissatisfied.svg') no-repeat center;
-        }
-        .satisfied { 
-            background: url('~@svg/icon-sentiment-satisfied.svg') no-repeat center;
-        }
-        .very-satisfied { 
-            background: url('~@svg/icon-sentiment-very-satisfied.svg') no-repeat center;
+          .a { fill: transparent; } // svg path surface
+          .b { fill: $color-lightBlue; } // svg path outline
         }
 
-        tbody tr:last-of-type { background: $color-lightBlue; }
+        &:checked + span { 
+          .b { fill: $color-blue; } // svg path outline
+        }
+      }
     }
+    &:hover{ cursor: pointer; }        
+  }
+}
+
+.result-table {
+  .icon-cell {
+    padding: 25px;
+
+    &.very-dissatisfied {               
+      background: url('~@svg/icon-sentiment-very-dissatisfied.svg') no-repeat center padding-box;
+    }
+    &.dissatisfied { 
+      background: url('~@svg/icon-sentiment-dissatisfied.svg') no-repeat center padding-box;
+    }
+    &.satisfied { 
+      background: url('~@svg/icon-sentiment-satisfied.svg') no-repeat center padding-box;
+    }
+    &.very-satisfied { 
+      background: url('~@svg/icon-sentiment-very-satisfied.svg') no-repeat center padding-box;
+    }
+  }
+  
+  thead {
+    tr {
+      th[scope="col"] {
+        background-color: transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      th[scope="row"] {
+        border-top: 1px solid $color-blue;
+        background-color: $color-white;
+        color: inherit;
+                
+        @media (min-width: $bp-medium) {
+          background-color: transparent;
+          color: $color-darkgrey;
+          text-align: left;
+        }
+
+        &:first-of-type {
+          width: 24px;
+        }
+
+        &.question {
+          
+
+          @media (max-width: $bp-medium) {
+            margin-top: -42px;
+            margin-left: 24px;               
+          }
+
+          @media (max-width: $bp-small) {
+            margin-top: -33px;                
+          }
+        } 
+      }
+
+      &:last-of-type {
+        background-color: $color-lightBlue;
+
+        th[scope="row"]{
+          background-color: $color-lightBlue;
+          @media (max-width: $bp-medium) {
+              border-top: none;
+              height: 42px;
+          }
+          @media (max-width: $bp-small) {
+              height: 33px;
+          }    
+        }
+      }
+
+      th[scope="row"], 
+      td {
+        @media (min-width: $bp-small) {
+          border-left: none;
+          border-right: none;
+        }
+
+        &:last-of-type {
+          border-right: none; 
+        }
+      }
+
+      td[data-title] {
+        display: table-cell;
+        text-align: center;
+
+        &:before { 
+          @media (max-width: $bp-small) {
+            width: 100%; 
+          }
+
+
+        }
+
+        &[data-title="very-dissatisfied"]:before {
+          @media (max-width: $bp-small) {
+            content: url('~@svg/icon-sentiment-very-dissatisfied.svg');
+          }
+        }
+
+        &[data-title="dissatisfied"]:before {
+          @media (max-width: $bp-small) {
+            content: url('~@svg/icon-sentiment-dissatisfied.svg');
+          }
+        }  
+
+        &[data-title="satisfied"]:before {
+          @media (max-width: $bp-small) {
+            content: url('~@svg/icon-sentiment-satisfied.svg');
+          }
+        }    
+
+        &[data-title="very-satisfied"]:before {
+          @media (max-width: $bp-small) {
+            content: url('~@svg/icon-sentiment-very-satisfied.svg');
+          }
+        }  
+
+        @media screen and (min-width: $bp-small) and (max-width: $bp-medium) {
+          line-height: 36px;
+          height: 36px;
+          vertical-align: middle;
+          border-top: none;
+        }
+        
+        @media (min-width: $bp-medium) {     
+
+          &:before {
+            content: "";
+            height: 0px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .info-table {
+  tbody {}
     tr {
-        td, th { 
-            border-top: none; 
-            padding: .3rem;
-        }
+      td, 
+      th { 
+        border-top: none; 
+        padding: .3rem;          
+      }
     }
 }

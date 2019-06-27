@@ -21,7 +21,7 @@ require('view/headerUserView.php');
         <input type="hidden" name="idAutoEval" value="<?= $idAutoEval ?>">
         <input type="hidden" name="message" value="Merci !<br>Ton auto évaluation a été enregistrée.">
 
-        <table class="smiley-table">
+        <table class="data-table result-table">
 
 
             <?php
@@ -33,10 +33,10 @@ require('view/headerUserView.php');
                 ?>
 
                 <tr>
-                    <th><?= $question['quantieme'] ?></th>
-                    <td><?= $question['libelle'] ?></td>
+                    <th scope="row"><?= $question['quantieme'] ?></th>
+                    <th scope="row" class="question"><?= $question['libelle'] ?></td>
 
-                    <td class="radio-wrapper clear">
+                    <td data-title="" class="radio-wrapper clear">
                         <label>
                             <input type="radio" required name="arrayIdReponse[<?= $idQuestion ?>]" value="30">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><defs><style>.a{fill:none;}.b{fill:#91cbfc;}</style></defs><path class="a" d="M0,0H36V36H0Z"/><circle class="b" cx="1.5" cy="1.5" r="1.5" transform="translate(22 12.571)"/><circle class="b" cx="1.5" cy="1.5" r="1.5" transform="translate(11 12.571)"/><path class="b" d="M17.984,2A16,16,0,1,0,34,18,15.992,15.992,0,0,0,17.984,2ZM18,30.8A12.8,12.8,0,1,1,30.8,18,12.8,12.8,0,0,1,18,30.8Zm-8-9.6c1.248,3.744,4.352,6.4,8,6.4s6.752-2.656,8-6.4Z"/></svg></span>

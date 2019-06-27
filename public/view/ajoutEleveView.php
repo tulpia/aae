@@ -126,36 +126,6 @@ require('./view/headerUserView.php');
                         </tr>       
                     </tbody>
                 </table>
-<!--                 <Table class="aae-table">
-                    <thead>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Classe + Nom Classe</th>
-                        <th>Option 1</th>
-                        <th>Option 2</th>
-                        <th>Option 3</th>
-                        <th>Option 4</th>
-                    </thead>
-                    <tr>
-                        <td>Dupond</td>
-                        <td>Martine</td>
-                        <td>06A</td>
-                        <td>Allemand LV1</td>
-                        <td>Anglais LV1</td>
-                        <td>LCA Latin</td>
-                        <td>LCR</td>
-                    </tr>
-                    <tr>
-                        <td>Meyer</td>
-                        <td>Eric</td>
-                        <td>03A</td>
-                        <td>Anglais LV1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </Table> -->
-
 
                 <br>
                 <p>Les options sont facultatives, laisser la cellule vide si l'élève n'a pas d'options</p>
@@ -165,7 +135,7 @@ require('./view/headerUserView.php');
                 <br><br><br>
                 <div>
                     <h1>Valeurs possibles des différents champs :</h1>
-                    <p>(Respectez l'orthographe et les espaces)</p>
+                    <p>Respectez l'orthographe et les espaces.</p>
                     <div class="row-layout">
                         <div class="col-listing">
                             <br>

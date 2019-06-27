@@ -125,6 +125,47 @@ require('view/headerUserView.php');
 
     </table>
 
+    <!-- <table class="aae-table">
+        <?php
+        while ($question = $questions->fetch()) {
+            //Au moins une question dans le tableau, on fait apparaître le bouton
+            //pour créer une autoévaluation.
+            $isAuMoinsUneQuestion = true;
+            ?>
+            <tr>
+                <td><?= $question['quantieme'] ?></td>
+                <td><?= $question['libelle'] ?></td>
+                <td>
+                    <!-- Bouton d'édition de la question -->
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="action" value="show_questionEdit">
+                        <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
+                        <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
+                        <label class="btn-question-edit">
+                            <input type="submit" value="Editer">
+                         </label>
+                    </form>
+                </td>
+                <td>
+                    <!-- Bouton suppression de la question -->
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="action" value="do_questionDelete">
+                        <input type="hidden" name="idQuestion" value="<?= $question['id'] ?>">
+                        <input type="hidden" name="idQuestionnaire" value="<?= $question['id_questionnaire'] ?>">
+                        <label class="btn-question-edit">
+                            <input type="submit" value="Supprimer">
+                        </label>
+                    </form>
+                </td>
+            </tr>
+
+        <?php
+    }
+    ?>
+
+
+    </table> -->
+
     <!-- Bouton d'ajout de nouvelle question -->
     <form action="index.php" method="POST">
         <input type="hidden" name="action" value="show_questionNew">
