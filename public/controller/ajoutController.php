@@ -134,7 +134,8 @@ foreach ($csv as $k => $csvRow) {
         //Création de l'élève et de ses options de cours s'il en a
 
         //Création du nouveau login
-        $loginPlus = strval(++$lastLoginEleve);
+        $lastLoginEleve = ($lastLoginEleve + 7); //On incrémente de 7 au lieu de un pour éviter les Id trop proches
+        $loginPlus = strval($lastLoginEleve);
         while (strlen($loginPlus) < 4) {
             $loginPlus = "0" . $loginPlus;
         }

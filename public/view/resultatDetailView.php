@@ -43,7 +43,7 @@ $is_commentairePermis = (isset($resultatInfosBase['is_commentairePermis']) && (b
 $commentaires = "";
 if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commentaires']) != '') {
     $commentaires = htmlspecialchars($resultatInfosBase['commentaires']);
-    $commentaires = str_replace("|", "&#013;&#010;", $commentaires);
+    $commentaires = str_replace("|", "&#13;&#10;", $commentaires);
 }
 
 ?>
