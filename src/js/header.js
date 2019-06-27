@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+	window.onscroll = function() { stickyHeader() };
+
+	var header = document.querySelector('.entire-header-container');
+	var sticky = header.offsetTop,
+		smaller = header.offsetHeight;
+
+	function stickyHeader() {
+		if (window.pageYOffset > sticky) {
+	    	header.classList.add("sticky");
+	  	} else {
+	    	header.classList.remove("sticky");
+	  	}
+	}
+
+
     const btnHeaderContainer = document.querySelector('.account-container')
 
     if (btnHeaderContainer) {
@@ -17,3 +32,4 @@ document.addEventListener('DOMContentLoaded', () => {
 	  }
 	}
 })
+

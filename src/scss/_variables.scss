@@ -7,6 +7,13 @@ $laptop: 1350px;
 $tablet: 1080px;
 $mobile: 480px;
 
+// Breakpoints
+$bp-xs: 15em; 
+$bp-small: 30em;
+$bp-medium: 48em;
+$bp-large: 62em;
+$bp-xl: 75em;
+
 // Variables de fontes
 $font: 'Roboto-Regular', sans-serif;
 $font-bold: 'Roboto-Bold', sans-serif;

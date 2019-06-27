@@ -5,6 +5,21 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    transition: top 0.2s ease-in-out;
+
+    @media (max-width: $bp-small) {
+      height: 48px;  
+    }
+
+    &.sticky {
+      position: fixed;
+      width: inherit;
+      z-index: 100;
+    }
+
+    &.smaller {
+        height: 48px;
+    }
 
     .header-connected__img-container {
         position: absolute;
@@ -126,6 +141,8 @@
             opacity: 0;
             transition: transform 250ms ease,
                         opacity 250ms linear;
+
+            @media (max-width: $bp-small) { top: 38px; }
 
             div {
                 form {
