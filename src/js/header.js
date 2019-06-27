@@ -6,4 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btnHeaderContainer.classList.toggle('active')
         })
     }
+
+    // Refermer le menu quand on clique hors du conteneur
+    window.onclick = function(e) {
+	  if (!e.target.matches('.account-container')) {
+
+	    if (btnHeaderContainer.classList.contains('active')) {
+	    	btnHeaderContainer.classList.remove('active');
+	    }
+	  }
+	}
 })
