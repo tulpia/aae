@@ -17,7 +17,7 @@ $annee = (int)$eleve['anneeScolaire'];
 
     <p>Année scolaire : <?= $annee . "-" . ($annee + 1) ?></p>
 
-<!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<< Provisoire -->
+<!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<< Control group -->
     <div class="container">
         <div class="control-group">
             <h2>Classe</h2>
@@ -55,27 +55,26 @@ $annee = (int)$eleve['anneeScolaire'];
         </div>
     </div>
 
-    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<< Provisoire -->
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<< Control group -->
     <label class="btn btn-detail">
         <input type="submit" value="Valider">
     </label>
 </form>
 
 <form action="index.php" method="POST">
-    <input type="hidden" name="action"  value="show_listeEleves">
-    <label class="btn btn-detail btn-back">
+    <input type="hidden" name="action"  value="show_listeEleves">    
+    <label class="btn btn-back btn-detail">
         <input type="submit" value="Retour">
-    </label>   
+    </label>
 </form>
 
 <form action="index.php" method="POST">
     <br><br><br>
     <input type="hidden" name="idEleve" value="<?= htmlspecialchars($eleve['id']) ?>">
-    <input type="hidden" name="action"  value="do_deleteEleve">
+    <input type="hidden" name="action"  value="do_deleteEleve">    
     <label class="btn btn-detail btn-error">
         <input type="submit" value="Supprimer cet élève">
     </label>
-    
 </form>
 
 <form action="index.php" method="POST">

@@ -104,10 +104,14 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
             <tr>
                 <th scope="col"></th>
                 <th scope="col" data-title="Résultats"></th>
+                <th scope="col" class="icon-cell very-satisfied"></th>
+                <th scope="col" class="icon-cell satisfied"> </th>
+                <th scope="col" class="icon-cell dissatisfied"></th>
                 <th scope="col" class="icon-cell very-dissatisfied"></th>
+                <!-- <th scope="col" class="icon-cell very-dissatisfied"></th>
                 <th scope="col" class="icon-cell dissatisfied"></th>
                 <th scope="col" class="icon-cell satisfied"> </th>
-                <th scope="col" class="icon-cell very-satisfied"></th>
+                <th scope="col" class="icon-cell very-satisfied"></th> -->
             </tr>
         </thead>
 
@@ -126,10 +130,10 @@ if (isset($resultatInfosBase['commentaires']) && trim($resultatInfosBase['commen
                 <tr>
                     <th scope="row"><?=$quantieme?></th>
                     <th scope="row" class="question" data-num="<?=$quantieme?>"><?=$question?></th>
-                    <td data-title="very-dissatisfied"><?= $moinsmoins ?></td>
-                    <td data-title="dissatisfied"><?= $moins ?></td>
-                    <td data-title="satisfied"><?= $plus ?></td>
                     <td data-title="very-satisfied"><?= $plusplus ?></td>
+                    <td data-title="satisfied"><?= $plus ?></td>
+                    <td data-title="dissatisfied"><?= $moins ?></td>
+                    <td data-title="very-dissatisfied"><?= $moinsmoins ?></td>                    
                 </tr>
 
             <?php
