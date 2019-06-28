@@ -93,7 +93,7 @@ require('./view/headerUserView.php');
                 <table class="data-table data-example">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <!-- <th scope="col"></th> -->
                             <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
                             <th scope="col">Classe + Nom Classe</th>
@@ -105,7 +105,7 @@ require('./view/headerUserView.php');
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
+                            <!-- <th scope="row">1</th> -->
                             <td data-title="Nom">Dupond</td>
                             <td data-title="Prénom">Martine</td>
                             <td data-title="Classe + Nom Classe">06A</td>
@@ -115,7 +115,7 @@ require('./view/headerUserView.php');
                             <td data-title="Option 4">LCR</td>
                         </tr>
                         <tr>
-                            <th scope="row">2</th>
+                            <!-- <th scope="row">2</th> -->
                             <td data-title="Nom">Meyer</td>
                             <td data-title="Prénom">Eric</td>
                             <td data-title="Classe + Nom Classe">03A</td>

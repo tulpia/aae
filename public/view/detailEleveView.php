@@ -58,21 +58,31 @@ $annee = (int)$eleve['anneeScolaire'];
 
 <form action="index.php" method="POST">
     <input type="hidden" name="action"  value="show_listeEleves">
-    <input type="submit" value="Retour">
+    
+    <label class="btn btn-back btn-detail">
+        <input type="submit" value="Retour">
+    </label>
+        
 </form>
 
 <form action="index.php" method="POST">
     <br><br><br>
     <input type="hidden" name="idEleve" value="<?= htmlspecialchars($eleve['id']) ?>">
     <input type="hidden" name="action"  value="do_deleteEleve">
-    <input type="submit" value="Supprimer cet élève">
+    
+    <label class="btn btn-detail btn-error">
+        <input type="submit" value="Supprimer cet élève">
+    </label>
+
 </form>
 
 <form action="index.php" method="POST">
     <input type="hidden" name="dateCreation" value="<?= htmlspecialchars($eleve['dateCreation']) ?>">
     <input type="hidden" name="action"  value="do_deleteEleveDate">
-    <input type="submit" value="Supprimer tous les élèves
+    <label class="btn btn-detail btn-error">
+    <input type="submit" value="Supprimer tous les élèves 
     créés le <?= htmlspecialchars($eleve['dateCreation']) ?>">
+    </label>
 </form>
 
 

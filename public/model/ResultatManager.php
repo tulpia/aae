@@ -280,11 +280,14 @@ class ResultatManager extends Manager{
         fputcsv($file, [""]);
         fputcsv($file, [""]);
         fputcsv($file, ["","","","Statistiques"]);
-        fputcsv($file, ["","","","",":(",":|",":)",":D"]);
+        // fputcsv($file, ["","","","",":(",":|",":)",":D"]);
+        fputcsv($file, ["","","","",":D",":)",":|",":("]);
         //fputcsv($file, ["", $entete['']]);
 
         while ($row = $stats->fetch()) {
-            fputcsv($file, ["","", $row['quantieme'], $row['libelle'], round((float)$row['MoinsMoins'], 2), round((float)$row['Moins'], 2), round((float)$row['Plus'], 2), round((float)$row['PlusPlus'], 2)]);
+            // fputcsv($file, ["","", $row['quantieme'], $row['libelle'], round((float)$row['MoinsMoins'], 2), round((float)$row['Moins'], 2), round((float)$row['Plus'], 2), round((float)$row['PlusPlus'], 2)]);
+            fputcsv($file, ["","", $row['quantieme'], $row['libelle'], round((float)$row['PlusPlus'], 2), round((float)$row['Plus'], 2), round((float)$row['Moins'], 2), round((float)$row['MoinsMoins'], 2)]);
+        
         }
 
 
