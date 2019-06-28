@@ -12,24 +12,27 @@ require('./view/headerUserView.php');
 
     <div class="input-row">
         <label class="medium-label">Année Scolaire</label>
-        <select name="anneeScolaire">
+        <div class="select">
+            <select name="anneeScolaire">
 
-            <?php
-            $currentYear = (int)date("Y");
-            $years = [];
+                <?php
+                $currentYear = (int)date("Y");
+                $years = [];
 
-            if ((int)date("m") < 8) {
-                $currentYear--;
-            }
-            $years = [$currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
+                if ((int)date("m") < 8) {
+                    $currentYear--;
+                }
+                $years = [$currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
 
-            foreach ($years as $year) : ?>
+                foreach ($years as $year) : ?>
 
-                <option value="<?= $year ?>" <?= $year == $currentYear ? " selected" : "" ?>><?= $year . '-' . ($year + 1) ?></option>
+                    <option value="<?= $year ?>" <?= $year == $currentYear ? " selected" : "" ?>><?= $year . '-' . ($year + 1) ?></option>
 
-            <?php endforeach ?>
+                <?php endforeach ?>
 
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
 

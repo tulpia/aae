@@ -20,36 +20,41 @@ require('view/headerUserView.php');
 
     <div class="input-row">
         <label for="questionnaireClasse">Classe</label>
-        <select name="idClasse" id="questionnaireClasse">
-            <option value="0">- Aucune -</option>
+        <div class="select">
+            <select name="idClasse" id="questionnaireClasse">
+                <option value="0">- Aucune -</option>
 
-            <?php
-            while ($row = $classes->fetch()) {
-                $id = htmlspecialchars($row['id']);
-                $libelle = htmlentities($row['libelle']);
-                echo ('<option value="' . $id . '">' . $row['libelle'] . '</option>');
-            }
-            ?>
+                <?php
+                while ($row = $classes->fetch()) {
+                    $id = htmlspecialchars($row['id']);
+                    $libelle = htmlentities($row['libelle']);
+                    echo ('<option value="' . $id . '">' . $row['libelle'] . '</option>');
+                }
+                ?>
 
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
 
-    <div class="input-row">
+    <div class="input-row">        
         <label for="questionnaireMatiere">Matière</label>
-        <select name="idMatiere" id="questionnaireMatiere">
+        <div class="select">
+            <select name="idMatiere" id="questionnaireMatiere">
 
-            <?php
-            while ($row = $matieres->fetch()) {
-                $id = htmlspecialchars($row['id']);
-                $libelle = htmlspecialchars($row['libelle']);
-                echo ('<option value="' . $id . '">' . $libelle . '</option>');
-            }
+                <?php
+                while ($row = $matieres->fetch()) {
+                    $id = htmlspecialchars($row['id']);
+                    $libelle = htmlspecialchars($row['libelle']);
+                    echo ('<option value="' . $id . '">' . $libelle . '</option>');
+                }
 
-            ?>
+                ?>
 
-
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
     <label class="btn btn-detail">
