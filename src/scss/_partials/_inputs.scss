@@ -98,9 +98,9 @@
     }
 }
 
+/* à supprimer  quand tous les selects seront édités */
 select {
     width: 100%;
-    border: none;
     outline: none;
     padding: 10px 20px;
     background: $input-bg;
@@ -145,23 +145,17 @@ select {
     &:hover{
         border-color: $color-blue;
     }
-
-    option, option:disabled {
-        font-family: $font;
-        font-size: 14px;
-        color: $color-darkgrey;
-        border: none;
-    } 
     &:focus{
         background: white;
         transition: 0.2s;
     }
  }
- .input-row{
+.input-row{
     input[type="text"],
     input[type="email"],
     select,
-    input[type="password"]{
+    input[type="password"],
+    .select {
         width: 90%;
         justify-content: flex-end;
         display: flex;
@@ -170,6 +164,62 @@ select {
             width: 100%;
         }
     }
+
+    //////
+    .select {
+        position: relative;
+        display: inline-block;
+
+        select {
+            display: inline-block;
+            width: 100%;
+            margin-top: 0;
+            cursor: pointer;
+            padding: 10px 15px;
+            outline: 0;
+            border: 1px solid $color-lightgrey;
+            border-radius: 7px;
+            background: $input-bg;
+            font-size: 14px;
+            color: $color-darkgrey;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            
+            &::-ms-expand {
+                display: none;
+            }
+            &:disabled {
+                opacity: 0.5;
+                pointer-events: none;
+                & ~ .select__arrow {
+                    border-top-color: #ccc;
+                }
+            }
+            &:hover,
+            &:focus {
+                color: #000;
+                border-color: $color-blue;
+                border-radius: 7px;
+            }       
+        }
+    }
+    .select__arrow {
+        position: absolute;
+        top: 18px;
+        right: 15px;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        border-style: solid;
+        border-width: 8px 5px 0 5px;
+        border-color: #7b7b7b transparent transparent transparent;
+    }
+    .select select:hover ~ .select__arrow,
+    .select select:focus ~ .select__arrow {
+        border-top-color: #000;
+    }
+    //////  
 }
 .filtre-questionnaire__container {
     width: 100%;
@@ -275,5 +325,145 @@ select {
                 }
             }
         }
+    }
+}
+
+
+/* ***************** Formulaires ****************** */ 
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: -#{$gutter--control-group};
+    margin-right: -30px;
+
+    .control-group {
+        display: inline-block;
+        vertical-align: middle;
+        background: $color-white;
+        text-align: left;
+        padding: 0px 20px 10px 0px;
+        width: 100%;
+        height: auto;
+        margin: $gutter--control-group;
+
+        &:last-of-type {
+            padding-right: 0;
+        }
+
+        @media (min-width: $bp-small) {
+          width: auto;
+        }
+
+        h2 {
+            margin-bottom: 1em;
+        }
+
+        .control {
+            display: block;
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-size: inherit;
+            input {
+                position: absolute;
+                z-index: -1;
+                opacity: 0;
+                &:checked {
+                    & ~ .control__indicator {
+                        background: $color-blue;
+                        &:after {
+                            display: block;
+                        }
+                    }
+                }
+                &:disabled {
+                    & ~ .control__indicator {
+                        background: $color-mediumgrey;
+                        opacity: 0.6;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+
+        .control__indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            border-radius: 2px;
+            background: $color-mediumgrey;
+            &:after {
+                content: '';
+                position: absolute;
+                display: none;
+            }
+        } 
+
+        .control:hover input ~ .control__indicator,
+        .control input:focus ~ .control__indicator {
+            background: $color-grey;
+        }
+
+        .control:hover input:not([disabled]):checked ~ .control__indicator,
+        .control input:checked:focus ~ .control__indicator {
+            background: $color-darkblue;
+        }
+
+        .control--checkbox {
+            .control__indicator {
+                &:after {
+                    left: 7px;
+                    top: 3px;
+                    width: 3px;
+                    height: 8px;
+                    border: solid $color-white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
+            }
+            input {
+                &:disabled {
+                    & ~ .control__indicator {
+                        &:after {
+                            border-color: #7b7b7b;
+                        }
+                    }
+                }
+            }
+        }
+
+        .control--radio {
+            .control__indicator {
+                border-radius: 50%;
+                &:after {
+                    left: 6px;
+                    top: 6px;
+                    height: 6px;
+                    width: 6px;
+                    border-radius: 50%;
+                    background: $color-white;
+                }
+            }
+            input {
+                &:disabled {
+                    & ~ .control__indicator {
+                        &:after {
+                            background: #7b7b7b;
+                        }
+                    }
+                }
+            }
+        }
+         
     }
 }

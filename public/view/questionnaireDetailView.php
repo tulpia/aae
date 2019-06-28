@@ -25,40 +25,46 @@ require('view/headerUserView.php');
 
     <div class="input-row">
         <label for="questionnaireClasse">Classe</label>
-        <select name="idClasse" id="questionnaireClasse">
-            <option value="0">- Aucune -</option>
+        <div class="select">    
+            <select name="idClasse" id="questionnaireClasse">
+                <option value="0">- Aucune -</option>
 
-            <?php
-            while ($row = $classes->fetch()) {
-                $id = htmlspecialchars($row['id']);
-                $libelle = htmlspecialchars($row['libelle']);
-                $selected = $id == $questionnaire['id_classe'] ? ' selected' : '';
+                <?php
+                while ($row = $classes->fetch()) {
+                    $id = htmlspecialchars($row['id']);
+                    $libelle = htmlspecialchars($row['libelle']);
+                    $selected = $id == $questionnaire['id_classe'] ? ' selected' : '';
 
-                echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
-                ');
-            }
-            ?>
+                    echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
+                    ');
+                }
+                ?>
 
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
 
     <div class="input-row">
         <label for="questionnaireMatiere">Matière</label>
-        <select name="idMatiere" id="questionnaireMatiere">
+        <div class="select">
+            <select name="idMatiere" id="questionnaireMatiere">
 
-            <?php
-            while ($row = $matieres->fetch()) {
-                $id = htmlspecialchars($row['id']);
-                $libelle = htmlspecialchars($row['libelle']);
-                $selected = $id == $questionnaire['id_matiere'] ? ' selected' : '';
+                <?php
+                while ($row = $matieres->fetch()) {
+                    $id = htmlspecialchars($row['id']);
+                    $libelle = htmlspecialchars($row['libelle']);
+                    $selected = $id == $questionnaire['id_matiere'] ? ' selected' : '';
 
-                echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
-                ');
-            }
+                    echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
+                    ');
+                }
 
-            ?>
-        </select>
+                ?>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 <div class="input-blank"></div>
 

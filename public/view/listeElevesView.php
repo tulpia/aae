@@ -32,65 +32,80 @@ require('view/headerUserView.php');
         <label class="medium-label">Identifiant</label>
         <input type="text" name="login" max="200" value="<?=$filterLogin?>">
     </div>
-
-    <div class="input-row">
+    
+    <!-- ************** -->
+    <div class="input-row">    
         <label class="medium-label">Année Scolaire</label>
-        <select name="anneeScolaire">
+        <div class="select">
+            <select name="anneeScolaire">
                 <?php
                 while ($annee = $listAnneeScolaire->fetch()) :
                     ?>
-                    <option value="<?= htmlspecialchars($annee['valueYear']) ?>" <?= $annee['valueYear'] == $filterAnneScolaire ? " selected" : "" ?>><?= htmlspecialchars($annee['displayYear']) ?></option>
+                    <option class="select--option" value="<?= htmlspecialchars($annee['valueYear']) ?>" <?= $annee['valueYear'] == $filterAnneScolaire ? " selected" : "" ?>><?= htmlspecialchars($annee['displayYear']) ?></option>
                 <?php endwhile; ?>
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
-
 
     <div class="input-row">
         <label class="medium-label">Classe</label>
-        <select name="idclasse">
+        <div class="select">
+            <select name="idclasse">
                 <option value="0">- Toutes -</option>
                 <?php
                 while ($classe = $listClasse->fetch()) :
                     ?>
                     <option value="<?= htmlspecialchars($classe['id']) ?>" <?= $classe['id'] == $filterIdClasse ? " selected" : "" ?>><?= htmlspecialchars($classe['libelle']) ?></option>
                 <?php endwhile; ?>
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
     <div class="input-row">
         <label class="medium-label">Nom de la classe</label>
-        <select name="idclasseNom">
+        <div class="select">
+            <select name="idclasseNom">
                 <option value="0">- Tous -</option>
                 <?php
                 while ($classeNom = $listClasseNom->fetch()) :
                     ?>
                     <option value="<?= htmlspecialchars($classeNom['id']) ?>" <?= $classeNom['id'] == $filterIdClasseNom ? " selected" : "" ?>><?= htmlspecialchars($classeNom['libelle']) ?></option>
                 <?php endwhile; ?>
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
     <div class="input-row">
         <label class="medium-label">Option de cours</label>
-        <select name="idOptionCours">
+        <div class="select">
+            <select name="idOptionCours">
                 <option value="0">- Toutes -</option>
                 <?php
                 while ($option = $listOptionCours->fetch()) :
                     ?>
                     <option value="<?= htmlspecialchars($option['id']) ?>" <?= $option['id'] == $filterIdOptionCours ? " selected" : "" ?>><?= htmlspecialchars($option['libelle']) ?></option>
                 <?php endwhile; ?>
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
     <div class="input-row">
         <label class="medium-label">Date de création</label>
-        <select name="dateCreation">
+        <div class="select">
+            <select name="dateCreation">
                 <option value="1900-01-01">- Toutes -</option>
                 <?php
                 while ($dateCrea = $listDateCreation->fetch()) :
                     ?>
                     <option value="<?= htmlspecialchars($dateCrea['valueDate']) ?>" <?= $dateCrea['valueDate'] == $filterDateCreation ? " selected" : "" ?>><?= htmlspecialchars($dateCrea['displayDate']) ?></option>
                 <?php endwhile; ?>
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
     <label class="btn btn-detail">

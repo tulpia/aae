@@ -23,43 +23,49 @@ require('view/headerUserView.php');
     <!-- Choix de la matière, par défaut celle du questionnaire, mais on peut y mettre ce qu'on veut -->
     <div class="input-row">
         <label for="questionnaireMatiere">Matière</label>
-        <select name="idMatiere" id="questionnaireMatiere">
+        <div class="select">
+            <select name="idMatiere" id="questionnaireMatiere">
 
-            <?php
-            while ($row = $matieres->fetch()) {
-                $id = htmlspecialchars($row['id']);
-                $libelle = htmlspecialchars($row['libelle']);
-                $selected = $id == $questionnaire['id_matiere'] ? ' selected' : '';
+                <?php
+                while ($row = $matieres->fetch()) {
+                    $id = htmlspecialchars($row['id']);
+                    $libelle = htmlspecialchars($row['libelle']);
+                    $selected = $id == $questionnaire['id_matiere'] ? ' selected' : '';
 
-                echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
-                ');
-            }
+                    echo ('<option value="' . $id . '" ' . $selected . '>' . $libelle . '</option>
+                    ');
+                }
 
-            ?>
-        </select>
+                ?>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
 
     <div class="input-row">
         <label>Année Scolaire</label>
-        <select name="anneeScolaire">
+        <div class="select">
+            <select name="anneeScolaire">
 
-            <?php
-            $currentYear = (int)date("Y");
-            $years = [];
+                <?php
+                $currentYear = (int)date("Y");
+                $years = [];
 
-            if ((int)date("m") < 8) {
-                $currentYear--;
-            }
-            $years = [$currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
+                if ((int)date("m") < 8) {
+                    $currentYear--;
+                }
+                $years = [$currentYear - 1, $currentYear, $currentYear + 1, $currentYear + 2];
 
-            foreach ($years as $year) : ?>
+                foreach ($years as $year) : ?>
 
-                <option value="<?= $year ?>" <?= $year == $currentYear ? " selected" : "" ?>><?= $year . '-' . ($year + 1) ?></option>
+                    <option value="<?= $year ?>" <?= $year == $currentYear ? " selected" : "" ?>><?= $year . '-' . ($year + 1) ?></option>
 
-            <?php endforeach ?>
+                <?php endforeach ?>
 
-        </select>
+            </select>
+            <div class="select__arrow"></div>
+        </div>
     </div>
 
 

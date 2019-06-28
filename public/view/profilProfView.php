@@ -34,11 +34,14 @@ require('view/headerUserView.php');
 
         <div class="input-row">
             <label class="large-label">Matière</label>
-            <select name="idMatiere">
-                    <?php while ($matiere = $matieres->fetch()) : ?>
-                        <option value="<?= htmlspecialchars($matiere['id']) ?>" <?= $matiere['id'] == $prof["id_matiere"] ? " selected" : "" ?>><?= htmlspecialchars($matiere['libelle']) ?></option>
-                    <?php endwhile ?>
-            </select>
+            <div class="select">
+                <select name="idMatiere">
+                        <?php while ($matiere = $matieres->fetch()) : ?>
+                            <option value="<?= htmlspecialchars($matiere['id']) ?>" <?= $matiere['id'] == $prof["id_matiere"] ? " selected" : "" ?>><?= htmlspecialchars($matiere['libelle']) ?></option>
+                        <?php endwhile ?>
+                </select>
+                <div class="select__arrow"></div>
+            </div>
         </div>       
         <label class="btn btn-detail">
             <input type="submit" value="Enregistrer les modifications">

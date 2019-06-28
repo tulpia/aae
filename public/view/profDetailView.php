@@ -59,14 +59,19 @@ require('view/headerUserView.php');
             <input type="checkbox" name="isAdmin" <?= $isAdmin ? "checked" : "" ?>>
     </div>
 
+
+<!-- /////// -->
+
     <div class="input-row">
         <label class="w-100 large-label">Matière</label>
+        <div class="select">
             <select name="idMatiere" required>
                 <?php while ($row = $matieres->fetch()) : ?>
                     <option value="<?= htmlspecialchars($row['id']) ?>" <?= ($row['id'] == $idMatiere) ? " selected" : "" ?>><?= htmlspecialchars($row['libelle']) ?></option>
                 <?php endwhile; ?>
             </select>
-        
+            <div class="select__arrow"></div>
+        </div>     
     </div>
 
     <label class="btn btn-detail">
