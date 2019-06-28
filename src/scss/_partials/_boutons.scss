@@ -24,7 +24,6 @@
         letter-spacing: 1px;
     }
 
-
     &.btn-prof {
         background: transparent;
         border: 2px solid $color-blue;
@@ -96,6 +95,24 @@
         
         &:hover{
             background: $color-darkred;
+        }
+    }
+    
+    &.btn-delete {
+        background: $color-white;
+        border: 2px solid $color-red;
+        height: auto;
+        padding: 10px;
+
+        &:hover {
+            background: $color-red-transparent;
+        }
+
+        input {
+            text-transform: none;
+            font-family: $font;
+            color: $color-red;
+            letter-spacing: normal;   
         }
     }
 }
