@@ -152,11 +152,11 @@ foreach ($csv as $k => $csvRow) {
     } else {
         $errorMsg = "";
         if(!$idClasse){
-            $errorMsg = "La classe est erronée"; 
+            $errorMsg = "La classe est erronee"; 
         }elseif(!$idClasseNom){
             $errorMsg = "Le nom de la classe est faux";
         }elseif(!$isOptionsOk){
-            $errorMsg = "Une des options est erronée";
+            $errorMsg = "Une des options est erronee";
         }
 
         //Elèves en erreur

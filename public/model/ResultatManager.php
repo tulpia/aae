@@ -6,7 +6,7 @@ require_once("Manager.php");
 class ResultatManager extends Manager{
 
     /**
-     * Retourne une ligne de résultat, selon son id
+     * Retourne une ligne de resultat, selon son id
      *
      * @param  mixed $idResultat
      *
@@ -28,8 +28,8 @@ class ResultatManager extends Manager{
 
     
     /**
-     * Retourne la liste des résultats des autoévaluations d'un professeur
-     * Si $isAfficheUniquementEnCours === true, n'affiche que les non archivés, sinon affiche tout
+     * Retourne la liste des resultats des autoevaluations d'un professeur
+     * Si $isAfficheUniquementEnCours === true, n'affiche que les non archives, sinon affiche tout
      *
      * @param  mixed $idProf
      * @param  mixed $isAfficheUniquementEnCours
@@ -74,7 +74,7 @@ class ResultatManager extends Manager{
 
     
     /**
-     * Retourne les infos générales d'un résultat 
+     * Retourne les infos generales d'un resultat 
      *
      * @param  mixed $idResultat
      *
@@ -112,7 +112,7 @@ class ResultatManager extends Manager{
 
 
     /**
-     * Retourne les stats d'un résultat, moyenne incluse
+     * Retourne les stats d'un resultat, moyenne incluse
      *
      * @param  mixed $idResultat
      *
@@ -121,7 +121,7 @@ class ResultatManager extends Manager{
     public function getStatsResultat($idResultat){
         $db = $this->dbConnect();
 
-        //Récupère le nombre d'autoévaluation répondues pour ce résultat afin d'alléger la requête suivante
+        //Recupere le nombre d'autoevaluation repondues pour ce resultat afin d'alleger la requete suivante
         $count = $db->prepare("SELECT COUNT(id) FROM autoEvaluation WHERE isRepondu = 1 AND id_resultat = ?");
         $count->execute([(int)$idResultat]);
 
@@ -132,8 +132,8 @@ class ResultatManager extends Manager{
 
 
 
-        //Récupère les lignes de stat et fait un UNION pour récupérer dans la même requête la moyenne des résultats
-        //Attention ne prend en compte que les répondus, les pourcentages ne compatbilisent pas les non répondus
+        //Recupere les lignes de stat et fait un UNION pour recuperer dans la meme requete la moyenne des resultats
+        //Attention ne prend en compte que les repondus, les pourcentages ne compatbilisent pas les non repondus
         $stats = $db->prepare(
             "SELECT Q.quantieme, Q.libelle
             , (COUNT(CASE WHEN Q.reponse = 0 THEN 1 END) * 100) / :nbRepondu AS MoinsMoins
@@ -171,7 +171,7 @@ class ResultatManager extends Manager{
 
     
     /**
-     * Créé une ligne de résultat
+     * Cree une ligne de resultat
      *
      * @param  mixed $idQuestionnaire
      * @param  mixed $idMatiere
@@ -237,7 +237,7 @@ class ResultatManager extends Manager{
 
 
     /**
-     * Archive ou desarchive le le résultat
+     * Archive ou desarchive le le resultat
      *
      * @param  mixed $idResultat
      *
@@ -266,17 +266,17 @@ class ResultatManager extends Manager{
         
         $file = fopen('php://output','w');
         
-        fputcsv($file, ["Informations générales"]);
+        fputcsv($file, ["Informations generales"]);
         fputcsv($file, [""]);
         fputcsv($file, ["Titre", $entete['titre']]);
-        fputcsv($file, ["Année scolaire", $entete['anneeScolaire']]);
-        fputcsv($file, ["Matière", $entete['matiere']]);
+        fputcsv($file, ["Annee scolaire", $entete['anneeScolaire']]);
+        fputcsv($file, ["Matiere", $entete['matiere']]);
         fputcsv($file, ["Classe", $entete['classe'] . ' ' . $entete['ClasseNom'] . ' ' . $entete['optionCours']]);
-        fputcsv($file, ["Réponse", $entete['nbRepondu'] . '/' . $entete['nbAutoEval']]);
-        fputcsv($file, ["Envoyé le", $entete['dateCreation']]);
+        fputcsv($file, ["Reponse", $entete['nbRepondu'] . '/' . $entete['nbAutoEval']]);
+        fputcsv($file, ["Envoye le", $entete['dateCreation']]);
         fputcsv($file, ["Visible le", $entete['dateAccessible']]);
-        fputcsv($file, ["Dernière réponse", $entete['dateDerReponse']]);
-        fputcsv($file, ["Etat", (bool)$entete['is_archive'] === true ? "Archivé" : "Ouvert"]);
+        fputcsv($file, ["Derniere reponse", $entete['dateDerReponse']]);
+        fputcsv($file, ["Etat", (bool)$entete['is_archive'] === true ? "Archive" : "Ouvert"]);
         fputcsv($file, [""]);
         fputcsv($file, [""]);
         fputcsv($file, ["","","","Statistiques"]);
