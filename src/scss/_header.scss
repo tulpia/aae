@@ -5,6 +5,21 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    transition: top 0.2s ease-in-out;
+
+    @media (max-width: $bp-small) {
+      height: 48px;  
+    }
+
+    &.sticky {
+      position: fixed;
+      width: inherit;
+      z-index: 100;
+    }
+
+    &.smaller {
+        height: 48px;
+    }
 
     .header-connected__img-container {
         position: absolute;
@@ -84,10 +99,19 @@
         position: relative;
         z-index: 2;
         width: auto;
-        height: 100%;
+        height: 34px;
         align-items: center;
         padding-left: 55px;
         cursor: pointer;
+        padding-right: 14px;
+        
+        display: flex;
+        align-items: center;
+        
+        &:hover {
+           background-color: $color-lightBlue-transparent; // $color-lightBlue, opacity .2
+           border-radius: 1.2em;
+        }
 
         &:after {
             content: '';
@@ -96,9 +120,10 @@
             left: 0;
             transform: translateY(-50%);
             background: url('~@svg/icon-account-alt.svg') no-repeat center;
-            background-size: 32px;
+            background-size: 32px;        
             height: 32px;
             width: 32px;
+            margin-left: 2px;
         }
 
         >p {
@@ -116,6 +141,8 @@
             opacity: 0;
             transition: transform 250ms ease,
                         opacity 250ms linear;
+
+            @media (max-width: $bp-small) { top: 38px; }
 
             div {
                 form {
